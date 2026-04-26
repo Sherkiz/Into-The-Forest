@@ -14,6 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldGeneration.TreeGenerator
   name: 
   density: 0.3
-  noiseScale: 0.1
-  maxTraversalPerFrame: 5000
-  tile: {fileID: 0}
+  noiseScale: 0.15
+  maxTraversalPerFrame: 1000
+  tileTopLeft: {fileID: 11400000, guid: 4154927c58104034b94bdb61a822f385, type: 2}
+  tileBottomRight: {fileID: 11400000, guid: 24a92e2d86165334ea647128916dedbe, type: 2}
+  tileTopRight: {fileID: 11400000, guid: cc3ee65d65bdb704fb0e7d749828b1be, type: 2}
+  tileBottomLeft: {fileID: 11400000, guid: 8e76b484114dec3439911e86a64bad4d, type: 2}
+  topZ: 1
+  bottomZ: 0

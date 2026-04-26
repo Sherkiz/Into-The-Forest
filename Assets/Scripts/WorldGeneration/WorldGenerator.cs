@@ -10,16 +10,25 @@ namespace ITF.WorldGeneration
 {
     public class WorldGenerator : MonoBehaviour
     {
+        [System.Serializable]
+        class GenerationUnit
+        {
+            public string name;
+
+            [Tooltip("They will be executed in order"), SerializeField]
+            public ObjectGenerator[] generators;
+            [SerializeField]
+            public Tilemap tilemap;
+            [SerializeField]
+            public Vector3Int worldSize = new(192, 192, 1);
+        }
+
         [SerializeField]
         int seed;
         public int Seed => seed;
 
-        [Tooltip("They will be executed in order"), SerializeField]
-        ObjectGenerator[] generators;
         [SerializeField]
-        Tilemap tilemap;
-        [SerializeField]
-        Vector3Int worldSize = new(192, 192, 1);
+        GenerationUnit[] generationUnits;
 
         Task generating;
 
@@ -39,44 +48,57 @@ namespace ITF.WorldGeneration
         public void Generate()
         {
             if(generating != null) generating.Stop();
-            tilemap.origin = Vector3Int.zero;
-            tilemap.size = worldSize;
-            tilemap.ResizeBounds();
             generating = new(GenerateCoroutine());
         }
 
         private void Start()
         {
-            foreach(var generator in generators)
+            foreach (var generationUnit in generationUnits)
             {
-                generator.StopAllGeneration();
+                var generators = generationUnit.generators;
+                foreach (var generator in generators)
+                {
+                    generator.StopAllGeneration();
+                }
             }
         }
 
         private void OnDestroy()
         {
             if(generating != null) generating.Stop();
-            foreach (var generator in generators)
+            foreach (var generationUnit in generationUnits)
             {
-                generator.StopAllGeneration();
+                var generators = generationUnit.generators;
+                foreach (var generator in generators)
+                {
+                    generator.StopAllGeneration();
+                }
             }
         }
 
         IEnumerator GenerateCoroutine()
         {
-            for (int i = 0; i < generators.Length; i++)
+            foreach (var generationUnit in generationUnits)
             {
-                var status = generators[i].Generate(tilemap);
-                while (!status.finished)
+                generationUnit.tilemap.origin = Vector3Int.zero;
+                generationUnit.tilemap.size = generationUnit.worldSize;
+                generationUnit.tilemap.ResizeBounds();
+                var generators = generationUnit.generators;
+                Debug.Log($"Generating {generationUnit.name}...");
+                for (int i = 0; i < generators.Length; i++)
                 {
-                    if (status.failed)
+                    var status = generators[i].Generate(generationUnit.tilemap);
+                    while (!status.finished)
                     {
-                        Debug.LogError($"Generation failed for {generators[i].name}");
-                        generating = null;
-                        yield break;
+                        if (status.failed)
+                        {
+                            Debug.LogError($"Generation failed for {generators[i].name}");
+                            generating = null;
+                            yield break;
+                        }
+                        Debug.Log($"Generating {(i + status.progress) / generators.Length * 100f}%");
+                        yield return null;
                     }
-                    Debug.Log($"Generating {(i + status.progress) / generators.Length * 100f}%");
-                    yield return null;
                 }
             }
             Debug.Log("Generated!");
