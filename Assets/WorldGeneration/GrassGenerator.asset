@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2203dd8a206b9f54abacdd7781440dae, type: 3}
+  m_Name: GrassGenerator
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldGeneration.GrassGenerator
+  name: grass_generator
+  maxTraversalPerFrame: 1000
+  tiles:
+  - {fileID: 11400000, guid: b0973a05e751a1e4a94a0f42e754a304, type: 2}
+  - {fileID: 11400000, guid: 7d70137657401e440a861aa3de147205, type: 2}
+  - {fileID: 11400000, guid: f87429e9bb13d04419202f5dae56c355, type: 2}
+  - {fileID: 11400000, guid: d7eae2d6fc3111d46941b748d7ec2340, type: 2}
+  - {fileID: 11400000, guid: 9a1887d697f0c114eb189623e62c9bab, type: 2}
+  - {fileID: 11400000, guid: a553f2ce2c0219b419f59bf65f993a8c, type: 2}
+  - {fileID: 11400000, guid: d4930027d256c8e45b6d975fb479eac5, type: 2}
+  - {fileID: 11400000, guid: 35a0b2263f7a70848979d573119f61cd, type: 2}
+  - {fileID: 11400000, guid: 56aeb2547a2063049a78c57bc40de6f2, type: 2}
+  - {fileID: 11400000, guid: 4fa5100479dfea94abc4ba0f90edb60a, type: 2}
+  - {fileID: 11400000, guid: 1cdff1e27242bf24d9f19101969eed71, type: 2}
