@@ -8,34 +8,20 @@ using UnityEngine.Tilemaps;
 namespace ITF.WorldGeneration
 {
     /// <summary>
-    /// Generates trees based on Perlin noise
+    /// Generate grass as background. The probability of identical tiles being adjacent decreases.
     /// </summary>
-    [CreateAssetMenu(fileName = "TreeGenerator", menuName = "ITF/WorldGeneration/TreeGenerator")]
-    public class TreeGenerator : ObjectGenerator
+    [CreateAssetMenu(fileName = "GrassGenerator", menuName = "ITF/WorldGeneration/GrassGenerator")]
+    public class GrassGenerator : ObjectGenerator
     {
         int seed;
-        public override int Seed
-        {
-            get => seed;
-            set => seed = value;
-        }
+        public override int Seed { get => seed; set => seed = value; }
 
-        [Space(20)]
-        [Tooltip("The density of trees. [0, 1]")]
-        public float density = 0.3f;
-        public float noiseScale = .1f;
+        [Space(40)]
         [Tooltip("The maximum traversal count per frame"), SerializeField]
         int maxTraversalPerFrame = 5000;
 
-        [Space(20)]
-        public Tile tileTopLeft;
-        public Tile tileBottomRight;
-        public Tile tileTopRight;
-        public Tile tileBottomLeft;
-
-        [Space(20)]
-        public int topZ = 1;
-        public int bottomZ = 0;
+        [Space(40)]
+        [SerializeField] Tile[] tiles;
 
         // Map the generate status to the task, 
         Dictionary<GenerateStatus, Task> statusTaskMap = new();
@@ -49,7 +35,7 @@ namespace ITF.WorldGeneration
 
         public override void StopAllGeneration()
         {
-            foreach(var pair in statusTaskMap)
+            foreach (var pair in statusTaskMap)
             {
                 pair.Value.Stop();
                 pair.Key.failed = !pair.Key.finished;
@@ -62,48 +48,56 @@ namespace ITF.WorldGeneration
             var bounds = tilemap.cellBounds;
             var size = bounds.size;
             XorShiftRandom random = new((uint)RandomManager.GetSeedFor(name));
-            Vector2 noiseSeed = new(random.Range(0f, 99_999.99f), random.Range(0f, 99_999.99f));
 
             int generatedCount = 0;
             int totalCells = size.x * size.y;
             int counter = 0;
-            for (int x = bounds.xMin; x < bounds.xMax; x++)
+            for(int x = bounds.xMin; x < bounds.xMax; x++)
             {
                 for(int y = bounds.yMin; y < bounds.yMax; y++)
                 {
                     generatedCount++;
                     counter++;
-                    float noiseValue = Mathf.PerlinNoise(noiseSeed.x + x * noiseScale, noiseSeed.y + y * noiseScale);
-                    if (noiseValue < density)
+
+                    int index = (int)random.Range(0, (uint)tiles.Length);
+                    Tile tile = tiles[index];
+                    // If the Tile on the left is the same, regenerate it.
+                    if (x > bounds.xMin)
                     {
-                        //Avoid covering other tile
-                        var tile = tilemap.GetTile(new Vector3Int(x, y, bottomZ));
-                        if (tile != tileBottomRight)
+                        var leftTile = tilemap.GetTile(new Vector3Int(x - 1, y, 0));
+                        if(leftTile == tile)
                         {
-                            tilemap.SetTile(new Vector3Int(x, y, bottomZ), tileBottomLeft);
-                            if(x < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y, bottomZ), tileBottomRight);
-                            if (y < bounds.yMax)
-                            {
-                                tilemap.SetTile(new Vector3Int(x, y + 1, topZ), tileTopLeft);
-                                if(x < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y + 1, topZ), tileTopRight);
-                            }
+                            index = (int)random.Range(0, (uint)tiles.Length);
+                            tile = tiles[index];
                         }
                     }
+                    // If the Tile on the up is the same, regenerate it.
+                    if (y > bounds.yMin)
+                    {
+                        var upTile = tilemap.GetTile(new Vector3Int(x, y - 1, 0));
+                        if (upTile == tile)
+                        {
+                            index = (int)random.Range(0, (uint)tiles.Length);
+                            tile = tiles[index];
+                        }
+                    }
+                    tilemap.SetTile(new Vector3Int(x, y, 0), tile);
+
                     if (counter >= maxTraversalPerFrame)
                     {
                         counter = 0;
                         generateStatus.progress = generatedCount / (float)totalCells;
-                        if(generatedCount < totalCells) yield return null;
+                        if (generatedCount < totalCells) yield return null;
                     }
                 }
             }
+
             generateStatus.progress = 1;
             generateStatus.finished = true;
             statusTaskMap.Remove(generateStatus);
 
             yield break;
         }
-
     }
 
 }
