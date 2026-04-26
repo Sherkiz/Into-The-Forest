@@ -1,3 +1,4 @@
+using ITF.EventChannels;
 using ITF.Math;
 using ITF.Utilities;
 using System;
@@ -29,6 +30,8 @@ namespace ITF.WorldGeneration
 
         [SerializeField]
         GenerationUnit[] generationUnits;
+        [SerializeField] 
+        IntEventChannelSO onSeedInitialized;
 
         Task generating;
 
@@ -42,11 +45,13 @@ namespace ITF.WorldGeneration
         public void InitWithRandomSeed()
         {
             Init((int)DateTimeOffset.Now.ToUnixTimeSeconds());
+            onSeedInitialized.RaiseEvent(seed);
         }
 
         [ContextMenu("Generate")]
         public void Generate()
         {
+            if (seed == 0) InitWithRandomSeed();
             if(generating != null) generating.Stop();
             generating = new(GenerateCoroutine());
         }
