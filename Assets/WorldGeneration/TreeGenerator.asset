@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8ab5c94b184344486dcb202f033172, type: 3}
   m_Name: TreeGenerator
   m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldGeneration.TreeGenerator
-  name: 
+  name: tree_generator
   density: 0.3
   noiseScale: 0.15
   maxTraversalPerFrame: 1000
