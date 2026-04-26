@@ -17,20 +17,20 @@ MonoBehaviour:
   maxTriesPerFrame: 5000
   resourcesInfosArray:
   - resourceTile: {fileID: 11400000, guid: f95ed295c1068e0419e6fb3027c31717, type: 2}
-    minNumber: 20
-    maxNumber: 25
+    minNumber: 15
+    maxNumber: 15
     minDistance: 3
-    XBounds: {x: 0, y: 0}
-    YBounds: {x: 0, y: 0}
+    XBounds: {x: 0, y: 390}
+    YBounds: {x: 0, y: 36}
   - resourceTile: {fileID: 11400000, guid: b9846b577b031094eb158552faeed92d, type: 2}
     minNumber: 1
     maxNumber: 1
     minDistance: 50
-    XBounds: {x: 0, y: 0}
-    YBounds: {x: 0, y: 0}
+    XBounds: {x: 0, y: 390}
+    YBounds: {x: 0, y: 36}
   - resourceTile: {fileID: 11400000, guid: 321a9bd1fd4a8a8479283a915c1b9c2b, type: 2}
     minNumber: 12
     maxNumber: 20
     minDistance: 6
-    XBounds: {x: 0, y: 0}
-    YBounds: {x: 0, y: 0}
+    XBounds: {x: 0, y: 390}
+    YBounds: {x: 0, y: 36}
