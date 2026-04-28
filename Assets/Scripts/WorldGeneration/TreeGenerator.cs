@@ -1,5 +1,6 @@
 using ITF.Math;
 using ITF.Utilities;
+using ProceduralNoiseProject;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace ITF.WorldGeneration
 {
     /// <summary>
     /// Generates trees based on Perlin noise
+    /// Use worley noise to avoid having no access
     /// </summary>
     [CreateAssetMenu(fileName = "TreeGenerator", menuName = "ITF/WorldGeneration/TreeGenerator")]
     public class TreeGenerator : ObjectGenerator
@@ -24,6 +26,11 @@ namespace ITF.WorldGeneration
         [Tooltip("The density of trees. [0, 1]")]
         public float density = 0.3f;
         public float noiseScale = .1f;
+        [Tooltip("If worley noise smaller than this value, the tree won't be generated")]
+        public float minWorleyValue = .3f;
+        public float worleyFrequency = 10f;
+        public float worleyJitter = 1f;
+        public Vector2 worleyScale = new(1f, .75f);
         [Tooltip("The maximum traversal count per frame"), SerializeField]
         int maxTraversalPerFrame = 5000;
 
@@ -64,6 +71,9 @@ namespace ITF.WorldGeneration
             XorShiftRandom random = new((uint)RandomManager.GetSeedFor(name));
             Vector2 noiseSeed = new(random.Range(0f, 99_999.99f), random.Range(0f, 99_999.99f));
 
+            //worley noise
+            WorleyNoise worleyNoise = new((int)random.Next(), worleyFrequency, worleyJitter);
+
             int generatedCount = 0;
             int totalCells = size.x * size.y;
             int counter = 0;
@@ -74,21 +84,26 @@ namespace ITF.WorldGeneration
                     generatedCount++;
                     counter++;
                     float noiseValue = Mathf.PerlinNoise(noiseSeed.x + x * noiseScale, noiseSeed.y + y * noiseScale);
-                    if (noiseValue < density)
+                    float worleyValue = worleyNoise.Sample2D(x * worleyScale.x, y * worleyScale.y);
+                    if (noiseValue < density && worleyValue > minWorleyValue)
                     {
                         //Avoid covering other tile
                         var tile = tilemap.GetTile(new Vector3Int(x, y, bottomZ));
                         if (tile != tileBottomRight)
                         {
                             tilemap.SetTile(new Vector3Int(x, y, bottomZ), tileBottomLeft);
-                            if(x < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y, bottomZ), tileBottomRight);
+                            if (x < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y, bottomZ), tileBottomRight);
                             if (y < bounds.yMax)
                             {
                                 tilemap.SetTile(new Vector3Int(x, y + 1, topZ), tileTopLeft);
-                                if(x < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y + 1, topZ), tileTopRight);
+                                if (x < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y + 1, topZ), tileTopRight);
                             }
                         }
                     }
+                    //if (worleyValue < minWorleyValue)
+                    //{
+                    //    tilemap.SetTile(new Vector3Int(x, y, bottomZ), tileBottomLeft);
+                    //}
                     if (counter >= maxTraversalPerFrame)
                     {
                         counter = 0;
