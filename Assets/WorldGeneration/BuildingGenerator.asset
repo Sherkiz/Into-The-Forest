@@ -1,0 +1,300 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe179d64b2da3e4fa4b17f499cb08aa, type: 3}
+  m_Name: BuildingGenerator
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldGeneration.BuildingGenerator
+  name: building_generator
+  buildingGenerationInfos:
+  - name: aphoteke
+    size: {x: 4, y: 4}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 11400000, guid: 61c460a781f400e43ba30ff26389d0b4, type: 2}
+    - {fileID: 11400000, guid: b93ab0dff8450604e8ab0193080c94af, type: 2}
+    - {fileID: 11400000, guid: 6879364fcbde8994bbd035885e4a3538, type: 2}
+    - {fileID: 11400000, guid: 29df04986e400c8448b9d49ba613b9d1, type: 2}
+    posOffsets:
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    num: 1
+  - name: castle
+    size: {x: 7, y: 7}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 9c49d2a7ef482084dadb782e62deede7, type: 2}
+    - {fileID: 11400000, guid: 012037ce4148a5248834658b8e95fdb8, type: 2}
+    - {fileID: 11400000, guid: 8cb8e12cb5ceaee408e202371e13ba09, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 3708201b5a7393b489733d57a66cb4db, type: 2}
+    - {fileID: 11400000, guid: 33fc5024699cb9e47bfc30893d903756, type: 2}
+    - {fileID: 11400000, guid: ee9008571b0d78c4eb20d1bf85a50721, type: 2}
+    - {fileID: 11400000, guid: d478cb750a986b54ca92daa2497244fa, type: 2}
+    - {fileID: 11400000, guid: 4e64e3e5855e44645aed8421918c022d, type: 2}
+    - {fileID: 11400000, guid: 425c28a43a9c07f4aa223215eddf3a20, type: 2}
+    - {fileID: 11400000, guid: b246896503f3ea04eb792d3e382b7482, type: 2}
+    - {fileID: 11400000, guid: 37c75c819c7ab64498dd5c30d0680d05, type: 2}
+    - {fileID: 11400000, guid: 7e0754b13bfc36c4891b556cbb79728e, type: 2}
+    - {fileID: 11400000, guid: 6cb50e5062eb4ac41a02772ab46e3072, type: 2}
+    - {fileID: 11400000, guid: 4c8acbc47b2a57c48aac843203c06929, type: 2}
+    - {fileID: 11400000, guid: 7b37205ff532c7d49967b4d573d5c1a7, type: 2}
+    - {fileID: 11400000, guid: 60dd0c5effe4c1f4fb402e0244f8becc, type: 2}
+    - {fileID: 11400000, guid: 91deca315e32db74f972c3d7c2c95ba8, type: 2}
+    - {fileID: 11400000, guid: f62b611bb49b86b479df2c9cfee84236, type: 2}
+    - {fileID: 11400000, guid: 9a68919b24cb21d45974382d119020f8, type: 2}
+    - {fileID: 11400000, guid: a2326549a39fedc4ab8f4fe95994d97d, type: 2}
+    - {fileID: 11400000, guid: e5eafef8544bd0748a6338dbf4221af5, type: 2}
+    - {fileID: 11400000, guid: 4732b797ad7699f428a6ab1043d6900f, type: 2}
+    posOffsets:
+    - {x: 0, y: 4, z: 0}
+    - {x: 1, y: 4, z: 0}
+    - {x: 2, y: 4, z: 0}
+    - {x: 3, y: 4, z: 0}
+    - {x: 4, y: 4, z: 0}
+    - {x: 0, y: 3, z: 0}
+    - {x: 1, y: 3, z: 0}
+    - {x: 2, y: 3, z: 0}
+    - {x: 3, y: 3, z: 0}
+    - {x: 4, y: 3, z: 0}
+    - {x: 0, y: 2, z: 0}
+    - {x: 1, y: 2, z: 0}
+    - {x: 2, y: 2, z: 0}
+    - {x: 3, y: 2, z: 0}
+    - {x: 4, y: 2, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 2, y: 1, z: 0}
+    - {x: 3, y: 1, z: 0}
+    - {x: 4, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: 2, y: 0, z: 0}
+    - {x: 3, y: 0, z: 0}
+    - {x: 4, y: 0, z: 0}
+    num: 1
+  - name: house_lvl1
+    size: {x: 5, y: 4}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 11400000, guid: 85fe6a3d91452c14aa3dc63568f68ca6, type: 2}
+    - {fileID: 11400000, guid: c40b643245912e34cbd86d5defd39e3e, type: 2}
+    - {fileID: 11400000, guid: cc89ab1043103f94b86e09a660842e67, type: 2}
+    - {fileID: 11400000, guid: 9616215a4832ad342903ddfee886e257, type: 2}
+    - {fileID: 11400000, guid: 10e55f9bebe4f894aa2692b901154a5e, type: 2}
+    - {fileID: 11400000, guid: 0e8deb59d4bc4804183b3e49ebdb5738, type: 2}
+    posOffsets:
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 2, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: 2, y: 0, z: 0}
+    num: 3
+  - name: house_lvl2
+    size: {x: 5, y: 5}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 11400000, guid: 3ed68e85f21968244a3e16f3a68a7e84, type: 2}
+    - {fileID: 11400000, guid: 52c6317e2366e064e9cd749bb4ba5657, type: 2}
+    - {fileID: 11400000, guid: f6e9d90cc3184ad4aae39451b070fe1b, type: 2}
+    - {fileID: 11400000, guid: 8e6946b3c7ca5ae4183f33aa5a39e6b6, type: 2}
+    - {fileID: 11400000, guid: efb71814f8af6f94fae09b638965bf0a, type: 2}
+    - {fileID: 11400000, guid: d92ee81d8243ada41b575e97b1595cab, type: 2}
+    - {fileID: 11400000, guid: ea448a930dbc71b42b1477ec34acfd03, type: 2}
+    - {fileID: 11400000, guid: 989337d6d87cdf84fab1ed013aad92a8, type: 2}
+    - {fileID: 11400000, guid: 5ffc00dc44bdd274cb523574f893671b, type: 2}
+    posOffsets:
+    - {x: 0, y: 2, z: 0}
+    - {x: 1, y: 2, z: 0}
+    - {x: 2, y: 2, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 2, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: 2, y: 0, z: 0}
+    num: 1
+  - name: mage_guild
+    size: {x: 4, y: 7}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 11400000, guid: 17c0858e075b0e54f9cd56eafeca1984, type: 2}
+    - {fileID: 11400000, guid: a0ccbc20f0e4ced49a5d29e6e295645e, type: 2}
+    - {fileID: 11400000, guid: da34670d77359f24dbc1715a114824aa, type: 2}
+    - {fileID: 11400000, guid: 0777e045703b3864f891e2957ff091e9, type: 2}
+    - {fileID: 11400000, guid: 37d4a85c71744954492f6db2e813951b, type: 2}
+    - {fileID: 11400000, guid: 77d758868681c7c49ab70f4e14575d46, type: 2}
+    - {fileID: 11400000, guid: 669538f888ee2dc41a7f8a9398d20784, type: 2}
+    - {fileID: 11400000, guid: b34ef428499e1554dab0d6d5171c9440, type: 2}
+    - {fileID: 11400000, guid: a7448e6c93cdb85449134be732a375ed, type: 2}
+    - {fileID: 11400000, guid: d5a8b07b1b91c204e9e8e480899748f9, type: 2}
+    posOffsets:
+    - {x: 0, y: 4, z: 0}
+    - {x: 1, y: 4, z: 0}
+    - {x: 0, y: 3, z: 0}
+    - {x: 1, y: 3, z: 0}
+    - {x: 0, y: 2, z: 0}
+    - {x: 1, y: 2, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    num: 1
+  - name: monastery
+    size: {x: 7, y: 7}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 6111c172e32b7c4439a24c3b22dc3669, type: 2}
+    - {fileID: 11400000, guid: a46b2b9f3887eb24b8e61478c064c95f, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 1362c70a87a8ea2469815197fafec78b, type: 2}
+    - {fileID: 11400000, guid: 59c669b5ca7362a4887a4a2fd9ff3051, type: 2}
+    - {fileID: 11400000, guid: f175242c4b7eb9f4291f28ced9c84e6b, type: 2}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 2297768a0e2a3bc4180139b3c7a8638f, type: 2}
+    - {fileID: 11400000, guid: db827b464b8010c4196cc4ed8ddf4eb5, type: 2}
+    - {fileID: 11400000, guid: 983d0cd2d394d3846b047a9b6597836c, type: 2}
+    - {fileID: 11400000, guid: 305835205e5a85946b6cd9deeee09a50, type: 2}
+    - {fileID: 11400000, guid: a17b9986ab9b0724eac055122bf57f99, type: 2}
+    - {fileID: 11400000, guid: 2a3756c11e480ff4c87bedfd4597082d, type: 2}
+    - {fileID: 11400000, guid: 0d594343cfb2e544b87c96d57f0db1a6, type: 2}
+    - {fileID: 11400000, guid: d43f23a3592346a4c9e20ba5fe8d58e9, type: 2}
+    - {fileID: 11400000, guid: af147022ef3c85e41aa028b72954921e, type: 2}
+    - {fileID: 11400000, guid: 38750b2e1907fae45b52128d626dbd93, type: 2}
+    - {fileID: 11400000, guid: dd8f9806496ef2342b270c56e2557fe5, type: 2}
+    - {fileID: 11400000, guid: d6c122d06de6e0641889e1338a6fe271, type: 2}
+    - {fileID: 11400000, guid: d39ad594b569eee4a9e770d57598c728, type: 2}
+    - {fileID: 11400000, guid: 2b5bcafa0056fd049be1f7ccb31819c0, type: 2}
+    - {fileID: 11400000, guid: 0f49635e8f8e67946a99dc66f039aec8, type: 2}
+    posOffsets:
+    - {x: 0, y: 4, z: 0}
+    - {x: 1, y: 4, z: 0}
+    - {x: 2, y: 4, z: 0}
+    - {x: 3, y: 4, z: 0}
+    - {x: 4, y: 4, z: 0}
+    - {x: 0, y: 3, z: 0}
+    - {x: 1, y: 3, z: 0}
+    - {x: 2, y: 3, z: 0}
+    - {x: 3, y: 3, z: 0}
+    - {x: 4, y: 3, z: 0}
+    - {x: 0, y: 2, z: 0}
+    - {x: 1, y: 2, z: 0}
+    - {x: 2, y: 2, z: 0}
+    - {x: 3, y: 2, z: 0}
+    - {x: 4, y: 2, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 2, y: 1, z: 0}
+    - {x: 3, y: 1, z: 0}
+    - {x: 4, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: 2, y: 0, z: 0}
+    - {x: 3, y: 0, z: 0}
+    - {x: 4, y: 0, z: 0}
+    num: 1
+  - name: snake_clinic
+    size: {x: 6, y: 6}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 45b7878c4c6122a4db0b83d4f8e19529, type: 2}
+    - {fileID: 11400000, guid: da208a2507e302f418725e5f7ee95dd0, type: 2}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: d44d4d1af58c8cf40bec66e4c8b0d660, type: 2}
+    - {fileID: 11400000, guid: 7a45da3a74055a5488796eeccc65340a, type: 2}
+    - {fileID: 11400000, guid: e26c300b197f7f047848c33685be609d, type: 2}
+    - {fileID: 11400000, guid: 994271b373457eb43837b8f483adfded, type: 2}
+    - {fileID: 11400000, guid: 6cbf58a9e957ca24fa8a13329f88712f, type: 2}
+    - {fileID: 11400000, guid: 797a1b642b74b3b49ae233cf4cf2a7f2, type: 2}
+    - {fileID: 11400000, guid: 7737beb509c6ae94b9067b98201f292f, type: 2}
+    - {fileID: 11400000, guid: 137f41eebc524ac4a933f3d378742f9f, type: 2}
+    - {fileID: 11400000, guid: cc530ba61531e7342a6f9d3aa4439404, type: 2}
+    - {fileID: 11400000, guid: a356fc5d919fa05449c6ae5066f41439, type: 2}
+    - {fileID: 11400000, guid: 97fd5816cf959e94ab1cc62ef44fe521, type: 2}
+    - {fileID: 11400000, guid: df89954f87255cf4bbb7ad8c300b8d09, type: 2}
+    posOffsets:
+    - {x: 0, y: 3, z: 0}
+    - {x: 1, y: 3, z: 0}
+    - {x: 2, y: 3, z: 0}
+    - {x: 3, y: 3, z: 0}
+    - {x: 0, y: 2, z: 0}
+    - {x: 1, y: 2, z: 0}
+    - {x: 2, y: 2, z: 0}
+    - {x: 3, y: 2, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 2, y: 1, z: 0}
+    - {x: 3, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: 2, y: 0, z: 0}
+    - {x: 3, y: 0, z: 0}
+    num: 1
+  - name: warriors_hall
+    size: {x: 6, y: 6}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 11400000, guid: ff38c09ed32d07b4795dbfd21984c5cc, type: 2}
+    - {fileID: 11400000, guid: 32cda5ab8f9fa314596d15e43ebb4a35, type: 2}
+    - {fileID: 11400000, guid: 70b8a7cdb72db0342ae3f4bc2aa54f61, type: 2}
+    - {fileID: 11400000, guid: dcb8d9c9dbb2947469f736cae0df95e2, type: 2}
+    - {fileID: 11400000, guid: 0ef1a01fc14427441b79f55d635680ff, type: 2}
+    - {fileID: 11400000, guid: eae9b640d1c02514e978e9966bbe4f8e, type: 2}
+    - {fileID: 11400000, guid: 8f4ee18f6d29be747b3690132b0065dc, type: 2}
+    - {fileID: 11400000, guid: f38d014f11cd6da43a76e9869a144b97, type: 2}
+    - {fileID: 11400000, guid: f25567a3f8f024940b2854f4bd52185d, type: 2}
+    - {fileID: 11400000, guid: f34189142ca3c9b49ada787ba4506435, type: 2}
+    - {fileID: 11400000, guid: f9214eb59623a3f42bde8963c1b1f89e, type: 2}
+    - {fileID: 11400000, guid: 2c3c6caf6e557394b93c83a99c1f8265, type: 2}
+    - {fileID: 11400000, guid: 9055faecbaa6c0e4dbb47237d723dfdb, type: 2}
+    - {fileID: 11400000, guid: 55966bef856c1f34c80482f7772ae993, type: 2}
+    - {fileID: 11400000, guid: 933a228865d2a354abfa6f43b306f74d, type: 2}
+    - {fileID: 11400000, guid: 7cf06af655a376048800fdee7f209958, type: 2}
+    posOffsets:
+    - {x: 0, y: 3, z: 0}
+    - {x: 1, y: 3, z: 0}
+    - {x: 2, y: 3, z: 0}
+    - {x: 3, y: 3, z: 0}
+    - {x: 0, y: 2, z: 0}
+    - {x: 1, y: 2, z: 0}
+    - {x: 2, y: 2, z: 0}
+    - {x: 3, y: 2, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 2, y: 1, z: 0}
+    - {x: 3, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: 2, y: 0, z: 0}
+    - {x: 3, y: 0, z: 0}
+    num: 1
+  mapRange:
+    x: 5
+    y: 2
+    width: 22
+    height: 32
+  targetBuildingName: warriors_hall

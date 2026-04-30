@@ -158,6 +158,7 @@ MonoBehaviour:
     worldSize: {x: 195, y: 18, z: 1}
   - name: objects
     generators:
+    - {fileID: 11400000, guid: 3e2906386efdbe040b81f494b952a810, type: 2}
     - {fileID: 11400000, guid: 5d468fdd8b4e65b43af24152430f48ad, type: 2}
     tilemap: {fileID: 2036913484}
     worldSize: {x: 390, y: 36, z: 2}
