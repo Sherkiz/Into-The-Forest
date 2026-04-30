@@ -73,14 +73,14 @@ namespace ITF.WorldGeneration
             List<ResourceGenerationInfos> generatings = new();
             foreach (var resource in resourcesInfosArray)
             {
-                if (resource.spawnBounds.xMax == 0 || resource.spawnBounds.yMax == 0) resource.spawnBounds = bounds;
+                if (resource.spawnBounds.xMax == 0 || resource.spawnBounds.yMax == 0) resource.spawnBounds = bounds; // default bounds to map bounds
                 uint numberToSpawn = random.Range(resource.minNumber, resource.maxNumber + 1);
                 for (int i = 0; i < numberToSpawn; i++)
                 {
                     generatings.Add(resource);
                 }
             }
-            resourcesInfosArray.OrderByDescending(resourceInfo => resourceInfo.minDistance);
+            resourcesInfosArray.OrderByDescending(resourceInfo => resourceInfo.minDistance); // To place resources with the most important constraints first
             while (generatings.Count > 0)
             {
                 var resourceToSpawn = generatings[0];
@@ -94,7 +94,7 @@ namespace ITF.WorldGeneration
                     Vector2Int candidatePoint = new((int)random.Range(minX, minY), (int)random.Range(maxX, maxY));
                     RectInt candidateRect = new(candidatePoint.x, candidatePoint.y, resourceToSpawn.size.x, resourceToSpawn.size.y);
 
-                    if (candidateRect.xMin < minX || candidateRect.xMax > maxX || candidateRect.yMin < minY || candidateRect.yMax > maxY)
+                    if (candidateRect.xMin < minX || candidateRect.xMax > maxX || candidateRect.yMin < minY || candidateRect.yMax > maxY) // part of resource is out of bounds
                     {
                         continue;
                     }
@@ -103,7 +103,7 @@ namespace ITF.WorldGeneration
                     {
                         resourcesLocations[candidateRect] = resourceToSpawn;
                         generatings.RemoveAt(0);
-                        PlaceResource(resourceToSpawn, tilemap, candidatePoint);
+                        PlaceMultipleTiles(resourceToSpawn.resourceTiles, tilemap, candidatePoint);
                         break;
                     }
                     if (counter >= maxTriesPerFrame)
@@ -120,12 +120,13 @@ namespace ITF.WorldGeneration
             statusTaskMap.Remove(generateStatus);
             yield break;
         }
-        private void PlaceResource(ResourceGenerationInfos resourceInfos, Tilemap tilemap, Vector2Int position)
+
+        private void PlaceMultipleTiles(MultipleTilesObject multipleTilesObject, Tilemap tilemap, Vector2Int position)
         {
-            for (int i = 0; i < resourceInfos.resourceTiles.tiles.Length; i++)
+            for (int i = 0; i < multipleTilesObject.tiles.Length; i++)
             {
-                var tile = resourceInfos.resourceTiles.tiles[i];
-                var posOffset = resourceInfos.resourceTiles.posOffsets[i] + (Vector3Int)resourceInfos.resourceTiles.expandLeftBottom;
+                var tile = multipleTilesObject.tiles[i];
+                var posOffset = multipleTilesObject.posOffsets[i] + (Vector3Int)multipleTilesObject.expandLeftBottom;
                 tilemap.SetTile((Vector3Int)position + posOffset, tile);
             }
         }
