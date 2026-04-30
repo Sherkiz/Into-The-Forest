@@ -1,5 +1,6 @@
 using ITF.Math;
 using ITF.Utilities;
+using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace ITF.WorldGeneration
         [System.Serializable]
         public class ResourceGenerationInfos
         {
+            public string name;
             public MultipleTilesObject resourceTiles;
             public Vector2Int size => resourceTiles.size;
             public uint minNumber;
@@ -38,7 +40,7 @@ namespace ITF.WorldGeneration
         [SerializeField] private ResourceGenerationInfos[] resourcesInfosArray;
         // Map the generate status to the task, 
         private Dictionary<GenerateStatus, Task> statusTaskMap = new();
-        private List<Vector2Int> excludedTiles;
+        private List<Vector2Int> excludedTiles = new();
 
         //Store the resources spawn points
         private Dictionary<RectInt, ResourceGenerationInfos> resourcesLocations = new();
@@ -66,15 +68,14 @@ namespace ITF.WorldGeneration
             var size = bounds.size;
             var totalCells = size.x * size.y;
             XorShiftRandom random = new((uint)RandomManager.GetSeedFor(name));
-            int counter = 0;
-            int generatedCount = 0;
-            List<Vector2Int> samplePoints = new();
             // The resources waiting to be generated
             List<ResourceGenerationInfos> generatings = new();
             foreach (var resource in resourcesInfosArray)
             {
                 if (resource.spawnBounds.xMax == 0 || resource.spawnBounds.yMax == 0) resource.spawnBounds = bounds; // default bounds to map bounds
                 uint numberToSpawn = random.Range(resource.minNumber, resource.maxNumber + 1);
+                Debug.Log(resource.spawnBounds.xMax);
+                Debug.Log(resource.spawnBounds.yMax);
                 for (int i = 0; i < numberToSpawn; i++)
                 {
                     generatings.Add(resource);
@@ -84,6 +85,7 @@ namespace ITF.WorldGeneration
             while (generatings.Count > 0)
             {
                 var resourceToSpawn = generatings[0];
+                bool success = false;
                 for (int i = 0; i < maxNumberOfTries; i++)
                 {
                     int minX = resourceToSpawn.spawnBounds.xMin;
@@ -91,8 +93,10 @@ namespace ITF.WorldGeneration
                     int minY = resourceToSpawn.spawnBounds.yMin;
                     int maxY = resourceToSpawn.spawnBounds.yMax;
 
-                    Vector2Int candidatePoint = new((int)random.Range(minX, minY), (int)random.Range(maxX, maxY));
+                    Vector2Int candidatePoint = new((int)random.Range(minX, maxX), (int)random.Range(minY, maxY));
                     RectInt candidateRect = new(candidatePoint.x, candidatePoint.y, resourceToSpawn.size.x, resourceToSpawn.size.y);
+                    Debug.Log(candidatePoint);
+                    Debug.Log(candidateRect);
 
                     if (candidateRect.xMin < minX || candidateRect.xMax > maxX || candidateRect.yMin < minY || candidateRect.yMax > maxY) // part of resource is out of bounds
                     {
@@ -104,15 +108,15 @@ namespace ITF.WorldGeneration
                         resourcesLocations[candidateRect] = resourceToSpawn;
                         generatings.RemoveAt(0);
                         PlaceMultipleTiles(resourceToSpawn.resourceTiles, tilemap, candidatePoint);
+                        success = true; 
                         break;
-                    }
-                    if (counter >= maxTriesPerFrame)
-                    {
-                        counter = 0;
-                        generateStatus.progress = generatedCount / (float)totalCells;
-                        if (generatedCount < totalCells) yield return null;
-                    }
-                    
+                    }                    
+                }
+                if (!success)
+                {
+                    // To update !! Needs to do something more when placement failed
+                    generatings.RemoveAt(0);
+                    Debug.Log("Failed to place " + resourceToSpawn.name);
                 }
             }
             generateStatus.progress = 1;

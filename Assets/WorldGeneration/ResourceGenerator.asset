@@ -16,7 +16,8 @@ MonoBehaviour:
   maxNumberOfTries: 100
   maxTriesPerFrame: 5000
   resourcesInfosArray:
-  - resourceTiles:
+  - name: Blue Flower
+    resourceTiles:
       size: {x: 1, y: 1}
       expandLeftBottom: {x: 0, y: 0}
       expandRightTop: {x: 0, y: 0}
@@ -24,29 +25,30 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 2970f5f18481dce4f8444fd0099de759, type: 2}
       posOffsets:
       - {x: 0, y: 0, z: 0}
-    minNumber: 15
+    minNumber: 10
     maxNumber: 15
     minDistance: 3
     spawnBounds:
       m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-  - resourceTiles:
+      m_Size: {x: 391, y: 37, z: 2}
+  - name: Stones
+    resourceTiles:
       size: {x: 2, y: 2}
       expandLeftBottom: {x: 0, y: 0}
-      expandRightTop: {x: 0, y: 0}
+      expandRightTop: {x: 1, y: 1}
       tiles:
       - {fileID: 11400000, guid: 3230c68ecd5cc8c47aa22828f65dd04b, type: 2}
       - {fileID: 11400000, guid: 5b7c2f30ffd4cbb45a9e6a66a063e98e, type: 2}
       - {fileID: 11400000, guid: ca431d68a598e494cbdf795ca189b33e, type: 2}
       - {fileID: 11400000, guid: 28374339eb057ad48b109b3696032a1c, type: 2}
       posOffsets:
-      - {x: 0, y: 0, z: 0}
-      - {x: 1, y: 0, z: 0}
       - {x: 0, y: 1, z: 0}
       - {x: 1, y: 1, z: 0}
-    minNumber: 1
-    maxNumber: 1
-    minDistance: 50
+      - {x: 0, y: 0, z: 0}
+      - {x: 1, y: 0, z: 0}
+    minNumber: 3
+    maxNumber: 3
+    minDistance: 20
     spawnBounds:
       m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
+      m_Size: {x: 391, y: 37, z: 2}
