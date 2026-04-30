@@ -80,7 +80,7 @@ namespace ITF.WorldGeneration
                     generatings.Add(resource);
                 }
             }
-            resourcesInfosArray.OrderByDescending(resourceInfo => resourceInfo.minDistance);
+            resourcesInfosArray.OrderByDescending(resourceInfo => resourceInfo.minDistance); // To place resources with the most important constraints first
             while (generatings.Count > 0)
             {
                 var resourceToSpawn = generatings[0];
@@ -94,7 +94,7 @@ namespace ITF.WorldGeneration
                     Vector2Int candidatePoint = new((int)random.Range(minX, minY), (int)random.Range(maxX, maxY));
                     RectInt candidateRect = new(candidatePoint.x, candidatePoint.y, resourceToSpawn.size.x, resourceToSpawn.size.y);
 
-                    if (candidateRect.xMin < minX || candidateRect.xMax > maxX || candidateRect.yMin < minY || candidateRect.yMax > maxY)
+                    if (candidateRect.xMin < minX || candidateRect.xMax > maxX || candidateRect.yMin < minY || candidateRect.yMax > maxY) // part of resource is out of bounds
                     {
                         continue;
                     }
