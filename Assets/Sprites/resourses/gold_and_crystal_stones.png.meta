@@ -129,10 +129,10 @@ TextureImporter:
       name: gold_and_crystal_stones_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 37
-        width: 128
-        height: 102
+        x: 13
+        y: 27
+        width: 103
+        height: 82
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
