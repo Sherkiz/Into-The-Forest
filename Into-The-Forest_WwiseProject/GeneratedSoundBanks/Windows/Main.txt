@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	2019603999	Play_Night_Ambience			\Default Work Unit\Play_Night_Ambience	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	202554539	Night_Ambient	D:\Into-The-Forest-Git\Into-The-Forest-Git_WwiseProject\.cache\80\{800F0423-F2C7-CB35-D4D0-650B80A7E491}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Night_Ambient		23222684
+

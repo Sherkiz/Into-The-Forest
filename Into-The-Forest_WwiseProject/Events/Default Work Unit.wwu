@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{EA3AEC8C-C971-4AA8-9DFA-0C50AC1247A6}" SchemaVersion="123">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{EA3AEC8C-C971-4AA8-9DFA-0C50AC1247A6}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Play_Night_Ambience" ID="{BE5A9C08-A359-4F88-84FB-CF25580200FB}">
+					<ChildrenList>
+						<Action Name="" ID="{65C85C9F-4A6C-452E-B814-2DAA4BBF63C6}" ShortID="724295402">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Night_Ambient" ID="{87BE81B9-A3E1-4027-A861-D4572468AAF3}" WorkUnitID="{4C6CA2CB-3FA1-410D-ACB0-0136B1391377}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>
