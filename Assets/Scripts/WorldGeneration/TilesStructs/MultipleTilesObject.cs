@@ -3,6 +3,7 @@ using UnityEngine.Tilemaps;
 
 namespace ITF.WorldGeneration
 {
+    [System.Serializable]
     public struct MultipleTilesObject
     {
         public Vector2Int size;

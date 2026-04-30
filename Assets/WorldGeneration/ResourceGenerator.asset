@@ -16,21 +16,37 @@ MonoBehaviour:
   maxNumberOfTries: 100
   maxTriesPerFrame: 5000
   resourcesInfosArray:
-  - resourceTile: {fileID: 11400000, guid: f95ed295c1068e0419e6fb3027c31717, type: 2}
+  - resourceTiles:
+      size: {x: 1, y: 1}
+      expandLeftBottom: {x: 0, y: 0}
+      expandRightTop: {x: 0, y: 0}
+      tiles:
+      - {fileID: 11400000, guid: 2970f5f18481dce4f8444fd0099de759, type: 2}
+      posOffsets:
+      - {x: 0, y: 0, z: 0}
     minNumber: 15
     maxNumber: 15
     minDistance: 3
-    XBounds: {x: 0, y: 390}
-    YBounds: {x: 0, y: 36}
-  - resourceTile: {fileID: 11400000, guid: b9846b577b031094eb158552faeed92d, type: 2}
+    spawnBounds:
+      m_Position: {x: 0, y: 0, z: 0}
+      m_Size: {x: 0, y: 0, z: 0}
+  - resourceTiles:
+      size: {x: 2, y: 2}
+      expandLeftBottom: {x: 0, y: 0}
+      expandRightTop: {x: 0, y: 0}
+      tiles:
+      - {fileID: 11400000, guid: 3230c68ecd5cc8c47aa22828f65dd04b, type: 2}
+      - {fileID: 11400000, guid: 5b7c2f30ffd4cbb45a9e6a66a063e98e, type: 2}
+      - {fileID: 11400000, guid: ca431d68a598e494cbdf795ca189b33e, type: 2}
+      - {fileID: 11400000, guid: 28374339eb057ad48b109b3696032a1c, type: 2}
+      posOffsets:
+      - {x: 0, y: 0, z: 0}
+      - {x: 1, y: 0, z: 0}
+      - {x: 0, y: 1, z: 0}
+      - {x: 1, y: 1, z: 0}
     minNumber: 1
     maxNumber: 1
     minDistance: 50
-    XBounds: {x: 0, y: 390}
-    YBounds: {x: 0, y: 36}
-  - resourceTile: {fileID: 11400000, guid: 321a9bd1fd4a8a8479283a915c1b9c2b, type: 2}
-    minNumber: 12
-    maxNumber: 20
-    minDistance: 6
-    XBounds: {x: 0, y: 390}
-    YBounds: {x: 0, y: 36}
+    spawnBounds:
+      m_Position: {x: 0, y: 0, z: 0}
+      m_Size: {x: 0, y: 0, z: 0}
