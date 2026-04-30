@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{4C6CA2CB-3FA1-410D-ACB0-0136B1391377}" SchemaVersion="123">
+	<AudioObjects>
+		<WorkUnit Name="Default Work Unit" ID="{4C6CA2CB-3FA1-410D-ACB0-0136B1391377}" PersistMode="Standalone">
+			<ChildrenList>
+				<Sound Name="Night_Ambient" ID="{87BE81B9-A3E1-4027-A861-D4572468AAF3}" ShortID="149498009">
+					<PropertyList>
+						<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{C6C70AC7-A6BB-489E-B278-F1FD8C741203}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{237222EF-5E33-44A5-9160-7C117D7A766F}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="Night Sound Layer 1" ID="{F5913D90-E8AF-4E96-8267-B805E23F3630}">
+							<Language>SFX</Language>
+							<AudioFile>Night Sound Layer 1.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="202554539"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="Night Sound Layer 1" ID="{F5913D90-E8AF-4E96-8267-B805E23F3630}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

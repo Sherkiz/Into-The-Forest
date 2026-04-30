@@ -1,0 +1,45 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "154",
+  "SoundBanks": [
+   {
+    "Id": "3161908922",
+    "Type": "User",
+    "GUID": "{5C36F028-B126-4869-A466-B35288169611}",
+    "Language": "SFX",
+    "Hash": "{0E188D7E-7BB4-D2AD-A200-2C33A2B4C226}",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\Main",
+    "ShortName": "Main",
+    "Path": "Main.bnk",
+    "Media": [
+     {
+      "Id": "202554539",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Night Sound Layer 1.wav",
+      "CachePath": "80/{800F0423-F2C7-CB35-D4D0-650B80A7E491}.wem"
+     }
+    ],
+    "Events": [
+     {
+      "Id": "2019603999",
+      "Name": "Play_Night_Ambience",
+      "ObjectPath": "\\Events\\Default Work Unit\\Play_Night_Ambience",
+      "GUID": "{BE5A9C08-A359-4F88-84FB-CF25580200FB}",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "202554539"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "FileHash": "{A435FFAC-4EB8-612C-1AA7-1366E9379BCF}"
+ }
+}
