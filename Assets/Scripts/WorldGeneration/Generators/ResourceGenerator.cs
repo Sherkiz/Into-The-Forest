@@ -1,6 +1,5 @@
 using ITF.Math;
 using ITF.Utilities;
-using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +37,10 @@ namespace ITF.WorldGeneration
         [Space(40)]
         [Tooltip("The resources informations: type + number")]
         [SerializeField] private ResourceGenerationInfos[] resourcesInfosArray;
+
+        [Space(20)]
+        [SerializeField] string targetResourceName;
+
         // Map the generate status to the task, 
         private Dictionary<GenerateStatus, Task> statusTaskMap = new();
         private List<Vector2Int> excludedTiles = new();
@@ -50,7 +53,24 @@ namespace ITF.WorldGeneration
             statusTaskMap.Add(generateStatus, new(GenerateCoroutine(generateStatus, tilemap)));
             return generateStatus;
         }
+        public void AutoCreatePosOffsets()
+        {
+            foreach (var resource in resourcesInfosArray)
+            {
+                if (resource.name != targetResourceName) continue;
 
+                Vector2Int size = resource.size - resource.resourceTiles.expandLeftBottom - resource.resourceTiles.expandRightTop;
+                Vector3Int[] posOffsets = new Vector3Int[size.x * size.y];
+                for (int y = size.y - 1; y >= 0; y--)
+                {
+                    for (int x = 0; x < size.x; x++)
+                    {
+                        posOffsets[(size.y - 1 - y) * size.x + x] = new Vector3Int(x, y, 0);
+                    }
+                }
+                resource.resourceTiles.posOffsets = posOffsets;
+            }
+        }
         public override void StopAllGeneration()
         {
             foreach (var pair in statusTaskMap)
