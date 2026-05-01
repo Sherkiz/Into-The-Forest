@@ -1,5 +1,6 @@
 using ITF.Math;
 using ITF.Utilities;
+using ITF.CustomTiles;
 using ProceduralNoiseProject;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace ITF.WorldGeneration
         // Map the generate status to the task, 
         Dictionary<GenerateStatus, Task> statusTaskMap = new();
 
-        public override GenerateStatus Generate(Tilemap tilemap)
+        public override GenerateStatus Generate(TilemapManager tilemap)
         {
             GenerateStatus generateStatus = new();
             statusTaskMap.Add(generateStatus, new(GenerateCoroutine(generateStatus, tilemap)));
@@ -64,9 +65,10 @@ namespace ITF.WorldGeneration
             statusTaskMap.Clear();
         }
 
-        IEnumerator GenerateCoroutine(GenerateStatus generateStatus, Tilemap tilemap)
+        IEnumerator GenerateCoroutine(GenerateStatus generateStatus, TilemapManager tilemap)
         {
             var bounds = tilemap.cellBounds;
+            Debug.Log(bounds.yMax);
             var size = bounds.size;
             XorShiftRandom random = new((uint)RandomManager.GetSeedFor(name));
             Vector2 noiseSeed = new(random.Range(0f, 99_999.99f), random.Range(0f, 99_999.99f));
@@ -88,15 +90,16 @@ namespace ITF.WorldGeneration
                     if (noiseValue < density && worleyValue > minWorleyValue)
                     {
                         //Avoid covering other tile
-                        var tile = tilemap.GetTile(new Vector3Int(x, y, bottomZ));
-                        if (Placeable(tilemap, x, y, bottomZ))
+                        RectInt treeRect = new RectInt(x, y, 2, 2);
+                        if (!tilemap.OverlapOccupiedTiles(treeRect))
                         {
                             tilemap.SetTile(new Vector3Int(x, y, bottomZ), tileBottomLeft);
-                            if (x < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y, bottomZ), tileBottomRight);
-                            if (y < bounds.yMax)
+                            if (x + 1 < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y, bottomZ), tileBottomRight);
+                            if (y + 1 < bounds.yMax)
                             {
+                                Debug.Log(y);
                                 tilemap.SetTile(new Vector3Int(x, y + 1, topZ), tileTopLeft);
-                                if (x < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y + 1, topZ), tileTopRight);
+                                if (x + 1 < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y + 1, topZ), tileTopRight);
                             }
                         }
                     }
@@ -118,20 +121,5 @@ namespace ITF.WorldGeneration
 
             yield break;
         }
-
-        bool Placeable(Tilemap tilemap, int x, int y, int z)
-        {
-            TileBase tile = tilemap.GetTile(new(x, y, z));
-            if (tile != null) return false;
-            tile = tilemap.GetTile(new(x + 1, y, z));
-            if (tile != null) return false;
-            tile = tilemap.GetTile(new(x, y + 1, z));
-            if (tile != null) return false;
-            tile = tilemap.GetTile(new(x + 1, y + 1, z));
-            if (tile != null) return false;
-            return true;
-        }
-
     }
-
 }

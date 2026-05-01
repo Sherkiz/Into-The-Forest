@@ -48,7 +48,29 @@ MonoBehaviour:
       - {x: 1, y: 0, z: 0}
     minNumber: 3
     maxNumber: 3
-    minDistance: 20
+    minDistance: 200
     spawnBounds:
       m_Position: {x: 0, y: 0, z: 0}
       m_Size: {x: 391, y: 37, z: 2}
+  - name: Stones
+    resourceTiles:
+      size: {x: 2, y: 2}
+      expandLeftBottom: {x: 0, y: 0}
+      expandRightTop: {x: 1, y: 1}
+      tiles:
+      - {fileID: 11400000, guid: 86fc85e98af24384bb4e75c4824a803e, type: 2}
+      - {fileID: 11400000, guid: b3fae3b624afd4d40abf150d694948dc, type: 2}
+      - {fileID: 11400000, guid: 6548eb5033d6e4a42aed83b887e457f1, type: 2}
+      - {fileID: 11400000, guid: 90aa91cb00627d843a170ee37e2dd2bf, type: 2}
+      posOffsets:
+      - {x: 0, y: 1, z: 0}
+      - {x: 1, y: 1, z: 0}
+      - {x: 0, y: 0, z: 0}
+      - {x: 1, y: 0, z: 0}
+    minNumber: 12
+    maxNumber: 20
+    minDistance: 80
+    spawnBounds:
+      m_Position: {x: 0, y: 0, z: 0}
+      m_Size: {x: 391, y: 37, z: 2}
+  targetResourceName: 

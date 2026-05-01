@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
+using ITF.CustomTiles;
 
 namespace ITF.WorldGeneration
 {
@@ -19,7 +19,7 @@ namespace ITF.WorldGeneration
             [Tooltip("They will be executed in order"), SerializeField]
             public ObjectGenerator[] generators;
             [SerializeField]
-            public Tilemap tilemap;
+            public TilemapManager tilemap;
             [SerializeField]
             public Vector3Int worldSize = new(192, 192, 1);
         }

@@ -1,5 +1,6 @@
 using ITF.Math;
 using ITF.Utilities;
+using ITF.CustomTiles;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,7 +60,7 @@ namespace ITF.WorldGeneration
         // Map the generate status to the task, 
         Dictionary<GenerateStatus, Task> statusTaskMap = new();
 
-        public override GenerateStatus Generate(Tilemap tilemap)
+        public override GenerateStatus Generate(TilemapManager tilemap)
         {
             GenerateStatus generateStatus = new();
             statusTaskMap.Add(generateStatus, new(GenerateCoroutine(generateStatus, tilemap)));
@@ -96,7 +97,7 @@ namespace ITF.WorldGeneration
             }
         }
 
-        IEnumerator GenerateCoroutine(GenerateStatus generateStatus, Tilemap tilemap)
+        IEnumerator GenerateCoroutine(GenerateStatus generateStatus, TilemapManager tilemap)
         {
             var samplePoints = PoissonDiscSampling(mapRange, new XorShiftRandom((uint)seed), new List<Vector2Int>());
             generateStatus.progress = .5f;

@@ -1,3 +1,4 @@
+using ITF.CustomTiles;
 using ITF.Math;
 using ITF.Utilities;
 using System.Collections;
@@ -26,7 +27,7 @@ namespace ITF.WorldGeneration
         // Map the generate status to the task, 
         Dictionary<GenerateStatus, Task> statusTaskMap = new();
 
-        public override GenerateStatus Generate(Tilemap tilemap)
+        public override GenerateStatus Generate(TilemapManager tilemap)
         {
             GenerateStatus generateStatus = new();
             statusTaskMap.Add(generateStatus, new(GenerateCoroutine(generateStatus, tilemap)));
@@ -43,7 +44,7 @@ namespace ITF.WorldGeneration
             statusTaskMap.Clear();
         }
 
-        IEnumerator GenerateCoroutine(GenerateStatus generateStatus, Tilemap tilemap)
+        IEnumerator GenerateCoroutine(GenerateStatus generateStatus, TilemapManager tilemap)
         {
             var bounds = tilemap.cellBounds;
             var size = bounds.size;
