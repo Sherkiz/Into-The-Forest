@@ -89,7 +89,7 @@ namespace ITF.WorldGeneration
                     {
                         //Avoid covering other tile
                         var tile = tilemap.GetTile(new Vector3Int(x, y, bottomZ));
-                        if (tile != tileBottomRight)
+                        if (Placeable(tilemap, x, y, bottomZ))
                         {
                             tilemap.SetTile(new Vector3Int(x, y, bottomZ), tileBottomLeft);
                             if (x < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y, bottomZ), tileBottomRight);
@@ -117,6 +117,19 @@ namespace ITF.WorldGeneration
             statusTaskMap.Remove(generateStatus);
 
             yield break;
+        }
+
+        bool Placeable(Tilemap tilemap, int x, int y, int z)
+        {
+            TileBase tile = tilemap.GetTile(new(x, y, z));
+            if (tile != null) return false;
+            tile = tilemap.GetTile(new(x + 1, y, z));
+            if (tile != null) return false;
+            tile = tilemap.GetTile(new(x, y + 1, z));
+            if (tile != null) return false;
+            tile = tilemap.GetTile(new(x + 1, y + 1, z));
+            if (tile != null) return false;
+            return true;
         }
 
     }

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: TreeGenerator
   m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldGeneration.TreeGenerator
   name: tree_generator
-  density: 0.3
+  density: 0.35
   noiseScale: 0.15
-  minWorleyValue: 0.1
+  minWorleyValue: 0.12
   worleyFrequency: 0.1
   worleyJitter: 1
   worleyScale: {x: 1, y: 0.6}
