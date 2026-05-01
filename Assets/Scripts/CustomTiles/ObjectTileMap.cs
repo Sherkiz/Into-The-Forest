@@ -21,7 +21,7 @@ namespace ITF.CustomTiles
         public Vector3Int origin => tilemap.origin;
         public Vector3Int size => tilemap.size;
         public void ResizeBounds() => tilemap.ResizeBounds();
-        private List<Vector3Int> occupiedTilesPos;
+        private List<Vector3Int> occupiedTilesPos = new();
         public List<Vector3Int> OccupiedTilesPos {  get => occupiedTilesPos; }
         private void Awake()
         {
