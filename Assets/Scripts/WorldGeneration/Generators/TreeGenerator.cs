@@ -42,7 +42,7 @@ namespace ITF.WorldGeneration
         public Tile tileBottomLeft;
 
         [Space(20)]
-        public int topZ = 1;
+        public int topZ = 0; //Replaced for a test
         public int bottomZ = 0;
 
         // Map the generate status to the task, 
@@ -68,7 +68,6 @@ namespace ITF.WorldGeneration
         IEnumerator GenerateCoroutine(GenerateStatus generateStatus, TilemapManager tilemap)
         {
             var bounds = tilemap.cellBounds;
-            Debug.Log(bounds.yMax);
             var size = bounds.size;
             XorShiftRandom random = new((uint)RandomManager.GetSeedFor(name));
             Vector2 noiseSeed = new(random.Range(0f, 99_999.99f), random.Range(0f, 99_999.99f));
@@ -90,14 +89,13 @@ namespace ITF.WorldGeneration
                     if (noiseValue < density && worleyValue > minWorleyValue)
                     {
                         //Avoid covering other tile
-                        RectInt treeRect = new RectInt(x, y, 2, 2);
-                        if (!tilemap.OverlapOccupiedTiles(treeRect))
+                        //RectInt treeRect = new RectInt(x, y, 2, 2);
+                        if (tilemap.IsPlaceable(2, 2, new Vector3Int(x, y, bottomZ)))
                         {
                             tilemap.SetTile(new Vector3Int(x, y, bottomZ), tileBottomLeft);
                             if (x + 1 < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y, bottomZ), tileBottomRight);
                             if (y + 1 < bounds.yMax)
                             {
-                                Debug.Log(y);
                                 tilemap.SetTile(new Vector3Int(x, y + 1, topZ), tileTopLeft);
                                 if (x + 1 < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y + 1, topZ), tileTopRight);
                             }

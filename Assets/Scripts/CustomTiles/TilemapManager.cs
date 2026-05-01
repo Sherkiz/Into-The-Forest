@@ -12,6 +12,7 @@ namespace ITF.CustomTiles
         private Tilemap tilemap;
         public void SetTile(Vector3Int pos, TileBase tile, bool setTileOccupied = true)
         {
+            if (pos.x > cellBounds.xMax || pos.y > cellBounds.yMax) { return; }
             tilemap.SetTile(pos, tile);
             if (tile != null && setTileOccupied) occupiedTiles[pos] = tile;
         }
