@@ -42,7 +42,7 @@ namespace ITF.WorldGeneration
         public Tile tileBottomLeft;
 
         [Space(20)]
-        public int topZ = 0; //Replaced for a test
+        public int topZ = 1; 
         public int bottomZ = 0;
 
         // Map the generate status to the task, 
@@ -90,10 +90,11 @@ namespace ITF.WorldGeneration
                     {
                         //Avoid covering other tile
                         //RectInt treeRect = new RectInt(x, y, 2, 2);
-                        if (tilemap.IsPlaceable(2, 2, new Vector3Int(x, y, bottomZ)))
+                        Vector3Int treePos = new Vector3Int(x, y, bottomZ);
+                        if (tilemap.IsPlaceable(2, 2, treePos))
                         {
-                            tilemap.SetTile(new Vector3Int(x, y, bottomZ), tileBottomLeft);
-                            if (x + 1 < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y, bottomZ), tileBottomRight);
+                            tilemap.SetTile(treePos, tileBottomLeft);
+                            if (x + 1 < bounds.xMax) tilemap.SetTile(treePos + Vector3Int.right, tileBottomRight);
                             if (y + 1 < bounds.yMax)
                             {
                                 tilemap.SetTile(new Vector3Int(x, y + 1, topZ), tileTopLeft);

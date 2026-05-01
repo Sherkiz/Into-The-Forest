@@ -12,11 +12,21 @@ namespace ITF.CustomTiles
         private Tilemap tilemap;
         public void SetTile(Vector3Int pos, TileBase tile, bool setTileOccupied = true)
         {
+            if (tilemap.GetTile(pos) != null) Debug.Log("Overlap !");
             if (pos.x > cellBounds.xMax || pos.y > cellBounds.yMax) { return; }
             tilemap.SetTile(pos, tile);
             if (tile != null && setTileOccupied) occupiedTiles[pos] = tile;
         }
         public void SetTile(Vector2Int pos, TileBase tile) => SetTile(new Vector3Int(pos.x, pos.y), tile);
+        public bool TrySetTile(Vector3Int pos, TileBase tile, bool setTileOccupied = true)
+        {
+            if (tilemap.GetTile(pos) != null) return false;
+            else
+            {
+                SetTile(pos, tile, setTileOccupied);
+                return true;
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -48,7 +58,7 @@ namespace ITF.CustomTiles
             {
                 var tile = multipleTilesObject.tiles[i];
                 var posOffset = multipleTilesObject.posOffsets[i] + (Vector3Int)multipleTilesObject.expandLeftBottom;
-                tilemap.SetTile(position + posOffset, tile);
+                SetTile(position + posOffset, tile);
             }
         }
         public bool IsPlaceable(int xSize, int ySize, Vector3Int pos)
