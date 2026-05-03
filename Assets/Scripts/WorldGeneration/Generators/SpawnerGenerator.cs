@@ -2,7 +2,7 @@ using ITF.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
+using ITF.CustomTiles;
 
 namespace ITF.WorldGeneration
 {
@@ -31,6 +31,14 @@ namespace ITF.WorldGeneration
             get => seed;
             set => seed = value;
         }
+        [Space(20)]
+        [Tooltip("The maximal number of tries to fin a suitable spawn point"), SerializeField]
+        private int maxNumberOfTries = 100;
+        [Tooltip("The maximum tries count per frame"), SerializeField]
+        int maxTriesPerFrame = 5000;
+        [Space(40)]
+        [Tooltip("The spawners informations: type + number")]
+        [SerializeField] private SpawnerGenerationInfos[] spawnersInfosArray;
 
         [Space(20)]
         [SerializeField]
@@ -40,13 +48,25 @@ namespace ITF.WorldGeneration
         // Map the generate status to the task, 
         Dictionary<GenerateStatus, Task> statusTaskMap = new();
 
-        public override GenerateStatus Generate(Tilemap tilemap)
+        public override GenerateStatus Generate(TilemapManager tilemap)
         {
             GenerateStatus generateStatus = new();
             statusTaskMap.Add(generateStatus, new(GenerateCoroutine(generateStatus, tilemap)));
             return generateStatus;
         }
-
+        private List<Vector3Int> GetEmptyPositionsInTilemap(TilemapManager tilemap)
+        {
+            List<Vector3Int> emptyTiles = new();
+            for (int x = tilemap.cellBounds.xMin; x < tilemap.cellBounds.xMax + 1; x++)
+            {
+                for (int y = tilemap.cellBounds.yMin; y < tilemap.cellBounds.yMax + 1; y++)
+                {
+                    Vector3Int coord = new(x, y);
+                    if (tilemap.GetTile(coord) == null) emptyTiles.Add(coord); 
+                }
+            }
+            return emptyTiles;
+        }
         public override void StopAllGeneration()
         {
             foreach (var pair in statusTaskMap)
@@ -57,7 +77,7 @@ namespace ITF.WorldGeneration
             statusTaskMap.Clear();
         }
 
-        IEnumerator GenerateCoroutine(GenerateStatus generateStatus, Tilemap tilemap)
+        IEnumerator GenerateCoroutine(GenerateStatus generateStatus, TilemapManager tilemap)
         {
             generateStatus.progress = 1;
             generateStatus.finished = true;

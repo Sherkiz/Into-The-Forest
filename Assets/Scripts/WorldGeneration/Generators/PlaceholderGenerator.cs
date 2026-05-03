@@ -9,20 +9,21 @@ using UnityEngine.Tilemaps;
 namespace ITF.WorldGeneration
 {
     /// <summary>
-    /// Generate grass as background. The probability of identical tiles being adjacent decreases.
+    /// Remove the specific tile
     /// </summary>
-    [CreateAssetMenu(fileName = "GrassGenerator", menuName = "ITF/WorldGeneration/GrassGenerator")]
-    public class GrassGenerator : ObjectGenerator
+    [CreateAssetMenu(fileName = "PlaceholderGenerator", menuName = "ITF/WorldGeneration/PlaceholderGenerator")]
+    public class PlaceholderGenerator : ObjectGenerator
     {
         int seed;
         public override int Seed { get => seed; set => seed = value; }
 
-        [Space(20)]
+        [Space(40)]
         [Tooltip("The maximum traversal count per frame"), SerializeField]
-        int maxTraversalPerFrame = 5000;
+        int maxTraversalPerFrame = 2000;
 
         [Space(20)]
-        [SerializeField] Tile[] tiles;
+        [SerializeField] Tile tile;
+        public int z = 0;
 
         // Map the generate status to the task, 
         Dictionary<GenerateStatus, Task> statusTaskMap = new();
@@ -46,6 +47,13 @@ namespace ITF.WorldGeneration
 
         IEnumerator GenerateCoroutine(GenerateStatus generateStatus, TilemapManager tilemap)
         {
+            if(tile == null)
+            {
+                generateStatus.progress = 1;
+                generateStatus.finished = true;
+                yield break;
+            }
+
             var bounds = tilemap.cellBounds;
             var size = bounds.size;
             XorShiftRandom random = new((uint)RandomManager.GetSeedFor(name));
@@ -57,45 +65,24 @@ namespace ITF.WorldGeneration
             {
                 for(int y = bounds.yMin; y < bounds.yMax; y++)
                 {
-                    generatedCount++;
+                    Vector3Int pos = new Vector3Int(x, y, z);
+                    if (tilemap.GetTile(pos) == tile)
+                    {
+                        tilemap.SetTile(pos, null);
+                    }
+
                     counter++;
-
-                    int index = (int)random.Range(0, (uint)tiles.Length);
-                    Tile tile = tiles[index];
-                    // If the Tile on the left is the same, regenerate it.
-                    if (x > bounds.xMin)
-                    {
-                        var leftTile = tilemap.GetTile(new Vector3Int(x - 1, y, 0));
-                        if(leftTile == tile)
-                        {
-                            index = (int)random.Range(0, (uint)tiles.Length);
-                            tile = tiles[index];
-                        }
-                    }
-                    // If the Tile on the up is the same, regenerate it.
-                    if (y > bounds.yMin)
-                    {
-                        var upTile = tilemap.GetTile(new Vector3Int(x, y - 1, 0));
-                        if (upTile == tile)
-                        {
-                            index = (int)random.Range(0, (uint)tiles.Length);
-                            tile = tiles[index];
-                        }
-                    }
-                    tilemap.SetTile(new Vector3Int(x, y, 0), tile);
-
-                    if (counter >= maxTraversalPerFrame)
+                    generatedCount++;
+                    if(counter >= maxTraversalPerFrame)
                     {
                         counter = 0;
                         generateStatus.progress = generatedCount / (float)totalCells;
-                        if (generatedCount < totalCells) yield return null;
+                        if(generatedCount < maxTraversalPerFrame) yield return null;
                     }
                 }
             }
-
             generateStatus.progress = 1;
             generateStatus.finished = true;
-            statusTaskMap.Remove(generateStatus);
 
             yield break;
         }

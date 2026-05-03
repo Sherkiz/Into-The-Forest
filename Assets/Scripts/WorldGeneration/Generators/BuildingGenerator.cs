@@ -1,5 +1,6 @@
 using ITF.Math;
 using ITF.Utilities;
+using ITF.CustomTiles;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,7 +27,10 @@ namespace ITF.WorldGeneration
             public Tile[] tiles;
             [Tooltip("Offsets from the left-bottom of the building to place the tiles. Should correspond one-to-one with the tiles.")]
             public Vector3Int[] posOffsets;
-            public int num = 1;
+            [Tooltip("If num.y > num.x, will random generate the count between [num.x, num.y), else the count = num.x")]
+            public Vector2Int num = new(1, 0);
+            [Tooltip("If true, fill expand area with placeholder tile")]
+            public bool fillExpand = true;
         }
 
         class SamplePoint
@@ -49,6 +53,7 @@ namespace ITF.WorldGeneration
         }
 
         [Space(20)]
+        [SerializeField] Tile placeholderTile;
         [SerializeField]
         BuildingGenerationInfo[] buildingGenerationInfos;
         [SerializeField] RectInt mapRange = new(5, 2, 22, 32);
@@ -59,7 +64,7 @@ namespace ITF.WorldGeneration
         // Map the generate status to the task, 
         Dictionary<GenerateStatus, Task> statusTaskMap = new();
 
-        public override GenerateStatus Generate(Tilemap tilemap)
+        public override GenerateStatus Generate(TilemapManager tilemap)
         {
             GenerateStatus generateStatus = new();
             statusTaskMap.Add(generateStatus, new(GenerateCoroutine(generateStatus, tilemap)));
@@ -96,9 +101,13 @@ namespace ITF.WorldGeneration
             }
         }
 
-        IEnumerator GenerateCoroutine(GenerateStatus generateStatus, Tilemap tilemap)
+        IEnumerator GenerateCoroutine(GenerateStatus generateStatus, TilemapManager tilemap)
         {
-            var samplePoints = PoissonDiscSampling(mapRange, new XorShiftRandom((uint)seed), new List<Vector2Int>());
+            var excludedPoints = GetOccupiedPoints(tilemap, mapRange);
+            generateStatus.progress = .25f;
+            yield return null;
+
+            var samplePoints = PoissonDiscSampling(mapRange, new XorShiftRandom((uint)seed), excludedPoints);
             generateStatus.progress = .5f;
 
             yield return null;
@@ -106,12 +115,30 @@ namespace ITF.WorldGeneration
             // Place the buildings
             foreach (var samplePoint in samplePoints)
             {
+                var building = samplePoint.building;
                 for (int i = 0; i < samplePoint.building.tiles.Length; i++)
                 {
-                    var building = samplePoint.building;
                     var tile = building.tiles[i];
                     var posOffset = building.posOffsets[i] + (Vector3Int)building.expandLeftBottom;
                     tilemap.SetTile((Vector3Int)samplePoint.position + posOffset, tile);
+                }
+                // place the placeholder tile
+                if (building.fillExpand)
+                {
+                    for (int y = 0; y < building.size.y; y++)
+                    {
+                        for (int x = 0; x < building.expandLeftBottom.x; x++)
+                            tilemap.SetTile(new Vector2Int(x, y) + samplePoint.position, placeholderTile);
+                        for (int x = building.size.x - building.expandRightTop.x; x < building.size.x; x++)
+                            tilemap.SetTile(new Vector2Int(x, y) + samplePoint.position, placeholderTile);
+                    }
+                    for(int x = building.size.x - building.expandRightTop.x; x >= building.expandLeftBottom.x; x--)
+                    {
+                        for (int y = 0; y < building.expandLeftBottom.y; y++)
+                            tilemap.SetTile(new Vector2Int(x, y) + samplePoint.position, placeholderTile);
+                        for (int y = building.size.y - building.expandRightTop.y; y < building.size.y; y++)
+                            tilemap.SetTile(new Vector2Int(x, y) + samplePoint.position, placeholderTile);
+                    }
                 }
             }
 
@@ -135,7 +162,8 @@ namespace ITF.WorldGeneration
             List<BuildingGenerationInfo> generatings = new();
             foreach(var building in buildingGenerationInfos)
             {
-                for (int i = 0; i < building.num; i++)
+                int num = building.num.y > building.num.x ? (int)random.Range(building.num.x, building.num.y) : building.num.x;
+                for (int i = 0; i < num; i++)
                 {
                     generatings.Add(building);
                 }
@@ -189,6 +217,22 @@ namespace ITF.WorldGeneration
             }
 
             return samplePoints;
+        }
+
+        List<Vector2Int> GetOccupiedPoints(TilemapManager tilemap, RectInt range)
+        {
+            List<Vector2Int> occupiedPoints = new();
+            for (int x = range.xMin; x < range.xMax; x++)
+            {
+                for(int y = range.yMin; y < range.yMax; y++)
+                {
+                    if (tilemap.GetTile(new Vector3Int(x, y, 0)))
+                    {
+                        occupiedPoints.Add(new Vector2Int(x, y));
+                    }
+                }
+            }
+            return occupiedPoints;
         }
 
         bool Overlap(RectInt rect, List<RectInt> otherRects)

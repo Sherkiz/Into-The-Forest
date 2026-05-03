@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
+using ITF.CustomTiles;
 
 namespace ITF.WorldGeneration
 {
@@ -37,7 +37,7 @@ namespace ITF.WorldGeneration
         /// </summary>
         /// <param name="tilemap"></param>
         /// <returns></returns>
-        public abstract GenerateStatus Generate(Tilemap tilemap);
+        public abstract GenerateStatus Generate(TilemapManager tilemap);
 
         /// <summary>
         /// Stop all the generating tasks

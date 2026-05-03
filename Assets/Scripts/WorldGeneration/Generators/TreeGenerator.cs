@@ -1,5 +1,6 @@
 using ITF.Math;
 using ITF.Utilities;
+using ITF.CustomTiles;
 using ProceduralNoiseProject;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,19 +36,26 @@ namespace ITF.WorldGeneration
         int maxTraversalPerFrame = 5000;
 
         [Space(20)]
+        [SerializeField] private float warpScale = 1.5f;
+        [SerializeField] private int numberOfWarps = 2;
+        [SerializeField] private Vector2 warpSize = new(0.5f, 0.5f);
+        [SerializeField] private float warpFalloff = 0.5f;
+        [SerializeField] private float warpFrequency = 1f;
+
+        [Space(20)]
         public Tile tileTopLeft;
         public Tile tileBottomRight;
         public Tile tileTopRight;
         public Tile tileBottomLeft;
 
         [Space(20)]
-        public int topZ = 1;
+        public int topZ = 1; 
         public int bottomZ = 0;
 
         // Map the generate status to the task, 
         Dictionary<GenerateStatus, Task> statusTaskMap = new();
 
-        public override GenerateStatus Generate(Tilemap tilemap)
+        public override GenerateStatus Generate(TilemapManager tilemap)
         {
             GenerateStatus generateStatus = new();
             statusTaskMap.Add(generateStatus, new(GenerateCoroutine(generateStatus, tilemap)));
@@ -63,8 +71,17 @@ namespace ITF.WorldGeneration
             }
             statusTaskMap.Clear();
         }
-
-        IEnumerator GenerateCoroutine(GenerateStatus generateStatus, Tilemap tilemap)
+        private Vector2Int WarpPostion(int x, int y, Noise noise)
+        {
+            for (int i = 0; i < numberOfWarps; i++)
+            {
+                float noiseValue = noise.Sample2D(x, y);
+                x += Mathf.FloorToInt(warpSize.x * noiseValue * Mathf.Pow(warpScale, warpFalloff));
+                y += Mathf.FloorToInt(warpSize.y * noiseValue * Mathf.Pow(warpScale, warpFalloff));
+            }
+            return new Vector2Int(x, y);
+        }
+        IEnumerator GenerateCoroutine(GenerateStatus generateStatus, TilemapManager tilemap)
         {
             var bounds = tilemap.cellBounds;
             var size = bounds.size;
@@ -73,6 +90,9 @@ namespace ITF.WorldGeneration
 
             //worley noise
             WorleyNoise worleyNoise = new((int)random.Next(), worleyFrequency, worleyJitter);
+
+            //warping noise
+            SimplexNoise simplexNoise = new((int)random.Next(), warpFrequency);
 
             int generatedCount = 0;
             int totalCells = size.x * size.y;
@@ -83,27 +103,25 @@ namespace ITF.WorldGeneration
                 {
                     generatedCount++;
                     counter++;
-                    float noiseValue = Mathf.PerlinNoise(noiseSeed.x + x * noiseScale, noiseSeed.y + y * noiseScale);
+                    Vector2Int warpPos = WarpPostion(x,y, simplexNoise);
+                    float noiseValue = Mathf.PerlinNoise(noiseSeed.x + warpPos.x * noiseScale, noiseSeed.y + warpPos.y * noiseScale);
                     float worleyValue = worleyNoise.Sample2D(x * worleyScale.x, y * worleyScale.y);
                     if (noiseValue < density && worleyValue > minWorleyValue)
                     {
                         //Avoid covering other tile
-                        var tile = tilemap.GetTile(new Vector3Int(x, y, bottomZ));
-                        if (Placeable(tilemap, x, y, bottomZ))
+                        //RectInt treeRect = new RectInt(x, y, 2, 2);
+                        Vector3Int treePos = new Vector3Int(x, y, bottomZ);
+                        if (tilemap.IsPlaceable(2, 2, treePos))
                         {
-                            tilemap.SetTile(new Vector3Int(x, y, bottomZ), tileBottomLeft);
-                            if (x < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y, bottomZ), tileBottomRight);
-                            if (y < bounds.yMax)
+                            tilemap.SetTile(treePos, tileBottomLeft);
+                            if (x + 1 < bounds.xMax) tilemap.SetTile(treePos + Vector3Int.right, tileBottomRight);
+                            if (y + 1 < bounds.yMax)
                             {
                                 tilemap.SetTile(new Vector3Int(x, y + 1, topZ), tileTopLeft);
-                                if (x < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y + 1, topZ), tileTopRight);
+                                if (x + 1 < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y + 1, topZ), tileTopRight);
                             }
                         }
                     }
-                    //if (worleyValue < minWorleyValue)
-                    //{
-                    //    tilemap.SetTile(new Vector3Int(x, y, bottomZ), tileBottomLeft);
-                    //}
                     if (counter >= maxTraversalPerFrame)
                     {
                         counter = 0;
@@ -118,20 +136,5 @@ namespace ITF.WorldGeneration
 
             yield break;
         }
-
-        bool Placeable(Tilemap tilemap, int x, int y, int z)
-        {
-            TileBase tile = tilemap.GetTile(new(x, y, z));
-            if (tile != null) return false;
-            tile = tilemap.GetTile(new(x + 1, y, z));
-            if (tile != null) return false;
-            tile = tilemap.GetTile(new(x, y + 1, z));
-            if (tile != null) return false;
-            tile = tilemap.GetTile(new(x + 1, y + 1, z));
-            if (tile != null) return false;
-            return true;
-        }
-
     }
-
 }

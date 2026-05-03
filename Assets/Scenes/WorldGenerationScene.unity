@@ -154,14 +154,15 @@ MonoBehaviour:
   - name: background
     generators:
     - {fileID: 11400000, guid: 549dfc00736eae94ba46ea3d56fe4ea5, type: 2}
-    tilemap: {fileID: 2146821448}
+    tilemap: {fileID: 2146821449}
     worldSize: {x: 195, y: 18, z: 1}
   - name: objects
     generators:
     - {fileID: 11400000, guid: 3e2906386efdbe040b81f494b952a810, type: 2}
     - {fileID: 11400000, guid: b8a91b42b7771c6418514cd19cb7cb5e, type: 2}
     - {fileID: 11400000, guid: 5d468fdd8b4e65b43af24152430f48ad, type: 2}
-    tilemap: {fileID: 2036913484}
+    - {fileID: 11400000, guid: dd819edf6a2d3634987ece47a2761517, type: 2}
+    tilemap: {fileID: 2036913485}
     worldSize: {x: 390, y: 36, z: 2}
   onSeedInitialized: {fileID: 11400000, guid: bfd13a9ca335fe848852ee8f94f97d1d, type: 2}
 --- !u!114 &171417064
@@ -1390,6 +1391,7 @@ GameObject:
   - component: {fileID: 2036913482}
   - component: {fileID: 2036913484}
   - component: {fileID: 2036913483}
+  - component: {fileID: 2036913485}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -1506,6 +1508,19 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &2036913485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036913481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb4a2bcda49b374a907b8a15d295993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.TilemapManager
+  placeHolderTile: {fileID: 0}
 --- !u!1 &2056792257
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,6 +1636,7 @@ GameObject:
   - component: {fileID: 2146821446}
   - component: {fileID: 2146821448}
   - component: {fileID: 2146821447}
+  - component: {fileID: 2146821449}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -1737,6 +1753,19 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &2146821449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146821445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb4a2bcda49b374a907b8a15d295993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.TilemapManager
+  placeHolderTile: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

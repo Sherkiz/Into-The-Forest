@@ -1,10 +1,10 @@
 using ITF.Math;
 using ITF.Utilities;
+using ITF.CustomTiles;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 namespace ITF.WorldGeneration
 {    /// <summary>
      /// Generates resources
@@ -47,12 +47,14 @@ namespace ITF.WorldGeneration
 
         //Store the resources spawn points
         private Dictionary<RectInt, ResourceGenerationInfos> resourcesLocations = new();
-        public override GenerateStatus Generate(Tilemap tilemap)
+        public override GenerateStatus Generate(TilemapManager tilemap)
         {
             GenerateStatus generateStatus = new();
             statusTaskMap.Add(generateStatus, new(GenerateCoroutine(generateStatus, tilemap)));
             return generateStatus;
         }
+
+        [ContextMenu("Auto Create Pos Offsets")]
         public void AutoCreatePosOffsets()
         {
             foreach (var resource in resourcesInfosArray)
@@ -81,8 +83,7 @@ namespace ITF.WorldGeneration
             statusTaskMap.Clear();
             resourcesLocations.Clear();
         }
-
-        private IEnumerator GenerateCoroutine(GenerateStatus generateStatus, Tilemap tilemap)
+        private IEnumerator GenerateCoroutine(GenerateStatus generateStatus, TilemapManager tilemap)
         {
             var bounds = tilemap.cellBounds;
             var size = bounds.size;
@@ -94,8 +95,6 @@ namespace ITF.WorldGeneration
             {
                 if (resource.spawnBounds.xMax == 0 || resource.spawnBounds.yMax == 0) resource.spawnBounds = bounds; // default bounds to map bounds
                 uint numberToSpawn = random.Range(resource.minNumber, resource.maxNumber + 1);
-                Debug.Log(resource.spawnBounds.xMax);
-                Debug.Log(resource.spawnBounds.yMax);
                 for (int i = 0; i < numberToSpawn; i++)
                 {
                     generatings.Add(resource);
@@ -115,19 +114,15 @@ namespace ITF.WorldGeneration
 
                     Vector2Int candidatePoint = new((int)random.Range(minX, maxX), (int)random.Range(minY, maxY));
                     RectInt candidateRect = new(candidatePoint.x, candidatePoint.y, resourceToSpawn.size.x, resourceToSpawn.size.y);
-                    Debug.Log(candidatePoint);
-                    Debug.Log(candidateRect);
-
                     if (candidateRect.xMin < minX || candidateRect.xMax > maxX || candidateRect.yMin < minY || candidateRect.yMax > maxY) // part of resource is out of bounds
                     {
                         continue;
                     }
-
-                    if (IsRectValid(candidateRect, resourceToSpawn.minDistance))
+                    if (IsRectValid(candidateRect, resourceToSpawn.minDistance, tilemap))
                     {
                         resourcesLocations[candidateRect] = resourceToSpawn;
                         generatings.RemoveAt(0);
-                        PlaceMultipleTiles(resourceToSpawn.resourceTiles, tilemap, candidatePoint);
+                        tilemap.PlaceMultipleTiles(resourceToSpawn.resourceTiles, (Vector3Int) candidatePoint);
                         success = true; 
                         break;
                     }                    
@@ -144,17 +139,7 @@ namespace ITF.WorldGeneration
             statusTaskMap.Remove(generateStatus);
             yield break;
         }
-
-        private void PlaceMultipleTiles(MultipleTilesObject multipleTilesObject, Tilemap tilemap, Vector2Int position)
-        {
-            for (int i = 0; i < multipleTilesObject.tiles.Length; i++)
-            {
-                var tile = multipleTilesObject.tiles[i];
-                var posOffset = multipleTilesObject.posOffsets[i] + (Vector3Int)multipleTilesObject.expandLeftBottom;
-                tilemap.SetTile((Vector3Int)position + posOffset, tile);
-            }
-        }
-        private bool IsRectValid(RectInt candidateRect, float minDistance)
+        private bool IsRectValid(RectInt candidateRect, float minDistance, TilemapManager tilemap)
         {
             foreach (var otherRect in resourcesLocations.Keys)
             {
@@ -164,7 +149,7 @@ namespace ITF.WorldGeneration
             {
                 if (candidateRect.Contains(excludedPoint)) return false;
             }
-            return true;
+            return !tilemap.OverlapOccupiedTiles(candidateRect);
         }
     }
 }

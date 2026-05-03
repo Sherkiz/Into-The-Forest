@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BuildingGenerator
   m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldGeneration.BuildingGenerator
   name: building_generator
+  placeholderTile: {fileID: 11400000, guid: b197902a323716842b5a12715dabaef3, type: 2}
   buildingGenerationInfos:
   - name: aphoteke
     size: {x: 4, y: 4}
@@ -28,7 +29,8 @@ MonoBehaviour:
     - {x: 1, y: 1, z: 0}
     - {x: 0, y: 0, z: 0}
     - {x: 1, y: 0, z: 0}
-    num: 1
+    num: {x: 1, y: 0}
+    fillExpand: 1
   - name: castle
     size: {x: 7, y: 7}
     expandLeftBottom: {x: 1, y: 1}
@@ -85,7 +87,8 @@ MonoBehaviour:
     - {x: 2, y: 0, z: 0}
     - {x: 3, y: 0, z: 0}
     - {x: 4, y: 0, z: 0}
-    num: 1
+    num: {x: 1, y: 0}
+    fillExpand: 1
   - name: house_lvl1
     size: {x: 5, y: 4}
     expandLeftBottom: {x: 1, y: 1}
@@ -104,7 +107,8 @@ MonoBehaviour:
     - {x: 0, y: 0, z: 0}
     - {x: 1, y: 0, z: 0}
     - {x: 2, y: 0, z: 0}
-    num: 3
+    num: {x: 3, y: 0}
+    fillExpand: 1
   - name: house_lvl2
     size: {x: 5, y: 5}
     expandLeftBottom: {x: 1, y: 1}
@@ -129,7 +133,8 @@ MonoBehaviour:
     - {x: 0, y: 0, z: 0}
     - {x: 1, y: 0, z: 0}
     - {x: 2, y: 0, z: 0}
-    num: 1
+    num: {x: 1, y: 0}
+    fillExpand: 1
   - name: mage_guild
     size: {x: 4, y: 7}
     expandLeftBottom: {x: 1, y: 1}
@@ -156,7 +161,8 @@ MonoBehaviour:
     - {x: 1, y: 1, z: 0}
     - {x: 0, y: 0, z: 0}
     - {x: 1, y: 0, z: 0}
-    num: 1
+    num: {x: 1, y: 0}
+    fillExpand: 1
   - name: monastery
     size: {x: 7, y: 7}
     expandLeftBottom: {x: 1, y: 1}
@@ -213,7 +219,8 @@ MonoBehaviour:
     - {x: 2, y: 0, z: 0}
     - {x: 3, y: 0, z: 0}
     - {x: 4, y: 0, z: 0}
-    num: 1
+    num: {x: 1, y: 0}
+    fillExpand: 1
   - name: snake_clinic
     size: {x: 6, y: 6}
     expandLeftBottom: {x: 1, y: 1}
@@ -252,7 +259,8 @@ MonoBehaviour:
     - {x: 1, y: 0, z: 0}
     - {x: 2, y: 0, z: 0}
     - {x: 3, y: 0, z: 0}
-    num: 1
+    num: {x: 1, y: 0}
+    fillExpand: 1
   - name: warriors_hall
     size: {x: 6, y: 6}
     expandLeftBottom: {x: 1, y: 1}
@@ -291,7 +299,8 @@ MonoBehaviour:
     - {x: 1, y: 0, z: 0}
     - {x: 2, y: 0, z: 0}
     - {x: 3, y: 0, z: 0}
-    num: 1
+    num: {x: 1, y: 0}
+    fillExpand: 1
   mapRange:
     x: 5
     y: 2
