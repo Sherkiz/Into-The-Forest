@@ -36,6 +36,13 @@ namespace ITF.WorldGeneration
         int maxTraversalPerFrame = 5000;
 
         [Space(20)]
+        [SerializeField] private float warpScale = 1.5f;
+        [SerializeField] private int numberOfWarps = 2;
+        [SerializeField] private Vector2 warpSize = new(0.5f, 0.5f);
+        [SerializeField] private float warpFalloff = 0.5f;
+        [SerializeField] private float warpFrequency = 1f;
+
+        [Space(20)]
         public Tile tileTopLeft;
         public Tile tileBottomRight;
         public Tile tileTopRight;
@@ -64,7 +71,16 @@ namespace ITF.WorldGeneration
             }
             statusTaskMap.Clear();
         }
-
+        private Vector2Int WarpPostion(int x, int y, Noise noise)
+        {
+            for (int i = 0; i < numberOfWarps; i++)
+            {
+                float noiseValue = noise.Sample2D(x, y);
+                x += Mathf.FloorToInt(warpSize.x * noiseValue * Mathf.Pow(warpScale, warpFalloff));
+                y += Mathf.FloorToInt(warpSize.y * noiseValue * Mathf.Pow(warpScale, warpFalloff));
+            }
+            return new Vector2Int(x, y);
+        }
         IEnumerator GenerateCoroutine(GenerateStatus generateStatus, TilemapManager tilemap)
         {
             var bounds = tilemap.cellBounds;
@@ -75,6 +91,9 @@ namespace ITF.WorldGeneration
             //worley noise
             WorleyNoise worleyNoise = new((int)random.Next(), worleyFrequency, worleyJitter);
 
+            //warping noise
+            SimplexNoise simplexNoise = new((int)random.Next(), warpFrequency);
+
             int generatedCount = 0;
             int totalCells = size.x * size.y;
             int counter = 0;
@@ -84,7 +103,8 @@ namespace ITF.WorldGeneration
                 {
                     generatedCount++;
                     counter++;
-                    float noiseValue = Mathf.PerlinNoise(noiseSeed.x + x * noiseScale, noiseSeed.y + y * noiseScale);
+                    Vector2Int warpPos = WarpPostion(x,y, simplexNoise);
+                    float noiseValue = Mathf.PerlinNoise(noiseSeed.x + warpPos.x * noiseScale, noiseSeed.y + warpPos.y * noiseScale);
                     float worleyValue = worleyNoise.Sample2D(x * worleyScale.x, y * worleyScale.y);
                     if (noiseValue < density && worleyValue > minWorleyValue)
                     {
@@ -102,10 +122,6 @@ namespace ITF.WorldGeneration
                             }
                         }
                     }
-                    //if (worleyValue < minWorleyValue)
-                    //{
-                    //    tilemap.SetTile(new Vector3Int(x, y, bottomZ), tileBottomLeft);
-                    //}
                     if (counter >= maxTraversalPerFrame)
                     {
                         counter = 0;
