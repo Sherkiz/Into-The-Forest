@@ -161,8 +161,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3e2906386efdbe040b81f494b952a810, type: 2}
     - {fileID: 11400000, guid: b8a91b42b7771c6418514cd19cb7cb5e, type: 2}
     - {fileID: 11400000, guid: 5d468fdd8b4e65b43af24152430f48ad, type: 2}
+    - {fileID: 11400000, guid: dd819edf6a2d3634987ece47a2761517, type: 2}
     tilemap: {fileID: 2036913485}
-    worldSize: {x: 390, y: 36, z: 1}
+    worldSize: {x: 390, y: 36, z: 2}
   onSeedInitialized: {fileID: 11400000, guid: bfd13a9ca335fe848852ee8f94f97d1d, type: 2}
 --- !u!114 &171417064
 MonoBehaviour:
