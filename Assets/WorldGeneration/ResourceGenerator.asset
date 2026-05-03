@@ -30,7 +30,7 @@ MonoBehaviour:
     minDistance: 3
     spawnBounds:
       m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 391, y: 37, z: 2}
+      m_Size: {x: 390, y: 36, z: 0}
   - name: Stones
     resourceTiles:
       size: {x: 2, y: 2}
@@ -51,7 +51,7 @@ MonoBehaviour:
     minDistance: 200
     spawnBounds:
       m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 391, y: 37, z: 2}
+      m_Size: {x: 390, y: 36, z: 0}
   - name: Stones
     resourceTiles:
       size: {x: 2, y: 2}
@@ -72,5 +72,5 @@ MonoBehaviour:
     minDistance: 80
     spawnBounds:
       m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 391, y: 37, z: 2}
+      m_Size: {x: 390, y: 36, z: 0}
   targetResourceName: 
