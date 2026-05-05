@@ -57,6 +57,8 @@ namespace ITF.WorldGeneration
         [SerializeField]
         BuildingGenerationInfo[] buildingGenerationInfos;
         [SerializeField] RectInt mapRange = new(5, 2, 22, 32);
+        [Tooltip("The rate of distance between buildings, [x, y]")]
+        public Vector2 distanceRateRange = new(1, 2);
 
         [Space(20)]
         [SerializeField] string targetBuildingName;
@@ -107,7 +109,7 @@ namespace ITF.WorldGeneration
             generateStatus.progress = .25f;
             yield return null;
 
-            var samplePoints = PoissonDiscSampling(mapRange, new XorShiftRandom((uint)seed), excludedPoints);
+            var samplePoints = PoissonDiscSampling(mapRange, new XorShiftRandom((uint)RandomManager.GetSeedFor(name)), excludedPoints);
             generateStatus.progress = .5f;
 
             yield return null;
@@ -168,6 +170,7 @@ namespace ITF.WorldGeneration
                     generatings.Add(building);
                 }
             }
+            if (generatings.Count == 0) return new();
 
             // Start with a random point
             Vector2Int firstPoint = new((int)random.Range(minX, maxX), (int)random.Range(minY, maxY));
@@ -190,7 +193,7 @@ namespace ITF.WorldGeneration
                 for (int i = 0; i < maxAttempts; i++)
                 {
                     float angle = random.Range(0f, Mathf.PI * 2f);
-                    float distance = random.Range(minDistance, minDistance * 2f);
+                    float distance = random.Range(minDistance * distanceRateRange.x, minDistance * distanceRateRange.y);
                     Vector2 newCenter = center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * distance;
                     Vector2Int newPoint = Vector2Int.FloorToInt(newCenter - new Vector2(nextBuilding.size.x / 2f, nextBuilding.size.y / 2f));
                     RectInt newRect = new RectInt(newPoint, nextBuilding.size);

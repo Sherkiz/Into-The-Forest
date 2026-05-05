@@ -85,7 +85,15 @@ namespace ITF.Math
 
         public XorShiftRandom(uint seed)
         {
-            state = seed == 0 ? 123456789 : seed;
+            //avalanche
+            uint hash = seed;
+            hash ^= hash >> 16;
+            hash *= 0x85EBCA77;
+            hash ^= hash >> 13;
+            hash *= 0xC2B2AE35;
+            hash ^= hash >> 16;
+
+            state = hash == 0 ? 123456789 : hash;
         }
 
         public uint Next()
