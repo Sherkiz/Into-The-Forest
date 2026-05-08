@@ -12,7 +12,7 @@ namespace ITF.CustomTiles
         private Tilemap tilemap;
         public void SetTile(Vector3Int pos, TileBase tile, bool setTileOccupied = true, bool allowOverlap = true)
         {
-            if (GetTile(pos) != null && tile != null)
+            if (GetTile(pos) != null && tile != null && !allowOverlap)
             {
                 Debug.Log("Tried to place tile " + tile.name + " on already existing tile! (At position " + pos + ", already occupied by tile " + GetTile(pos).name + ")");
                 return;
