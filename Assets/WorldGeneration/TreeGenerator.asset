@@ -20,6 +20,11 @@ MonoBehaviour:
   worleyJitter: 1
   worleyScale: {x: 1, y: 0.6}
   maxTraversalPerFrame: 1000
+  warpScale: 3
+  numberOfWarps: 7
+  warpSize: {x: 0.8, y: 0.5}
+  warpFalloff: 0.7
+  warpFrequency: 1
   tileTopLeft: {fileID: 11400000, guid: 4154927c58104034b94bdb61a822f385, type: 2}
   tileBottomRight: {fileID: 11400000, guid: 24a92e2d86165334ea647128916dedbe, type: 2}
   tileTopRight: {fileID: 11400000, guid: cc3ee65d65bdb704fb0e7d749828b1be, type: 2}

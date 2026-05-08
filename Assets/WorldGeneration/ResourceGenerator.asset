@@ -25,12 +25,14 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 2970f5f18481dce4f8444fd0099de759, type: 2}
       posOffsets:
       - {x: 0, y: 0, z: 0}
-    minNumber: 10
-    maxNumber: 15
-    minDistance: 3
-    spawnBounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 390, y: 36, z: 0}
+    minNumber: 1
+    maxNumber: 3
+    minDistance: 150
+    mapRange:
+      x: 100
+      y: 2
+      width: 290
+      height: 32
   - name: Stones
     resourceTiles:
       size: {x: 2, y: 2}
@@ -49,9 +51,11 @@ MonoBehaviour:
     minNumber: 3
     maxNumber: 3
     minDistance: 200
-    spawnBounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 390, y: 36, z: 0}
+    mapRange:
+      x: 150
+      y: 1
+      width: 100
+      height: 33
   - name: Stones
     resourceTiles:
       size: {x: 2, y: 2}
@@ -70,7 +74,9 @@ MonoBehaviour:
     minNumber: 12
     maxNumber: 20
     minDistance: 80
-    spawnBounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 390, y: 36, z: 0}
+    mapRange:
+      x: 50
+      y: 1
+      width: 200
+      height: 33
   targetResourceName: 

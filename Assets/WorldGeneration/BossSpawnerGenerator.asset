@@ -1,0 +1,198 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe179d64b2da3e4fa4b17f499cb08aa, type: 3}
+  m_Name: BossSpawnerGenerator
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldGeneration.BuildingGenerator
+  name: boss_spawner_generator
+  placeholderTile: {fileID: 11400000, guid: b197902a323716842b5a12715dabaef3, type: 2}
+  buildingGenerationInfos:
+  - name: skeleton_cursed_tree_boss
+    size: {x: 7, y: 7}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 11400000, guid: e71f3d06e185fc947bf66c12cacb487f, type: 2}
+    - {fileID: 11400000, guid: 87584662a381bdc4b91688a1aabd27da, type: 2}
+    - {fileID: 11400000, guid: 2d2300cfdb7456f4481c54a64fe24527, type: 2}
+    - {fileID: 11400000, guid: b89924bb5aba78e4194b0315306e8d12, type: 2}
+    - {fileID: 11400000, guid: 4469e845f87e10e4daad0968f7cd78ef, type: 2}
+    - {fileID: 11400000, guid: eacca83c72c416d44b37a622da6487f5, type: 2}
+    - {fileID: 11400000, guid: cf579cb1c8edc6142a70cc4f90fb25ae, type: 2}
+    - {fileID: 11400000, guid: 6e5157fc014666f4bab5de103ef04890, type: 2}
+    - {fileID: 11400000, guid: 2fa26b3e5d7735e4a87a5ada0010011b, type: 2}
+    - {fileID: 11400000, guid: 104310c5b4c77a9418e459ac9c4da6b4, type: 2}
+    - {fileID: 11400000, guid: acfd217b137b05248b06757aaf79b850, type: 2}
+    - {fileID: 11400000, guid: c5954bba07f9b8148a1b8d801b283048, type: 2}
+    - {fileID: 11400000, guid: ad5348b97cd612540a2141ee32864774, type: 2}
+    - {fileID: 11400000, guid: 7d65c4ee8d8ea2e4398b3bf09688569f, type: 2}
+    - {fileID: 11400000, guid: 80059afb69469d646b1e58bc44b3086e, type: 2}
+    - {fileID: 11400000, guid: f03c963101557c74f84b9b9eaae70caa, type: 2}
+    - {fileID: 11400000, guid: 43560d54f1b6f77408126cf79141d89a, type: 2}
+    - {fileID: 11400000, guid: d1042091ed2d8f24cacaa80c9607776c, type: 2}
+    - {fileID: 11400000, guid: 74ca482e63ddc8541bba14aaa2dd924b, type: 2}
+    - {fileID: 11400000, guid: 41585c95fece53c4cbf41f8d3f6abefa, type: 2}
+    - {fileID: 11400000, guid: 6c42d24bc6e828a468512731e718e167, type: 2}
+    - {fileID: 11400000, guid: 252970ec139b4834cb0f557dfb3c5c4a, type: 2}
+    - {fileID: 11400000, guid: e18ce77c271359d4b8b843ee43e656b6, type: 2}
+    - {fileID: 11400000, guid: 0ed2472059261d246a078547abbc3e7f, type: 2}
+    - {fileID: 11400000, guid: 2198d740fc2d3484d953d950bd22ecb8, type: 2}
+    posOffsets:
+    - {x: 0, y: 4, z: 0}
+    - {x: 1, y: 4, z: 0}
+    - {x: 2, y: 4, z: 0}
+    - {x: 3, y: 4, z: 0}
+    - {x: 4, y: 4, z: 0}
+    - {x: 0, y: 3, z: 0}
+    - {x: 1, y: 3, z: 0}
+    - {x: 2, y: 3, z: 0}
+    - {x: 3, y: 3, z: 0}
+    - {x: 4, y: 3, z: 0}
+    - {x: 0, y: 2, z: 0}
+    - {x: 1, y: 2, z: 0}
+    - {x: 2, y: 2, z: 0}
+    - {x: 3, y: 2, z: 0}
+    - {x: 4, y: 2, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 2, y: 1, z: 0}
+    - {x: 3, y: 1, z: 0}
+    - {x: 4, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: 2, y: 0, z: 0}
+    - {x: 3, y: 0, z: 0}
+    - {x: 4, y: 0, z: 0}
+    num: {x: 1, y: 0}
+    fillExpand: 1
+  - name: vampire_cursed_tree_boss
+    size: {x: 7, y: 7}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 11400000, guid: 79da3417e64d6ff4db2e1551cd9c0ee2, type: 2}
+    - {fileID: 11400000, guid: b09d0c38a81924040a174dbf0f21292e, type: 2}
+    - {fileID: 11400000, guid: df2083136f68ac4429ea971c495f6a77, type: 2}
+    - {fileID: 11400000, guid: 27aa4b067a7bfe44e8c88c9a599e06c0, type: 2}
+    - {fileID: 11400000, guid: f94cf2941cb11004b96b235365b5271e, type: 2}
+    - {fileID: 11400000, guid: 309610042f3a7024fac0f3dfe654324c, type: 2}
+    - {fileID: 11400000, guid: 2a88d68cf5a4fb740ac1bcb3c65c7e9c, type: 2}
+    - {fileID: 11400000, guid: 0134d9c637b1c7c49b71bf0911593615, type: 2}
+    - {fileID: 11400000, guid: e6a36e90230f3ac449e6c4233d3f0498, type: 2}
+    - {fileID: 11400000, guid: 9f6167e5485387f48bdbd2d568d7989c, type: 2}
+    - {fileID: 11400000, guid: 6c4df26ad0f36fd468a3b2fcbca134c5, type: 2}
+    - {fileID: 11400000, guid: 8f3956cebcd6ce441ab21ac9de9d9966, type: 2}
+    - {fileID: 11400000, guid: 6331388df566e0142bd3c9dc9bbec3ea, type: 2}
+    - {fileID: 11400000, guid: 643b156d8c10e9044ab526a1d151956b, type: 2}
+    - {fileID: 11400000, guid: 6ec14dcfb6e0820438e6d5cce71e4629, type: 2}
+    - {fileID: 11400000, guid: 0058c554dd900fa4d9918ff3ea416f5b, type: 2}
+    - {fileID: 11400000, guid: 43013c728d245254fa795b06d06a1d3c, type: 2}
+    - {fileID: 11400000, guid: 39a592e727c24454b993bf88762d0906, type: 2}
+    - {fileID: 11400000, guid: f8338bd553c6be140bdeca93141a0b97, type: 2}
+    - {fileID: 11400000, guid: b0eb63e6c35cd0a42b7d811cf05346e6, type: 2}
+    - {fileID: 11400000, guid: e210b245af7fb7a4f86ecbab6bba9da9, type: 2}
+    - {fileID: 11400000, guid: 556d315bbe6b3a74d883231e6cafe585, type: 2}
+    - {fileID: 11400000, guid: 2234c042c6df42943aeb9f63c0336d73, type: 2}
+    - {fileID: 11400000, guid: 967f90a931270ab41b48678b9a0e5189, type: 2}
+    - {fileID: 11400000, guid: e4fc590c5845f044e911960572f1ceb1, type: 2}
+    posOffsets:
+    - {x: 0, y: 4, z: 0}
+    - {x: 1, y: 4, z: 0}
+    - {x: 2, y: 4, z: 0}
+    - {x: 3, y: 4, z: 0}
+    - {x: 4, y: 4, z: 0}
+    - {x: 0, y: 3, z: 0}
+    - {x: 1, y: 3, z: 0}
+    - {x: 2, y: 3, z: 0}
+    - {x: 3, y: 3, z: 0}
+    - {x: 4, y: 3, z: 0}
+    - {x: 0, y: 2, z: 0}
+    - {x: 1, y: 2, z: 0}
+    - {x: 2, y: 2, z: 0}
+    - {x: 3, y: 2, z: 0}
+    - {x: 4, y: 2, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 2, y: 1, z: 0}
+    - {x: 3, y: 1, z: 0}
+    - {x: 4, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: 2, y: 0, z: 0}
+    - {x: 3, y: 0, z: 0}
+    - {x: 4, y: 0, z: 0}
+    num: {x: 1, y: 0}
+    fillExpand: 1
+  - name: zombie_cursed_tree_boss
+    size: {x: 7, y: 7}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 11400000, guid: f80a5aec7abbf5144a36f9c4bdca0e7d, type: 2}
+    - {fileID: 11400000, guid: 965dd792859630e4c90e45c28c34afe1, type: 2}
+    - {fileID: 11400000, guid: cba9e9bde7cc39a4d9f385ae0c48209b, type: 2}
+    - {fileID: 11400000, guid: 3b8cf0bc22ce29046be691d943366b48, type: 2}
+    - {fileID: 11400000, guid: 6b865a92a3b9f3b488b8f3e10f904aed, type: 2}
+    - {fileID: 11400000, guid: 5c946323282cbbc46b57181309b5dacd, type: 2}
+    - {fileID: 11400000, guid: 1dee83322fa20614199415c17f8d7f77, type: 2}
+    - {fileID: 11400000, guid: 8edf91c51fe7f8a499dc7cccd1b15a72, type: 2}
+    - {fileID: 11400000, guid: 8b59b2be1159afc44878eaf833c01317, type: 2}
+    - {fileID: 11400000, guid: 3c44289598a136a41a5c8e63e5092a2d, type: 2}
+    - {fileID: 11400000, guid: 4a9d1ce5307c06e4fadf774ed9181c25, type: 2}
+    - {fileID: 11400000, guid: 1a18f8134b1e5dc47ae9364ea406e10a, type: 2}
+    - {fileID: 11400000, guid: 45181ad6276f1bc4899ebc1f334475cb, type: 2}
+    - {fileID: 11400000, guid: ae1d9227627b9f54ab857f8e01d292ed, type: 2}
+    - {fileID: 11400000, guid: ca1eb9f9f99023548bedd4dfa77aa8cc, type: 2}
+    - {fileID: 11400000, guid: 05773eee7a266b04393bafa09cc44b59, type: 2}
+    - {fileID: 11400000, guid: 5e0ae8a6a423a8e4c93883f7fdc89405, type: 2}
+    - {fileID: 11400000, guid: 18eb5ce4722a2084eb3a80f496baed24, type: 2}
+    - {fileID: 11400000, guid: abae4b70fee897445b9fa73856b02ac9, type: 2}
+    - {fileID: 11400000, guid: bf8c3a581284a4a4daa8790a167f5bb7, type: 2}
+    - {fileID: 11400000, guid: 0c5075ebda956cf439fde93d6d08b395, type: 2}
+    - {fileID: 11400000, guid: 102bcfda2df76ea4aa61b16dcf11b8d5, type: 2}
+    - {fileID: 11400000, guid: c47913e324b7e524ba06bfbf30eabc1a, type: 2}
+    - {fileID: 11400000, guid: c7696e5cbb88b854bad742461122b5ab, type: 2}
+    - {fileID: 11400000, guid: 6eaf70655ae60714fb889b8614e3418c, type: 2}
+    posOffsets:
+    - {x: 0, y: 4, z: 0}
+    - {x: 1, y: 4, z: 0}
+    - {x: 2, y: 4, z: 0}
+    - {x: 3, y: 4, z: 0}
+    - {x: 4, y: 4, z: 0}
+    - {x: 0, y: 3, z: 0}
+    - {x: 1, y: 3, z: 0}
+    - {x: 2, y: 3, z: 0}
+    - {x: 3, y: 3, z: 0}
+    - {x: 4, y: 3, z: 0}
+    - {x: 0, y: 2, z: 0}
+    - {x: 1, y: 2, z: 0}
+    - {x: 2, y: 2, z: 0}
+    - {x: 3, y: 2, z: 0}
+    - {x: 4, y: 2, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 2, y: 1, z: 0}
+    - {x: 3, y: 1, z: 0}
+    - {x: 4, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: 2, y: 0, z: 0}
+    - {x: 3, y: 0, z: 0}
+    - {x: 4, y: 0, z: 0}
+    num: {x: 1, y: 0}
+    fillExpand: 1
+  mapRange:
+    x: 359
+    y: 7
+    width: 16
+    height: 27
+  distanceRateRange: {x: 1, y: 2}
+  targetBuildingName: skeleton_cursed_tree_boss

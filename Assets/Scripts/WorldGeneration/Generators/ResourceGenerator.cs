@@ -20,8 +20,8 @@ namespace ITF.WorldGeneration
             public Vector2Int size => resourceTiles.size;
             public uint minNumber;
             public uint maxNumber;
-            public int minDistance;
-            public BoundsInt spawnBounds;
+            public float minDistance;
+            public RectInt mapRange;
         }
         private int seed;
         public override int Seed
@@ -93,7 +93,7 @@ namespace ITF.WorldGeneration
             List<ResourceGenerationInfos> generatings = new();
             foreach (var resource in resourcesInfosArray)
             {
-                if (resource.spawnBounds.xMax == 0 || resource.spawnBounds.yMax == 0) resource.spawnBounds = bounds; // default bounds to map bounds
+                if (resource.mapRange.xMax == 0 || resource.mapRange.yMax == 0) resource.mapRange = new RectInt(bounds.xMin, bounds.yMin, size.x, size.y); // default bounds to map bounds
                 uint numberToSpawn = random.Range(resource.minNumber, resource.maxNumber + 1);
                 for (int i = 0; i < numberToSpawn; i++)
                 {
@@ -104,14 +104,13 @@ namespace ITF.WorldGeneration
             while (generatings.Count > 0)
             {
                 var resourceToSpawn = generatings[0];
+                int minX = resourceToSpawn.mapRange.xMin;
+                int maxX = resourceToSpawn.mapRange.xMax;
+                int minY = resourceToSpawn.mapRange.yMin;
+                int maxY = resourceToSpawn.mapRange.yMax;
                 bool success = false;
                 for (int i = 0; i < maxNumberOfTries; i++)
                 {
-                    int minX = resourceToSpawn.spawnBounds.xMin;
-                    int maxX = resourceToSpawn.spawnBounds.xMax;
-                    int minY = resourceToSpawn.spawnBounds.yMin;
-                    int maxY = resourceToSpawn.spawnBounds.yMax;
-
                     Vector2Int candidatePoint = new((int)random.Range(minX, maxX), (int)random.Range(minY, maxY));
                     RectInt candidateRect = new(candidatePoint.x, candidatePoint.y, resourceToSpawn.size.x, resourceToSpawn.size.y);
                     if (candidateRect.xMin < minX || candidateRect.xMax > maxX || candidateRect.yMin < minY || candidateRect.yMax > maxY) // part of resource is out of bounds
@@ -143,7 +142,7 @@ namespace ITF.WorldGeneration
         {
             foreach (var otherRect in resourcesLocations.Keys)
             {
-                if ((otherRect.center - candidateRect.center).sqrMagnitude < minDistance || candidateRect.Overlaps(otherRect)) return false;
+                if ((candidateRect.center - otherRect.center).sqrMagnitude < minDistance || candidateRect.Overlaps(otherRect)) return false;
             }
             foreach (var excludedPoint in excludedTiles)
             {

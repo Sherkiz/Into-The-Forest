@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe179d64b2da3e4fa4b17f499cb08aa, type: 3}
+  m_Name: EnemySpawner103Generator
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldGeneration.BuildingGenerator
+  name: enemy_spawner_generator_103
+  placeholderTile: {fileID: 11400000, guid: b197902a323716842b5a12715dabaef3, type: 2}
+  buildingGenerationInfos:
+  - name: pentagram_fire_demons
+    size: {x: 4, y: 4}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 11400000, guid: c019c9e22a987bf4f9bb00a752d60904, type: 2}
+    - {fileID: 11400000, guid: cac50c1223d531a469c92da326e0a2c4, type: 2}
+    - {fileID: 11400000, guid: 68265abffeb54d047b17ada608dedd53, type: 2}
+    - {fileID: 11400000, guid: f1f682d21f971f645b37cb19862d31f3, type: 2}
+    posOffsets:
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    num: {x: 0, y: 4}
+    fillExpand: 1
+  - name: pentagram_frost_demons
+    size: {x: 4, y: 4}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 11400000, guid: 7d05a589731581944902ea02e02a8415, type: 2}
+    - {fileID: 11400000, guid: 86370f6bd14a6f04daea411715490712, type: 2}
+    - {fileID: 11400000, guid: d0b643de92c83d649aa540f566df602f, type: 2}
+    - {fileID: 11400000, guid: 5348d5d83ae08d24a9b268ddf86dc41a, type: 2}
+    posOffsets:
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    num: {x: 0, y: 4}
+    fillExpand: 1
+  - name: pentagram_rogue_demons
+    size: {x: 4, y: 4}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 11400000, guid: 4cbb76b4945227b4497375b27f885fe2, type: 2}
+    - {fileID: 11400000, guid: 26d84f5a61add7c459e10dd1d16b0d09, type: 2}
+    - {fileID: 11400000, guid: df22d000317154c448d9652175255d9d, type: 2}
+    - {fileID: 11400000, guid: 504a458a0a4838c44a4605390a2b4cf7, type: 2}
+    posOffsets:
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    num: {x: 0, y: 4}
+    fillExpand: 1
+  - name: pentagram_vampires
+    size: {x: 4, y: 4}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 11400000, guid: 4649cc1bc59fee845ab6a92a06d916c7, type: 2}
+    - {fileID: 11400000, guid: bf39627eee283ff4281116fd8d68b3d7, type: 2}
+    - {fileID: 11400000, guid: 4ee1c9def2606a84cbe815325102e31e, type: 2}
+    - {fileID: 11400000, guid: ff0ee15958ea4054a81a62d7d86a197d, type: 2}
+    posOffsets:
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    num: {x: 0, y: 4}
+    fillExpand: 1
+  - name: undead_spawner
+    size: {x: 7, y: 7}
+    expandLeftBottom: {x: 2, y: 2}
+    expandRightTop: {x: 2, y: 2}
+    tiles:
+    - {fileID: 11400000, guid: 3ea00fea579fa034d83ca6d1c54493af, type: 2}
+    - {fileID: 11400000, guid: 4652432af4f937e4597a00d886b5fd92, type: 2}
+    - {fileID: 11400000, guid: 119c56abfa21ec0469cffe64680e2ac0, type: 2}
+    - {fileID: 11400000, guid: b26c23ca2ea8b8346bbfb5bc85d62ef2, type: 2}
+    - {fileID: 11400000, guid: 46e1aff5d8e8c7e43a1b4b15e4909d50, type: 2}
+    - {fileID: 11400000, guid: 88a137722f1e17e46a2fbe8c81e019a1, type: 2}
+    - {fileID: 11400000, guid: f2c306eb584c2ad4d9aec2d9b94a5180, type: 2}
+    - {fileID: 11400000, guid: 674c902a039b712458c550bcc4192043, type: 2}
+    - {fileID: 11400000, guid: f02897bb04317b046b357e69efe61eea, type: 2}
+    posOffsets:
+    - {x: 0, y: 2, z: 0}
+    - {x: 1, y: 2, z: 0}
+    - {x: 2, y: 2, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 2, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: 2, y: 0, z: 0}
+    num: {x: 1, y: 3}
+    fillExpand: 1
+  mapRange:
+    x: 103
+    y: 2
+    width: 63
+    height: 32
+  distanceRateRange: {x: 2, y: 10}
+  targetBuildingName: undead_spawner

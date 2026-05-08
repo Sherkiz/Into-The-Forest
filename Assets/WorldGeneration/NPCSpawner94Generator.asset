@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe179d64b2da3e4fa4b17f499cb08aa, type: 3}
+  m_Name: NPCSpawner94Generator
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldGeneration.BuildingGenerator
+  name: npc_spawner_94_generator
+  placeholderTile: {fileID: 11400000, guid: b197902a323716842b5a12715dabaef3, type: 2}
+  buildingGenerationInfos:
+  - name: pentagram_neutral_units
+    size: {x: 4, y: 4}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 11400000, guid: d8b9632f0e3c713499997d5429d3080b, type: 2}
+    - {fileID: 11400000, guid: e1bd25b08283cb345ab5702bf96f3306, type: 2}
+    - {fileID: 11400000, guid: c40edc190885e354c86f644d13f32320, type: 2}
+    - {fileID: 11400000, guid: 7390df1892267ec42b8bb067c9297759, type: 2}
+    posOffsets:
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    num: {x: 1, y: 0}
+    fillExpand: 1
+  mapRange:
+    x: 94
+    y: 2
+    width: 63
+    height: 32
+  distanceRateRange: {x: 1, y: 2}
+  targetBuildingName: pentagram_neutral_units

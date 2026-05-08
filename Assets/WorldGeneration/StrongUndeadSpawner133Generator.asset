@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe179d64b2da3e4fa4b17f499cb08aa, type: 3}
+  m_Name: StrongUndeadSpawner133Generator
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldGeneration.BuildingGenerator
+  name: strong_undead_generator_133
+  placeholderTile: {fileID: 11400000, guid: b197902a323716842b5a12715dabaef3, type: 2}
+  buildingGenerationInfos:
+  - name: pentagram_strong_undeads
+    size: {x: 4, y: 4}
+    expandLeftBottom: {x: 1, y: 1}
+    expandRightTop: {x: 1, y: 1}
+    tiles:
+    - {fileID: 11400000, guid: 55ee95f3e5a67f94b9c495e32c21d18a, type: 2}
+    - {fileID: 11400000, guid: 96e488bcd5cfe5c479f9f350dccf489c, type: 2}
+    - {fileID: 11400000, guid: 17cd8c983c9258b49bcabf53fc76e149, type: 2}
+    - {fileID: 11400000, guid: e530ad94a5f8036468c96ba689e9071a, type: 2}
+    posOffsets:
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    num: {x: 0, y: 2}
+    fillExpand: 1
+  mapRange:
+    x: 133
+    y: 2
+    width: 62
+    height: 32
+  distanceRateRange: {x: 3, y: 10}
+  targetBuildingName: pentagram_strong_undeads

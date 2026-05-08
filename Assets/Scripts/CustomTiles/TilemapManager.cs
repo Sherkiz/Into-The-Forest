@@ -10,17 +10,26 @@ namespace ITF.CustomTiles
     {
         [SerializeField] private TileBase placeHolderTile;
         private Tilemap tilemap;
-        public void SetTile(Vector3Int pos, TileBase tile, bool setTileOccupied = true)
+        public void SetTile(Vector3Int pos, TileBase tile, bool setTileOccupied = true, bool allowOverlap = true)
         {
-            if (tilemap.GetTile(pos) != null) Debug.Log("Overlap !");
-            if (pos.x > cellBounds.xMax || pos.y > cellBounds.yMax) { return; }
+            if (GetTile(pos) != null && tile != null && !allowOverlap)
+            {
+                Debug.Log("Tried to place tile " + tile.name + " on already existing tile! (At position " + pos + ", already occupied by tile " + GetTile(pos).name + ")");
+                return;
+            }
+            if (!cellBounds.Contains(pos)) 
+            {
+                Debug.Log("Tried to place tile " + tile.name + " out of bounds! (At position " + pos + ")");
+                return; 
+            }
             tilemap.SetTile(pos, tile);
+
             if (tile != null && setTileOccupied) occupiedTiles[pos] = tile;
         }
         public void SetTile(Vector2Int pos, TileBase tile) => SetTile(new Vector3Int(pos.x, pos.y), tile);
         public bool TrySetTile(Vector3Int pos, TileBase tile, bool setTileOccupied = true)
         {
-            if (tilemap.GetTile(pos) != null) return false;
+            if (GetTile(pos) != null) return false;
             else
             {
                 SetTile(pos, tile, setTileOccupied);
@@ -44,12 +53,19 @@ namespace ITF.CustomTiles
                 }
             }
         }
-        public TileBase GetTile(Vector3Int pos) => tilemap.GetTile(pos);
+        public TileBase GetTile(Vector3Int pos)
+        {
+            if (!cellBounds.Contains(pos)) Debug.Log("Out of bounds");
+            return tilemap.GetTile(pos);
+        }
         public TileBase GetTile(Vector2Int pos) => GetTile(new Vector3Int(pos.x, pos.y));
         public BoundsInt cellBounds { get => tilemap.cellBounds; }
         public Vector3Int origin { get => tilemap.origin; set => tilemap.origin = value; }
         public Vector3Int size { get => tilemap.size; set => tilemap.size = value; }
-        public void ResizeBounds() => tilemap.ResizeBounds();
+        public void ResizeBounds()
+        {
+            tilemap.ResizeBounds();
+        }
         private Dictionary<Vector3Int, TileBase> occupiedTiles = new();
         public Dictionary<Vector3Int, TileBase> OccupiedTiles {  get => occupiedTiles; }
         public void PlaceMultipleTiles(MultipleTilesObject multipleTilesObject, Vector3Int position)
@@ -80,7 +96,7 @@ namespace ITF.CustomTiles
             }
             return false;
         }
-        public bool IsTileEmpty(Vector3Int pos) => tilemap.GetTile(pos) == null;
+        public bool IsTileEmpty(Vector3Int pos) => GetTile(pos) == null;
         private void Awake()
         {
             tilemap = GetComponent<Tilemap>();
