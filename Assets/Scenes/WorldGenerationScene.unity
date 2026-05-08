@@ -398,8 +398,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ITF.CameraControl.CameraControllerSkillTree
   mouseDraggingSpeed: 1
   mouseZoomSpeed: 1
-  cameraXBounds: {x: 9, y: 240}
-  cameraYBounds: {x: 5, y: 18}
+  cameraXBounds: {x: 0, y: 249.6}
+  cameraYBounds: {x: 0, y: 23}
   minSize: 5
   maxSize: 10
 --- !u!114 &307428064
