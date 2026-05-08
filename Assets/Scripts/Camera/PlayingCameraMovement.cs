@@ -39,6 +39,8 @@ namespace ITF.CameraControl
         {
             transform.position = initialPosition;
             cam.orthographicSize = initialZoom;
+            CalculateCameraBounds();
+            ClampPositionToBounds();
         }
         void CalculateCameraBounds()
         {
@@ -67,6 +69,10 @@ namespace ITF.CameraControl
             position.y = Mathf.Clamp(position.y, cameraMinY, cameraMaxY);
             return position;
         }
+        private void ClampPositionToBounds()
+        {
+            transform.position = ClampPositionToBounds(transform.position);
+        }
         private void HandleMouseInput()
         {
             HandleTranslationInput();
@@ -87,7 +93,7 @@ namespace ITF.CameraControl
                 float zoomInput = -Mouse.current.scroll.y.value * mouseZoomSpeed;
                 cam.orthographicSize = Mathf.Clamp(zoomInput + cam.orthographicSize, minSize, maxSize);
                 CalculateCameraBounds();
-                transform.position = ClampPositionToBounds(transform.position);
+                ClampPositionToBounds();
             }
         }
         private void TeleportCameraToPosition(Vector2 position)
