@@ -52,7 +52,8 @@ namespace ITF.WorldGeneration
         public void Generate()
         {
             if (seed == 0) InitWithRandomSeed();
-            if(generating != null) generating.Stop();
+            else Init(seed);
+            if (generating != null) generating.Stop();
             generating = new(GenerateCoroutine());
         }
 
@@ -85,6 +86,7 @@ namespace ITF.WorldGeneration
         {
             foreach (var generationUnit in generationUnits)
             {
+                generationUnit.tilemap.Clear();
                 generationUnit.tilemap.origin = Vector3Int.zero;
                 generationUnit.tilemap.size = generationUnit.worldSize;
                 generationUnit.tilemap.ResizeBounds();
