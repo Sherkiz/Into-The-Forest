@@ -97,6 +97,11 @@ namespace ITF.CustomTiles
             return false;
         }
         public bool IsTileEmpty(Vector3Int pos) => GetTile(pos) == null;
+        public void Clear()
+        {
+            tilemap.ClearAllTiles();
+            occupiedTiles.Clear();
+        }
         private void Awake()
         {
             tilemap = GetComponent<Tilemap>();

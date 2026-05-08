@@ -86,6 +86,7 @@ namespace ITF.WorldGeneration
         {
             foreach (var generationUnit in generationUnits)
             {
+                generationUnit.tilemap.Clear();
                 generationUnit.tilemap.origin = Vector3Int.zero;
                 generationUnit.tilemap.size = generationUnit.worldSize;
                 generationUnit.tilemap.ResizeBounds();
