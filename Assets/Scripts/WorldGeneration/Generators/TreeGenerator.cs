@@ -41,6 +41,7 @@ namespace ITF.WorldGeneration
         [SerializeField] private Vector2 warpSize = new(0.5f, 0.5f);
         [SerializeField] private float warpFalloff = 0.5f;
         [SerializeField] private float warpFrequency = 1f;
+        [SerializeField] private int xOffsetPercentChance = 10;
 
         [Space(20)]
         public Tile tileTopLeft;
@@ -110,15 +111,29 @@ namespace ITF.WorldGeneration
                     {
                         //Avoid covering other tile
                         //RectInt treeRect = new RectInt(x, y, 2, 2);
-                        Vector3Int treePos = new Vector3Int(x, y, bottomZ);
+                        int bonusOffsetChance = 0;
+                        if (tilemap.GetTile(new Vector3Int(x,y, topZ)) == tileTopLeft)
+                        {
+                            bonusOffsetChance += 5;
+                            if (tilemap.GetTile(new Vector3Int(x, y-1, topZ)) == tileTopLeft)
+                            {
+                                bonusOffsetChance += 5;
+                                if (tilemap.GetTile(new Vector3Int(x, y-2, topZ)) == tileTopLeft)
+                                {
+                                    bonusOffsetChance += 10;
+                                }
+                            }
+                        }
+                        int xOffset = random.Range(0, 101) > (101 - (xOffsetPercentChance + bonusOffsetChance)) ? 1 : 0;
+                        Vector3Int treePos = new Vector3Int(x + xOffset, y, bottomZ);
                         if (tilemap.IsPlaceable(2, 2, treePos))
                         {
                             tilemap.SetTile(treePos, tileBottomLeft);
-                            if (x + 1 < bounds.xMax) tilemap.SetTile(treePos + Vector3Int.right, tileBottomRight);
+                            if (x + xOffset + 1 < bounds.xMax) tilemap.SetTile(treePos + Vector3Int.right, tileBottomRight);
                             if (y + 1 < bounds.yMax)
                             {
-                                tilemap.SetTile(new Vector3Int(x, y + 1, topZ), tileTopLeft);
-                                if (x + 1 < bounds.xMax) tilemap.SetTile(new Vector3Int(x + 1, y + 1, topZ), tileTopRight);
+                                tilemap.SetTile(treePos + new Vector3Int(0, 1, topZ - bottomZ), tileTopLeft);
+                                if (x + xOffset + 1 < bounds.xMax) tilemap.SetTile(treePos + new Vector3Int(1, 1, topZ - bottomZ), tileTopRight);
                             }
                         }
                     }
