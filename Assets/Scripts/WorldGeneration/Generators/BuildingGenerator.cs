@@ -137,9 +137,13 @@ namespace ITF.WorldGeneration
                     for(int x = building.size.x - building.expandRightTop.x; x >= building.expandLeftBottom.x; x--)
                     {
                         for (int y = 0; y < building.expandLeftBottom.y; y++)
+                        {
                             tilemap.SetTile(new Vector2Int(x, y) + samplePoint.position, placeholderTile);
+                        }
                         for (int y = building.size.y - building.expandRightTop.y; y < building.size.y; y++)
+                        {
                             tilemap.SetTile(new Vector2Int(x, y) + samplePoint.position, placeholderTile);
+                        }
                     }
                 }
             }
@@ -173,9 +177,10 @@ namespace ITF.WorldGeneration
             if (generatings.Count == 0) return new();
 
             // Start with a random point
-            Vector2Int firstPoint = new((int)random.Range(minX, maxX), (int)random.Range(minY, maxY));
-            samplePoints.Add(new SamplePoint(firstPoint, generatings[0]));
-            buildingRects.Add(new RectInt(firstPoint, generatings[0].size));
+            var firstBuilding = generatings[0];
+            Vector2Int firstPoint = new((int)random.Range(minX, maxX - firstBuilding.size.x), (int)random.Range(minY, maxY - firstBuilding.size.y));
+            samplePoints.Add(new SamplePoint(firstPoint, firstBuilding));
+            buildingRects.Add(new RectInt(firstPoint, firstBuilding.size));
             generatings.RemoveAt(0);
 
             while (samplePoints.Count > 0 && generatings.Count > 0)
@@ -188,7 +193,6 @@ namespace ITF.WorldGeneration
                 float xRadius = samplePoint.building.size.x / 2f + nextBuilding.size.x / 2f;
                 float yRadius = samplePoint.building.size.y / 2f + nextBuilding.size.y / 2f;
                 float minDistance = Mathf.Sqrt(xRadius * xRadius + yRadius * yRadius);
-
                 bool foundNewPoint = false;
                 for (int i = 0; i < maxAttempts; i++)
                 {
