@@ -52,7 +52,8 @@ namespace ITF.WorldGeneration
         public void Generate()
         {
             if (seed == 0) InitWithRandomSeed();
-            if(generating != null) generating.Stop();
+            else Init(seed);
+            if (generating != null) generating.Stop();
             generating = new(GenerateCoroutine());
         }
 
