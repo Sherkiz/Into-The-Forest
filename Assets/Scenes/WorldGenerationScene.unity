@@ -155,7 +155,7 @@ MonoBehaviour:
     generators:
     - {fileID: 11400000, guid: 549dfc00736eae94ba46ea3d56fe4ea5, type: 2}
     tilemap: {fileID: 2146821449}
-    worldSize: {x: 195, y: 18, z: 1}
+    worldSize: {x: 390, y: 36, z: 1}
   - name: objects
     generators:
     - {fileID: 11400000, guid: 3e2906386efdbe040b81f494b952a810, type: 2}
@@ -233,7 +233,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 192884473}
   m_Enabled: 1
-  m_CellSize: {x: 1.28, y: 1.28, z: 0}
+  m_CellSize: {x: 0.64, y: 0.64, z: 0}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
