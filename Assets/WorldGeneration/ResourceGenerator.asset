@@ -44,8 +44,8 @@ MonoBehaviour:
       width: 290
       height: 32
   - resourceTiles: {fileID: 11400000, guid: 05636bf59a8ca3042a585bacb5d6e30e, type: 2}
-    minNumber: 3
-    maxNumber: 3
+    minNumber: 2
+    maxNumber: 2
     minDistance: 200
     mapRange:
       x: 150
@@ -53,8 +53,8 @@ MonoBehaviour:
       width: 100
       height: 33
   - resourceTiles: {fileID: 11400000, guid: f315f629a883f1d42bdfd6b91d467449, type: 2}
-    minNumber: 4
-    maxNumber: 6
+    minNumber: 3
+    maxNumber: 3
     minDistance: 80
     mapRange:
       x: 50
@@ -69,4 +69,13 @@ MonoBehaviour:
       x: 70
       y: 1
       width: 180
+      height: 33
+  - resourceTiles: {fileID: 11400000, guid: f315f629a883f1d42bdfd6b91d467449, type: 2}
+    minNumber: 1
+    maxNumber: 1
+    minDistance: 150
+    mapRange:
+      x: 3
+      y: 1
+      width: 33
       height: 33
