@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e978d463036084e42bf4c05a7c1cb29b, type: 3}
+  m_Name: pentagram_vampires
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesBuilding
+  name: pentagram_vampires
+  size: {x: 4, y: 4}
+  tiles:
+  - {fileID: 11400000, guid: 4649cc1bc59fee845ab6a92a06d916c7, type: 2}
+  - {fileID: 11400000, guid: bf39627eee283ff4281116fd8d68b3d7, type: 2}
+  - {fileID: 11400000, guid: 4ee1c9def2606a84cbe815325102e31e, type: 2}
+  - {fileID: 11400000, guid: ff0ee15958ea4054a81a62d7d86a197d, type: 2}
+  posOffsets:
+  - {x: 0, y: 1, z: 0}
+  - {x: 1, y: 1, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  expandLeftBottom: {x: 1, y: 1}
+  expandRightTop: {x: 1, y: 1}
+  fillExpand: 1
+  entranceTileIndex: 0

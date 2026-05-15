@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cf1fb7b8a409db4bb808abdf67f1e50, type: 3}
+  m_Name: crystal_tree_1
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesResource
+  name: crystal_tree_1
+  size: {x: 2, y: 2}
+  tiles:
+  - {fileID: 11400000, guid: 75c41994df0e641498241f73d1f5f40f, type: 2}
+  - {fileID: 11400000, guid: d80e4d0f05b6f28498c2c1fa3be82946, type: 2}
+  - {fileID: 11400000, guid: 695489d417f0c77408742f6650d51d85, type: 2}
+  - {fileID: 11400000, guid: e4c782371714d7e4298fcd90c0af03ad, type: 2}
+  posOffsets:
+  - {x: 0, y: 1, z: 0}
+  - {x: 1, y: 1, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  expandLeftBottom: {x: 0, y: 0}
+  expandRightTop: {x: 0, y: 0}
+  fillExpand: 0
+  harvestTileIndexes: 0200000003000000

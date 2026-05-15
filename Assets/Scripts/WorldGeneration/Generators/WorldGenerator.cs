@@ -54,11 +54,16 @@ namespace ITF.WorldGeneration
             if (seed == 0) InitWithRandomSeed();
             else Init(seed);
             if (generating != null) generating.Stop();
+            StopAllGeneration();
             generating = new(GenerateCoroutine());
         }
 
         private void Start()
         {
+            StopAllGeneration();
+        }
+        private void StopAllGeneration()
+        {
             foreach (var generationUnit in generationUnits)
             {
                 var generators = generationUnit.generators;
@@ -68,18 +73,10 @@ namespace ITF.WorldGeneration
                 }
             }
         }
-
         private void OnDestroy()
         {
             if(generating != null) generating.Stop();
-            foreach (var generationUnit in generationUnits)
-            {
-                var generators = generationUnit.generators;
-                foreach (var generator in generators)
-                {
-                    generator.StopAllGeneration();
-                }
-            }
+            StopAllGeneration();
         }
 
         IEnumerator GenerateCoroutine()

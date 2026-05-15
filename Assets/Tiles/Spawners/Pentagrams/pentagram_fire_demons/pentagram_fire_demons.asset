@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e978d463036084e42bf4c05a7c1cb29b, type: 3}
+  m_Name: pentagram_fire_demons
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesBuilding
+  name: pentagram_strong_undeads
+  size: {x: 4, y: 4}
+  tiles:
+  - {fileID: 11400000, guid: c019c9e22a987bf4f9bb00a752d60904, type: 2}
+  - {fileID: 11400000, guid: cac50c1223d531a469c92da326e0a2c4, type: 2}
+  - {fileID: 11400000, guid: 68265abffeb54d047b17ada608dedd53, type: 2}
+  - {fileID: 11400000, guid: f1f682d21f971f645b37cb19862d31f3, type: 2}
+  posOffsets:
+  - {x: 0, y: 1, z: 0}
+  - {x: 1, y: 1, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  expandLeftBottom: {x: 1, y: 1}
+  expandRightTop: {x: 1, y: 1}
+  fillExpand: 1
+  entranceTileIndex: 0

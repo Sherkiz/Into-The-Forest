@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cf1fb7b8a409db4bb808abdf67f1e50, type: 3}
+  m_Name: crystal_tree_2
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesResource
+  name: gold_and_crystal_stones
+  size: {x: 2, y: 2}
+  tiles:
+  - {fileID: 11400000, guid: 56cca22af397d6340b8be80e871d3aca, type: 2}
+  - {fileID: 11400000, guid: 0e6763d9a27b0f644b797b88494985f0, type: 2}
+  - {fileID: 11400000, guid: d966305f1973ce54392ae88e79e4a991, type: 2}
+  - {fileID: 11400000, guid: c9dc1ceb151678f4ab4f09aaecdec693, type: 2}
+  posOffsets:
+  - {x: 0, y: 1, z: 0}
+  - {x: 1, y: 1, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  expandLeftBottom: {x: 0, y: 0}
+  expandRightTop: {x: 0, y: 0}
+  fillExpand: 0
+  harvestTileIndexes: 0200000003000000

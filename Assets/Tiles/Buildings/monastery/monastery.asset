@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e978d463036084e42bf4c05a7c1cb29b, type: 3}
+  m_Name: monastery
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesBuilding
+  name: monastery
+  size: {x: 7, y: 7}
+  tiles:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 6111c172e32b7c4439a24c3b22dc3669, type: 2}
+  - {fileID: 11400000, guid: a46b2b9f3887eb24b8e61478c064c95f, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 1362c70a87a8ea2469815197fafec78b, type: 2}
+  - {fileID: 11400000, guid: 59c669b5ca7362a4887a4a2fd9ff3051, type: 2}
+  - {fileID: 11400000, guid: f175242c4b7eb9f4291f28ced9c84e6b, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 2297768a0e2a3bc4180139b3c7a8638f, type: 2}
+  - {fileID: 11400000, guid: db827b464b8010c4196cc4ed8ddf4eb5, type: 2}
+  - {fileID: 11400000, guid: 983d0cd2d394d3846b047a9b6597836c, type: 2}
+  - {fileID: 11400000, guid: 305835205e5a85946b6cd9deeee09a50, type: 2}
+  - {fileID: 11400000, guid: a17b9986ab9b0724eac055122bf57f99, type: 2}
+  - {fileID: 11400000, guid: 2a3756c11e480ff4c87bedfd4597082d, type: 2}
+  - {fileID: 11400000, guid: 0d594343cfb2e544b87c96d57f0db1a6, type: 2}
+  - {fileID: 11400000, guid: d43f23a3592346a4c9e20ba5fe8d58e9, type: 2}
+  - {fileID: 11400000, guid: af147022ef3c85e41aa028b72954921e, type: 2}
+  - {fileID: 11400000, guid: 38750b2e1907fae45b52128d626dbd93, type: 2}
+  - {fileID: 11400000, guid: dd8f9806496ef2342b270c56e2557fe5, type: 2}
+  - {fileID: 11400000, guid: d6c122d06de6e0641889e1338a6fe271, type: 2}
+  - {fileID: 11400000, guid: d39ad594b569eee4a9e770d57598c728, type: 2}
+  - {fileID: 11400000, guid: 2b5bcafa0056fd049be1f7ccb31819c0, type: 2}
+  - {fileID: 11400000, guid: 0f49635e8f8e67946a99dc66f039aec8, type: 2}
+  posOffsets:
+  - {x: 0, y: 4, z: 0}
+  - {x: 1, y: 4, z: 0}
+  - {x: 2, y: 4, z: 0}
+  - {x: 3, y: 4, z: 0}
+  - {x: 4, y: 4, z: 0}
+  - {x: 0, y: 3, z: 0}
+  - {x: 1, y: 3, z: 0}
+  - {x: 2, y: 3, z: 0}
+  - {x: 3, y: 3, z: 0}
+  - {x: 4, y: 3, z: 0}
+  - {x: 0, y: 2, z: 0}
+  - {x: 1, y: 2, z: 0}
+  - {x: 2, y: 2, z: 0}
+  - {x: 3, y: 2, z: 0}
+  - {x: 4, y: 2, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 1, y: 1, z: 0}
+  - {x: 2, y: 1, z: 0}
+  - {x: 3, y: 1, z: 0}
+  - {x: 4, y: 1, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  - {x: 2, y: 0, z: 0}
+  - {x: 3, y: 0, z: 0}
+  - {x: 4, y: 0, z: 0}
+  expandLeftBottom: {x: 1, y: 1}
+  expandRightTop: {x: 1, y: 1}
+  fillExpand: 1
+  entranceTileIndex: 17

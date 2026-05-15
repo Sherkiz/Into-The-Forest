@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e978d463036084e42bf4c05a7c1cb29b, type: 3}
+  m_Name: zombie_cursed_tree_boss
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesBuilding
+  name: zombie_cursed_tree_boss
+  size: {x: 7, y: 7}
+  tiles:
+  - {fileID: 11400000, guid: f80a5aec7abbf5144a36f9c4bdca0e7d, type: 2}
+  - {fileID: 11400000, guid: 965dd792859630e4c90e45c28c34afe1, type: 2}
+  - {fileID: 11400000, guid: cba9e9bde7cc39a4d9f385ae0c48209b, type: 2}
+  - {fileID: 11400000, guid: 3b8cf0bc22ce29046be691d943366b48, type: 2}
+  - {fileID: 11400000, guid: 6b865a92a3b9f3b488b8f3e10f904aed, type: 2}
+  - {fileID: 11400000, guid: 5c946323282cbbc46b57181309b5dacd, type: 2}
+  - {fileID: 11400000, guid: 1dee83322fa20614199415c17f8d7f77, type: 2}
+  - {fileID: 11400000, guid: 8edf91c51fe7f8a499dc7cccd1b15a72, type: 2}
+  - {fileID: 11400000, guid: 8b59b2be1159afc44878eaf833c01317, type: 2}
+  - {fileID: 11400000, guid: 3c44289598a136a41a5c8e63e5092a2d, type: 2}
+  - {fileID: 11400000, guid: 4a9d1ce5307c06e4fadf774ed9181c25, type: 2}
+  - {fileID: 11400000, guid: 1a18f8134b1e5dc47ae9364ea406e10a, type: 2}
+  - {fileID: 11400000, guid: 45181ad6276f1bc4899ebc1f334475cb, type: 2}
+  - {fileID: 11400000, guid: ae1d9227627b9f54ab857f8e01d292ed, type: 2}
+  - {fileID: 11400000, guid: ca1eb9f9f99023548bedd4dfa77aa8cc, type: 2}
+  - {fileID: 11400000, guid: 05773eee7a266b04393bafa09cc44b59, type: 2}
+  - {fileID: 11400000, guid: 5e0ae8a6a423a8e4c93883f7fdc89405, type: 2}
+  - {fileID: 11400000, guid: 18eb5ce4722a2084eb3a80f496baed24, type: 2}
+  - {fileID: 11400000, guid: abae4b70fee897445b9fa73856b02ac9, type: 2}
+  - {fileID: 11400000, guid: bf8c3a581284a4a4daa8790a167f5bb7, type: 2}
+  - {fileID: 11400000, guid: 0c5075ebda956cf439fde93d6d08b395, type: 2}
+  - {fileID: 11400000, guid: 102bcfda2df76ea4aa61b16dcf11b8d5, type: 2}
+  - {fileID: 11400000, guid: c47913e324b7e524ba06bfbf30eabc1a, type: 2}
+  - {fileID: 11400000, guid: c7696e5cbb88b854bad742461122b5ab, type: 2}
+  - {fileID: 11400000, guid: 6eaf70655ae60714fb889b8614e3418c, type: 2}
+  posOffsets:
+  - {x: 0, y: 4, z: 0}
+  - {x: 1, y: 4, z: 0}
+  - {x: 2, y: 4, z: 0}
+  - {x: 3, y: 4, z: 0}
+  - {x: 4, y: 4, z: 0}
+  - {x: 0, y: 3, z: 0}
+  - {x: 1, y: 3, z: 0}
+  - {x: 2, y: 3, z: 0}
+  - {x: 3, y: 3, z: 0}
+  - {x: 4, y: 3, z: 0}
+  - {x: 0, y: 2, z: 0}
+  - {x: 1, y: 2, z: 0}
+  - {x: 2, y: 2, z: 0}
+  - {x: 3, y: 2, z: 0}
+  - {x: 4, y: 2, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 1, y: 1, z: 0}
+  - {x: 2, y: 1, z: 0}
+  - {x: 3, y: 1, z: 0}
+  - {x: 4, y: 1, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  - {x: 2, y: 0, z: 0}
+  - {x: 3, y: 0, z: 0}
+  - {x: 4, y: 0, z: 0}
+  expandLeftBottom: {x: 1, y: 1}
+  expandRightTop: {x: 1, y: 1}
+  fillExpand: 1
+  entranceTileIndex: 22

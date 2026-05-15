@@ -15,8 +15,7 @@ namespace ITF.WorldGeneration
         [System.Serializable]
         public class ResourceGenerationInfos
         {
-            public string name;
-            public MultipleTilesObject resourceTiles;
+            public MultipleTilesResource resourceTiles;
             public Vector2Int size => resourceTiles.size;
             public uint minNumber;
             public uint maxNumber;
@@ -38,9 +37,6 @@ namespace ITF.WorldGeneration
         [Tooltip("The resources informations: type + number")]
         [SerializeField] private ResourceGenerationInfos[] resourcesInfosArray;
 
-        [Space(20)]
-        [SerializeField] string targetResourceName;
-
         // Map the generate status to the task, 
         private Dictionary<GenerateStatus, Task> statusTaskMap = new();
         private List<Vector2Int> excludedTiles = new();
@@ -53,26 +49,6 @@ namespace ITF.WorldGeneration
             statusTaskMap.Add(generateStatus, new(GenerateCoroutine(generateStatus, tilemap)));
             return generateStatus;
         }
-
-        [ContextMenu("Auto Create Pos Offsets")]
-        public void AutoCreatePosOffsets()
-        {
-            foreach (var resource in resourcesInfosArray)
-            {
-                if (resource.name != targetResourceName) continue;
-
-                Vector2Int size = resource.size - resource.resourceTiles.expandLeftBottom - resource.resourceTiles.expandRightTop;
-                Vector3Int[] posOffsets = new Vector3Int[size.x * size.y];
-                for (int y = size.y - 1; y >= 0; y--)
-                {
-                    for (int x = 0; x < size.x; x++)
-                    {
-                        posOffsets[(size.y - 1 - y) * size.x + x] = new Vector3Int(x, y, 0);
-                    }
-                }
-                resource.resourceTiles.posOffsets = posOffsets;
-            }
-        }
         public override void StopAllGeneration()
         {
             foreach (var pair in statusTaskMap)
@@ -81,7 +57,7 @@ namespace ITF.WorldGeneration
                 pair.Key.failed = !pair.Key.finished;
             }
             statusTaskMap.Clear();
-            resourcesLocations.Clear();
+            excludedTiles.Clear();
         }
         private IEnumerator GenerateCoroutine(GenerateStatus generateStatus, TilemapManager tilemap)
         {
@@ -91,6 +67,7 @@ namespace ITF.WorldGeneration
             XorShiftRandom random = new((uint)RandomManager.GetSeedFor(name));
             // The resources waiting to be generated
             List<ResourceGenerationInfos> generatings = new();
+            resourcesLocations = new();
             foreach (var resource in resourcesInfosArray)
             {
                 if (resource.mapRange.xMax == 0 || resource.mapRange.yMax == 0) resource.mapRange = new RectInt(bounds.xMin, bounds.yMin, size.x, size.y); // default bounds to map bounds
@@ -130,7 +107,7 @@ namespace ITF.WorldGeneration
                 {
                     // To update !! Needs to do something more when placement failed
                     generatings.RemoveAt(0);
-                    Debug.Log("Failed to place " + resourceToSpawn.name);
+                    Debug.Log("Failed to place " + resourceToSpawn.resourceTiles.name);
                 }
             }
             generateStatus.progress = 1;

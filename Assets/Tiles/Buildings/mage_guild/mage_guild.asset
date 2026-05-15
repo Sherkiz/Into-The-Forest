@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e978d463036084e42bf4c05a7c1cb29b, type: 3}
+  m_Name: mage_guild
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesBuilding
+  name: mage_guild
+  size: {x: 4, y: 7}
+  tiles:
+  - {fileID: 11400000, guid: 17c0858e075b0e54f9cd56eafeca1984, type: 2}
+  - {fileID: 11400000, guid: a0ccbc20f0e4ced49a5d29e6e295645e, type: 2}
+  - {fileID: 11400000, guid: da34670d77359f24dbc1715a114824aa, type: 2}
+  - {fileID: 11400000, guid: 0777e045703b3864f891e2957ff091e9, type: 2}
+  - {fileID: 11400000, guid: 37d4a85c71744954492f6db2e813951b, type: 2}
+  - {fileID: 11400000, guid: 77d758868681c7c49ab70f4e14575d46, type: 2}
+  - {fileID: 11400000, guid: 669538f888ee2dc41a7f8a9398d20784, type: 2}
+  - {fileID: 11400000, guid: b34ef428499e1554dab0d6d5171c9440, type: 2}
+  - {fileID: 11400000, guid: a7448e6c93cdb85449134be732a375ed, type: 2}
+  - {fileID: 11400000, guid: d5a8b07b1b91c204e9e8e480899748f9, type: 2}
+  posOffsets:
+  - {x: 0, y: 4, z: 0}
+  - {x: 1, y: 4, z: 0}
+  - {x: 0, y: 3, z: 0}
+  - {x: 1, y: 3, z: 0}
+  - {x: 0, y: 2, z: 0}
+  - {x: 1, y: 2, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 1, y: 1, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  expandLeftBottom: {x: 1, y: 1}
+  expandRightTop: {x: 1, y: 1}
+  fillExpand: 1
+  entranceTileIndex: 7

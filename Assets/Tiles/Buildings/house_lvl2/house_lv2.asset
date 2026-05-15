@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e978d463036084e42bf4c05a7c1cb29b, type: 3}
+  m_Name: house_lv2
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesBuilding
+  name: house_lv2
+  size: {x: 5, y: 5}
+  tiles:
+  - {fileID: 11400000, guid: 3ed68e85f21968244a3e16f3a68a7e84, type: 2}
+  - {fileID: 11400000, guid: 52c6317e2366e064e9cd749bb4ba5657, type: 2}
+  - {fileID: 11400000, guid: f6e9d90cc3184ad4aae39451b070fe1b, type: 2}
+  - {fileID: 11400000, guid: 8e6946b3c7ca5ae4183f33aa5a39e6b6, type: 2}
+  - {fileID: 11400000, guid: efb71814f8af6f94fae09b638965bf0a, type: 2}
+  - {fileID: 11400000, guid: d92ee81d8243ada41b575e97b1595cab, type: 2}
+  - {fileID: 11400000, guid: ea448a930dbc71b42b1477ec34acfd03, type: 2}
+  - {fileID: 11400000, guid: 989337d6d87cdf84fab1ed013aad92a8, type: 2}
+  - {fileID: 11400000, guid: 5ffc00dc44bdd274cb523574f893671b, type: 2}
+  posOffsets:
+  - {x: 0, y: 2, z: 0}
+  - {x: 1, y: 2, z: 0}
+  - {x: 2, y: 2, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 1, y: 1, z: 0}
+  - {x: 2, y: 1, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  - {x: 2, y: 0, z: 0}
+  expandLeftBottom: {x: 1, y: 1}
+  expandRightTop: {x: 1, y: 1}
+  fillExpand: 1
+  entranceTileIndex: 7
