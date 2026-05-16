@@ -4,7 +4,7 @@ using ITF.CustomTiles;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
+using ITF.World;
 
 namespace ITF.WorldGeneration
 {
@@ -85,7 +85,12 @@ namespace ITF.WorldGeneration
             // Place the buildings
             foreach (var samplePoint in samplePoints)
             {
-                tilemap.PlaceMultipleTiles(samplePoint.building.buildingTiles, (Vector3Int) samplePoint.position);
+                MultipleTilesBuilding building = samplePoint.building.buildingTiles;
+                tilemap.PlaceMultipleTiles(building, (Vector3Int) samplePoint.position);
+
+                Vector2Int realSize = samplePoint.building.size -  building.expandLeftBottom - building.expandRightTop;
+                Vector2Int realPos = samplePoint.position + building.expandLeftBottom;
+                WorldManager.Map.AddMapObject(new MapObject(building.name, new RectInt(realPos, realSize), building.mapObjectType));
             }
 
             generateStatus.progress = 1f;

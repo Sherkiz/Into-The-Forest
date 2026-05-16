@@ -21,7 +21,9 @@ namespace ITF.CustomTiles
         None,
         Tree,
         Resource,
-        Road
+        Road,
+        Building,
+        Spawner,
     }
 
 }

@@ -15,5 +15,13 @@ namespace ITF.CustomTiles
 
         [SerializeField] int passCost = 10;
         public int PassCost { get => passCost; set => passCost = value; }
+
+#if UNITY_EDITOR
+        public void SetID(string newID)
+        {
+            id = newID;
+        }
+
+#endif
     }
 }

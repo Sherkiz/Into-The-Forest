@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 171417065}
   - component: {fileID: 171417064}
   - component: {fileID: 171417063}
+  - component: {fileID: 171417066}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -206,8 +207,31 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 192884475}
+  - {fileID: 767217060}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &171417066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171417062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec047601ac8f5a41bb21cf802502ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.World.WorldManager
+  map:
+    _tilemaps:
+    - {fileID: 2146821448}
+    - {fileID: 2036913484}
+    pathfindingMapName: Objects
+    maxCosts: 99999999
+    defaultCost: 10
+    hierachies:
+    - {x: 26, y: 18}
+    maxTraverse: 5000
 --- !u!1 &192884473
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,13 +503,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767217058}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2036913482}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 171417065}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &977880492
 GameObject:
@@ -1407,7 +1431,7 @@ GameObject:
   - component: {fileID: 2036913483}
   - component: {fileID: 2036913485}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: Objects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1652,7 +1676,7 @@ GameObject:
   - component: {fileID: 2146821447}
   - component: {fileID: 2146821449}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: Grasses
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1787,6 +1811,5 @@ SceneRoots:
   - {fileID: 307428061}
   - {fileID: 2056792261}
   - {fileID: 171417065}
-  - {fileID: 767217060}
   - {fileID: 977880495}
   - {fileID: 1899966879}

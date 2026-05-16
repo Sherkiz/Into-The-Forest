@@ -1,3 +1,4 @@
+using ITF.World;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -20,6 +21,7 @@ namespace ITF.CustomTiles
         public Vector2Int expandRightTop;
         [Tooltip("If true, fill expand area with placeholder tile")]
         public bool fillExpand = true;
+        public TileType mapObjectType;
 
         [ContextMenu("Auto Create Pos Offsets")]
         public void AutoCreatePosOffsets()
