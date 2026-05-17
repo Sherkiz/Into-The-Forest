@@ -26,9 +26,9 @@ MonoBehaviour:
   warpFalloff: 0.7
   warpFrequency: 1
   xOffsetPercentChance: 10
-  tileTopLeft: {fileID: 11400000, guid: 4154927c58104034b94bdb61a822f385, type: 2}
-  tileBottomRight: {fileID: 11400000, guid: 24a92e2d86165334ea647128916dedbe, type: 2}
-  tileTopRight: {fileID: 11400000, guid: cc3ee65d65bdb704fb0e7d749828b1be, type: 2}
-  tileBottomLeft: {fileID: 11400000, guid: 8e76b484114dec3439911e86a64bad4d, type: 2}
+  tileTopLeft: {fileID: 11400000, guid: e8c4462e9cbeb574ea81d43abdb55b07, type: 2}
+  tileBottomRight: {fileID: 11400000, guid: 804777597d5b1fe4f846fb060b108716, type: 2}
+  tileTopRight: {fileID: 11400000, guid: f386fc095e207424eaa386d6580e5e71, type: 2}
+  tileBottomLeft: {fileID: 11400000, guid: 58e87ce3a808a6a4a8f9572a974d00e2, type: 2}
   topZ: 1
   bottomZ: 0
