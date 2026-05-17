@@ -1,10 +1,11 @@
+using ITF.CustomTiles;
 using ITF.Math;
 using ITF.Utilities;
-using ITF.CustomTiles;
+using ITF.World;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ITF.World;
+using static ITF.WorldGeneration.ObjectGenerator;
 
 namespace ITF.WorldGeneration
 {
@@ -81,7 +82,7 @@ namespace ITF.WorldGeneration
             generateStatus.progress = .5f;
 
             yield return null;
-
+            
             // Place the buildings
             foreach (var samplePoint in samplePoints)
             {
@@ -100,7 +101,7 @@ namespace ITF.WorldGeneration
         }
 
         List<SamplePoint> PoissonDiscSampling
-            (RectInt mapRange, XorShiftRandom random, List<Vector2Int> excludedPoints, int maxAttempts = 32)
+            (RectInt mapRange, XorShiftRandom random, List<Vector2Int> excludedPoints, int maxAttempts = 64)
         {
             int minX = mapRange.xMin;
             int maxX = mapRange.xMax;
@@ -124,8 +125,22 @@ namespace ITF.WorldGeneration
             // Start with a random point
             var firstBuilding = generatings[0];
             Vector2Int firstPoint = new((int)random.Range(minX, maxX - firstBuilding.size.x), (int)random.Range(minY, maxY - firstBuilding.size.y));
+            RectInt firstRect = new RectInt(firstPoint, firstBuilding.size);
+            int triesCount = 0;
+            while ((Overlap(firstRect, buildingRects) || Overlap(firstRect, excludedPoints)) && triesCount < 100)
+            {
+                firstPoint = new((int)random.Range(minX, maxX - firstBuilding.size.x), (int)random.Range(minY, maxY - firstBuilding.size.y));
+                firstRect = new RectInt(firstPoint, firstBuilding.size);
+                triesCount++;
+            }
+            
+            if (triesCount == 100)
+            {
+                Debug.Log("Generator " + name + " was unable to find a correct first point to begin Poisson Disc Sampling.");
+                return new();
+            }
             samplePoints.Add(new SamplePoint(firstPoint, firstBuilding));
-            buildingRects.Add(new RectInt(firstPoint, firstBuilding.size));
+            buildingRects.Add(firstRect);
             generatings.RemoveAt(0);
 
             while (samplePoints.Count > 0 && generatings.Count > 0)
@@ -166,6 +181,13 @@ namespace ITF.WorldGeneration
                     buildingRects.RemoveAt(randomIndex);
                     generatings.Add(samplePoint.building);
                 }
+            }
+            // Check if sample points were found
+            if (samplePoints.Count == 0 && generatings.Count > 0)
+            {
+                Debug.Log("Generator " + name + " failed to sample points with Poisson Disc Sampling.");
+                Debug.Log("Trying again...");
+                return PoissonDiscSampling(mapRange, new XorShiftRandom(random.Next()), excludedPoints);
             }
 
             return samplePoints;
