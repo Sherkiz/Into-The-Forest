@@ -15,31 +15,31 @@ MonoBehaviour:
   name: castle
   size: {x: 7, y: 7}
   tiles:
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 9c49d2a7ef482084dadb782e62deede7, type: 2}
-  - {fileID: 11400000, guid: 012037ce4148a5248834658b8e95fdb8, type: 2}
-  - {fileID: 11400000, guid: 8cb8e12cb5ceaee408e202371e13ba09, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 3708201b5a7393b489733d57a66cb4db, type: 2}
-  - {fileID: 11400000, guid: 33fc5024699cb9e47bfc30893d903756, type: 2}
-  - {fileID: 11400000, guid: ee9008571b0d78c4eb20d1bf85a50721, type: 2}
-  - {fileID: 11400000, guid: d478cb750a986b54ca92daa2497244fa, type: 2}
-  - {fileID: 11400000, guid: 4e64e3e5855e44645aed8421918c022d, type: 2}
-  - {fileID: 11400000, guid: 425c28a43a9c07f4aa223215eddf3a20, type: 2}
-  - {fileID: 11400000, guid: b246896503f3ea04eb792d3e382b7482, type: 2}
-  - {fileID: 11400000, guid: 37c75c819c7ab64498dd5c30d0680d05, type: 2}
-  - {fileID: 11400000, guid: 7e0754b13bfc36c4891b556cbb79728e, type: 2}
-  - {fileID: 11400000, guid: 6cb50e5062eb4ac41a02772ab46e3072, type: 2}
-  - {fileID: 11400000, guid: 4c8acbc47b2a57c48aac843203c06929, type: 2}
-  - {fileID: 11400000, guid: 7b37205ff532c7d49967b4d573d5c1a7, type: 2}
-  - {fileID: 11400000, guid: 60dd0c5effe4c1f4fb402e0244f8becc, type: 2}
-  - {fileID: 11400000, guid: 91deca315e32db74f972c3d7c2c95ba8, type: 2}
-  - {fileID: 11400000, guid: f62b611bb49b86b479df2c9cfee84236, type: 2}
-  - {fileID: 11400000, guid: 9a68919b24cb21d45974382d119020f8, type: 2}
-  - {fileID: 11400000, guid: a2326549a39fedc4ab8f4fe95994d97d, type: 2}
-  - {fileID: 11400000, guid: e5eafef8544bd0748a6338dbf4221af5, type: 2}
-  - {fileID: 11400000, guid: 4732b797ad7699f428a6ab1043d6900f, type: 2}
+  - {fileID: 11400000, guid: c5d5cd446ae9a5143aeff1c9f8f88644, type: 2}
+  - {fileID: 11400000, guid: 3f2b7fc7570c9a744867abf7960f0e42, type: 2}
+  - {fileID: 11400000, guid: ec352887c92867942a689b06a0710a33, type: 2}
+  - {fileID: 11400000, guid: 35aa670998b4e2f49a900374364fab3a, type: 2}
+  - {fileID: 11400000, guid: f3d959a9eb7f75846a60d668fd874d16, type: 2}
+  - {fileID: 11400000, guid: 3e269865a5bbb0f4a8db400972f68294, type: 2}
+  - {fileID: 11400000, guid: ec79f8790945ad44fa63baaedfc6e5f6, type: 2}
+  - {fileID: 11400000, guid: a3d44dd89d59f574d86ad19952346d73, type: 2}
+  - {fileID: 11400000, guid: 8f9ea8adfdfb8b341ab9b4e8175e2735, type: 2}
+  - {fileID: 11400000, guid: 505f67eedd05ccb4d800bd8cc419909e, type: 2}
+  - {fileID: 11400000, guid: 46af18a8fb2fcec4bb40ca4ae36dedac, type: 2}
+  - {fileID: 11400000, guid: d926e25c7ecc71648baf92ab7355e30f, type: 2}
+  - {fileID: 11400000, guid: 172205b69ce3cea42b82b148ae58f733, type: 2}
+  - {fileID: 11400000, guid: e59dad88c4165224fb106a1763b93c34, type: 2}
+  - {fileID: 11400000, guid: 38008686b5842b74d981cde45816d5c1, type: 2}
+  - {fileID: 11400000, guid: fe9d4d9c4b5add749a33e012a90eac19, type: 2}
+  - {fileID: 11400000, guid: ca5f0214b7eb1a346b0908a109580953, type: 2}
+  - {fileID: 11400000, guid: 2cfeca2afb4758c4f883139e1d8d55f9, type: 2}
+  - {fileID: 11400000, guid: e689e7160561ce64882635011264f4c7, type: 2}
+  - {fileID: 11400000, guid: 18fde86573de4e74fbc363b2aab0c0c3, type: 2}
+  - {fileID: 11400000, guid: 50edf62266308504180cebe469b8c52e, type: 2}
+  - {fileID: 11400000, guid: d1579f866b4a53945851ad73506610eb, type: 2}
+  - {fileID: 11400000, guid: 71d2cbab2dbaed44785f2d3b6cfe4e09, type: 2}
+  - {fileID: 11400000, guid: b8e0a6a695b5d2a48a0bb1d0260098a2, type: 2}
+  - {fileID: 11400000, guid: e972703549046db43a12905ce02ab085, type: 2}
   posOffsets:
   - {x: 0, y: 4, z: 0}
   - {x: 1, y: 4, z: 0}
@@ -69,4 +69,5 @@ MonoBehaviour:
   expandLeftBottom: {x: 1, y: 1}
   expandRightTop: {x: 1, y: 1}
   fillExpand: 1
+  mapObjectType: 0
   entranceTileIndex: 19
