@@ -27,4 +27,5 @@ MonoBehaviour:
   expandLeftBottom: {x: 0, y: 0}
   expandRightTop: {x: 0, y: 0}
   fillExpand: 0
+  mapObjectType: 2
   harvestTileIndexes: 0200000003000000

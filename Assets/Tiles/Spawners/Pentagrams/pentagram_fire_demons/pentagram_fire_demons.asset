@@ -27,4 +27,5 @@ MonoBehaviour:
   expandLeftBottom: {x: 1, y: 1}
   expandRightTop: {x: 1, y: 1}
   fillExpand: 1
+  mapObjectType: 5
   entranceTileIndex: 0

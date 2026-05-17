@@ -4,6 +4,7 @@ using ITF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -70,6 +71,7 @@ namespace ITF.World
         }
 
         public MapObject[] GetMapObjects() => mapObjectList.ToArray();
+        public MapObject[] GetMapObjectsOfType(TileType tileType) => mapObjectList.Where(obj => obj.type == tileType).ToArray();
 
         IEnumerator BuildMap()
         {
