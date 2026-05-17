@@ -21,7 +21,7 @@ namespace ITF.CustomTiles
             }
             if (!cellBounds.Contains(pos)) 
             {
-                Debug.Log("Tried to place tile " + tile.name + " out of bounds! (At position " + pos + ")");
+                if(tile != null) Debug.Log("Tried to place tile " + tile.name + " out of bounds! (At position " + pos + ")");
                 return; 
             }
             tilemap.SetTile(pos, tile);
