@@ -4,7 +4,6 @@ using ITF.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace ITF.WorldGeneration
 {
@@ -22,8 +21,7 @@ namespace ITF.WorldGeneration
         int maxTraversalPerFrame = 2000;
 
         [Space(20)]
-        [SerializeField] Tile tile;
-        public int z = 0;
+        public int zPosition = 0;
 
         // Map the generate status to the task, 
         Dictionary<GenerateStatus, Task> statusTaskMap = new();
@@ -47,40 +45,7 @@ namespace ITF.WorldGeneration
 
         IEnumerator GenerateCoroutine(GenerateStatus generateStatus, TilemapManager tilemap)
         {
-            if(tile == null)
-            {
-                generateStatus.progress = 1;
-                generateStatus.finished = true;
-                yield break;
-            }
-
-            var bounds = tilemap.cellBounds;
-            var size = bounds.size;
-            XorShiftRandom random = new((uint)RandomManager.GetSeedFor(name));
-
-            int generatedCount = 0;
-            int totalCells = size.x * size.y;
-            int counter = 0;
-            for(int x = bounds.xMin; x < bounds.xMax; x++)
-            {
-                for(int y = bounds.yMin; y < bounds.yMax; y++)
-                {
-                    Vector3Int pos = new Vector3Int(x, y, z);
-                    if (tilemap.GetTile(pos) == tile)
-                    {
-                        tilemap.SetTile(pos, null);
-                    }
-
-                    counter++;
-                    generatedCount++;
-                    if(counter >= maxTraversalPerFrame)
-                    {
-                        counter = 0;
-                        generateStatus.progress = generatedCount / (float)totalCells;
-                        if(generatedCount < maxTraversalPerFrame) yield return null;
-                    }
-                }
-            }
+            tilemap.RemoveAllPlaceHolderTiles(zPosition);
             generateStatus.progress = 1;
             generateStatus.finished = true;
 

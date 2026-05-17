@@ -5,7 +5,6 @@ using ITF.World;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static ITF.WorldGeneration.ObjectGenerator;
 
 namespace ITF.WorldGeneration
 {
@@ -88,10 +87,6 @@ namespace ITF.WorldGeneration
             {
                 MultipleTilesBuilding building = samplePoint.building.buildingTiles;
                 tilemap.PlaceMultipleTiles(building, (Vector3Int) samplePoint.position);
-
-                Vector2Int realSize = samplePoint.building.size -  building.expandLeftBottom - building.expandRightTop;
-                Vector2Int realPos = samplePoint.position + building.expandLeftBottom;
-                WorldManager.Map.AddMapObject(new MapObject(building.name, new RectInt(realPos, realSize), building.mapObjectType));
             }
 
             generateStatus.progress = 1f;

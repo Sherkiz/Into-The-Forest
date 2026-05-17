@@ -1,5 +1,7 @@
-using ITF.WorldGeneration;
+using ITF.Utilities;
+using ITF.World;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -61,6 +63,8 @@ namespace ITF.CustomTiles
                 var posOffset = multipleTilesObject.posOffsets[i] + (Vector3Int)multipleTilesObject.expandLeftBottom;
                 SetTile(position + posOffset, tile);
             }
+            Vector2Int realSize = multipleTilesObject.size;
+            Vector2Int realPos = new Vector2Int(position.x, position.y);
             if (multipleTilesObject.fillExpand)
             {
                 for (int y = 0; y < multipleTilesObject.size.y; y++)
@@ -81,12 +85,20 @@ namespace ITF.CustomTiles
                         SetTile(new Vector3Int(x, y) + position, placeHolderTile);
                     }
                 }
+                realSize -= multipleTilesObject.expandLeftBottom + multipleTilesObject.expandRightTop;
+                realPos += multipleTilesObject.expandLeftBottom;
             }
+            WorldManager.Map.AddMapObject(new MapObject(multipleTilesObject.name, new RectInt(realPos, realSize), multipleTilesObject.mapObjectType));
         }
         public void RemoveAllPlaceHolderTiles()
         {
             foreach (var pos in placeHolderTilesPosition) ClearTile(pos);
             placeHolderTilesPosition.Clear();
+        }
+        public void RemoveAllPlaceHolderTiles(int zPos)
+        {
+            foreach (var pos in placeHolderTilesPosition.Where(pos => pos.z == zPos)) ClearTile(pos);
+            placeHolderTilesPosition = placeHolderTilesPosition.ExceptWhere(pos => pos.z == zPos).ToList();
         }
         public bool IsPlaceable(int xSize, int ySize, Vector3Int pos)
         {
