@@ -71,7 +71,11 @@ namespace ITF.WorldGeneration
         IEnumerator GenerateCoroutine(GenerateStatus generateStatus, TilemapManager tilemap)
         {
             XorShiftRandom random = new((uint)RandomManager.GetSeedFor(name));
-            PathFinder pathFinder = BuildPathFinder(tilemap, tilemap.cellBounds, random);
+            PathFinder fakePathFinder = BuildFakePathFinder(tilemap, tilemap.cellBounds, random);
+            generateStatus.progress = .25f;
+            yield return null;
+
+            PathFinder pathFinder = BuildPathFinder(tilemap, tilemap.cellBounds);
             generateStatus.progress = .5f;
             yield return null;
 
@@ -113,36 +117,43 @@ namespace ITF.WorldGeneration
                     endPos.y = object1.range.yMax;
                 }
 
-                var path = pathFinder.FindPath(startPos, endPos);
-                Vector2Int pos1 = startPos;
-                for(int j = 0; j < path.path.Count; j++)
+                var path = pathFinder.FindPath(startPos, endPos, true);
+                if (path.path == null)
                 {
-                    Vector2Int pos2 = path.path[j];
-                    if(pos1.x == pos2.x)
+                    path = fakePathFinder.FindPath(startPos, endPos);
+                    if (path.path != null)
                     {
-                        int yMax = Mathf.Max(pos1.y, pos2.y);
-                        for (int y = Mathf.Min(pos1.y, pos2.y); y <= yMax; y++)
+                        Vector2Int pos1 = startPos;
+                        for (int j = 0; j < path.path.Count; j++)
                         {
-                            int xMin = pos1.x - pathWidth / 2;
-                            for (int x = 0; x < pathWidth; x++)
+                            Vector2Int pos2 = path.path[j];
+                            if (pos1.x == pos2.x)
                             {
-                                TryRemoveTree(tilemap, xMin + x, y);
+                                int yMax = Mathf.Max(pos1.y, pos2.y);
+                                for (int y = Mathf.Min(pos1.y, pos2.y); y <= yMax; y++)
+                                {
+                                    int xMin = pos1.x - pathWidth / 2;
+                                    for (int x = 0; x < pathWidth; x++)
+                                    {
+                                        TryRemoveTree(tilemap, xMin + x, y);
+                                    }
+                                }
                             }
+                            else
+                            {
+                                int xMax = Mathf.Max(pos1.x, pos2.x);
+                                for (int x = Mathf.Min(pos1.x, pos2.x); x <= xMax; x++)
+                                {
+                                    int yMin = pos1.y - pathWidth / 2;
+                                    for (int y = 0; y < pathWidth; y++)
+                                    {
+                                        TryRemoveTree(tilemap, x, yMin + y);
+                                    }
+                                }
+                            }
+                            pos1 = pos2;
                         }
                     }
-                    else
-                    {
-                        int xMax = Mathf.Max(pos1.x, pos2.x);
-                        for (int x = Mathf.Min(pos1.x, pos2.x); x <= xMax; x++)
-                        {
-                            int yMin = pos1.y - pathWidth / 2;
-                            for (int y = 0; y < pathWidth; y++)
-                            {
-                                TryRemoveTree(tilemap, x, yMin + y);
-                            }
-                        }
-                    }
-                    pos1 = pos2;
                 }
 
                 object1 = object2;
@@ -161,7 +172,7 @@ namespace ITF.WorldGeneration
             yield break;
         }
 
-        PathFinder BuildPathFinder(TilemapManager tilemap, BoundsInt bounds, XorShiftRandom random)
+        PathFinder BuildFakePathFinder(TilemapManager tilemap, BoundsInt bounds, XorShiftRandom random)
         {
             Vector2 noiseStart = new(random.Range(noiseRange.x, noiseRange.y), random.Range(noiseRange.x, noiseRange.y));
 
@@ -189,7 +200,33 @@ namespace ITF.WorldGeneration
                         : maxCosts);
                 }
             }
-            Debug.Log($"map: {map.Count}, {map[0].Count}");
+            return new PathFinder(map, hierachies, defaultCost, maxCosts);
+        }
+
+        PathFinder BuildPathFinder(TilemapManager tilemap, BoundsInt bounds)
+        {
+            var size = bounds.size;
+            List<List<int>> map = new(size.x);
+            for (int x = 0; x < size.x; x++)
+            {
+                int xPos = x + bounds.xMin;
+                map.Add(new List<int>(size.y));
+                for (int y = 0; y < size.y; y++)
+                {
+                    int yPos = y + bounds.yMin;
+                    bool passable = true;
+                    for (int z = bounds.zMin; z < bounds.zMax; z++)
+                    {
+                        TileBase tile = tilemap.GetTile(new Vector3Int(xPos, yPos, z));
+                        if (tile != null)
+                        {
+                            passable = false;
+                            break;
+                        }
+                    }
+                    map[x].Add(passable ? defaultCost : maxCosts);
+                }
+            }
             return new PathFinder(map, hierachies, defaultCost, maxCosts);
         }
 

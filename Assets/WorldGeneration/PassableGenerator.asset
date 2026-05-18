@@ -18,7 +18,7 @@ MonoBehaviour:
   defaultCost: 10
   hierachies:
   - {x: 26, y: 18}
-  pathWidth: 3
+  pathWidth: 1
   noiseScale: 0.1
   noiseRange: {x: 0, y: 100}
   treeTopLeft: {fileID: 11400000, guid: f386fc095e207424eaa386d6580e5e71, type: 2}
