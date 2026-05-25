@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf1fb7b8a409db4bb808abdf67f1e50, type: 3}
   m_Name: crystal_tree_3
   m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesResource
-  name: crystal_tree_2
+  name: crystal_tree_3
   size: {x: 2, y: 2}
   tiles:
   - {fileID: 11400000, guid: 58b8baf3f750e3b479baa4d066faefde, type: 2}

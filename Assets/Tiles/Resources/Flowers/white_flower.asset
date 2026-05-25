@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf1fb7b8a409db4bb808abdf67f1e50, type: 3}
   m_Name: white_flower
   m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesResource
-  name: blue_flower
+  name: white_flower
   size: {x: 1, y: 1}
   tiles:
   - {fileID: 11400000, guid: 5ad51fe8e3b56324f921e09c00500621, type: 2}

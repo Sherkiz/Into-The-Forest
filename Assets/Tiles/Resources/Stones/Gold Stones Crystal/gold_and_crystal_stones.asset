@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf1fb7b8a409db4bb808abdf67f1e50, type: 3}
   m_Name: gold_and_crystal_stones
   m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesResource
-  name: crystal_tree_1
-  size: {x: 2, y: 2}
+  name: gold_and_crystal_stone
+  size: {x: 4, y: 4}
   tiles:
   - {fileID: 11400000, guid: 3230c68ecd5cc8c47aa22828f65dd04b, type: 2}
   - {fileID: 11400000, guid: 5b7c2f30ffd4cbb45a9e6a66a063e98e, type: 2}
@@ -24,8 +24,8 @@ MonoBehaviour:
   - {x: 1, y: 1, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}
-  expandLeftBottom: {x: 0, y: 0}
-  expandRightTop: {x: 0, y: 0}
-  fillExpand: 0
+  expandLeftBottom: {x: 1, y: 1}
+  expandRightTop: {x: 1, y: 1}
+  fillExpand: 1
   mapObjectType: 2
   harvestTileIndexes: 0200000003000000
