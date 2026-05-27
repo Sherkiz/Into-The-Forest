@@ -21,7 +21,7 @@ MonoBehaviour:
   - buildingTiles: {fileID: 11400000, guid: f540ca47898f69644be3e5160741cdd3, type: 2}
     num: {x: 1, y: 0}
   mapRange:
-    x: 359
+    x: 479
     y: 7
     width: 16
     height: 27

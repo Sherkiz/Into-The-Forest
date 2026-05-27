@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fe179d64b2da3e4fa4b17f499cb08aa, type: 3}
-  m_Name: EnemySpawner355Generator
+  m_Name: EnemySpawner481Generator
   m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldGeneration.BuildingGenerator
-  name: enemy_spawner_generator_355
+  name: enemy_spawner_generator_481
   buildingGenerationInfos:
   - buildingTiles: {fileID: 11400000, guid: 4baa15c44070068498619333865abf12, type: 2}
-    num: {x: 0, y: 4}
+    num: {x: 0, y: 2}
   - buildingTiles: {fileID: 11400000, guid: ca6df82ca48963843bc61337ea79680c, type: 2}
-    num: {x: 0, y: 4}
+    num: {x: 0, y: 2}
   - buildingTiles: {fileID: 11400000, guid: cbfd2497d029bf84ba0a6115e63453a9, type: 2}
-    num: {x: 0, y: 4}
+    num: {x: 0, y: 2}
   - buildingTiles: {fileID: 11400000, guid: 5168a6f78a4111f4d9a228a0d64baa99, type: 2}
-    num: {x: 0, y: 4}
+    num: {x: 0, y: 2}
   - buildingTiles: {fileID: 11400000, guid: 9fa28d34379134846a85dd628db35e38, type: 2}
-    num: {x: 1, y: 3}
+    num: {x: 1, y: 1}
   mapRange:
-    x: 355
+    x: 481
     y: 2
-    width: 63
+    width: 36
     height: 32
   distanceRateRange: {x: 2, y: 10}

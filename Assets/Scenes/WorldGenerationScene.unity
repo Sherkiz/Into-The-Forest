@@ -156,7 +156,7 @@ MonoBehaviour:
     generators:
     - {fileID: 11400000, guid: 549dfc00736eae94ba46ea3d56fe4ea5, type: 2}
     tilemap: {fileID: 2146821449}
-    worldSize: {x: 390, y: 36, z: 1}
+    worldSize: {x: 520, y: 36, z: 1}
   - name: objects
     generators:
     - {fileID: 11400000, guid: 3e2906386efdbe040b81f494b952a810, type: 2}
@@ -174,13 +174,15 @@ MonoBehaviour:
     - {fileID: 11400000, guid: c5083af42a9f532488a651118cef5843, type: 2}
     - {fileID: 11400000, guid: a68ac4e5450375c49a5eb7386d3ffe7b, type: 2}
     - {fileID: 11400000, guid: 595c9aac78a443148bee983b28b7c2e2, type: 2}
+    - {fileID: 11400000, guid: 4db778ae1ff9d884790f7a9c2e17e8d5, type: 2}
+    - {fileID: 11400000, guid: 51bdec8964e84584a9ab6f767c2a387a, type: 2}
     - {fileID: 11400000, guid: 71297d9fa8e650744adeeea98f831849, type: 2}
     - {fileID: 11400000, guid: b8a91b42b7771c6418514cd19cb7cb5e, type: 2}
     - {fileID: 11400000, guid: 5d468fdd8b4e65b43af24152430f48ad, type: 2}
     - {fileID: 11400000, guid: dd819edf6a2d3634987ece47a2761517, type: 2}
     - {fileID: 11400000, guid: 621c60dc1cbc1404fa698395d80b0138, type: 2}
     tilemap: {fileID: 2036913485}
-    worldSize: {x: 390, y: 36, z: 2}
+    worldSize: {x: 520, y: 36, z: 2}
   onSeedInitialized: {fileID: 11400000, guid: bfd13a9ca335fe848852ee8f94f97d1d, type: 2}
 --- !u!114 &171417064
 MonoBehaviour:
@@ -424,7 +426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ITF.CameraControl.CameraControllerSkillTree
   mouseDraggingSpeed: 1
   mouseZoomSpeed: 1
-  cameraXBounds: {x: 0, y: 249.6}
+  cameraXBounds: {x: 0, y: 332.8}
   cameraYBounds: {x: 0, y: 23}
   minSize: 5
   maxSize: 10

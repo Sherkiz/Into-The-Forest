@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fe179d64b2da3e4fa4b17f499cb08aa, type: 3}
-  m_Name: EnemySpawner355Generator
+  m_Name: EnemySpawner418Generator
   m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldGeneration.BuildingGenerator
-  name: enemy_spawner_generator_355
+  name: enemy_spawner_generator_418
   buildingGenerationInfos:
   - buildingTiles: {fileID: 11400000, guid: 4baa15c44070068498619333865abf12, type: 2}
     num: {x: 0, y: 4}
@@ -25,7 +25,7 @@ MonoBehaviour:
   - buildingTiles: {fileID: 11400000, guid: 9fa28d34379134846a85dd628db35e38, type: 2}
     num: {x: 1, y: 3}
   mapRange:
-    x: 355
+    x: 418
     y: 2
     width: 63
     height: 32
