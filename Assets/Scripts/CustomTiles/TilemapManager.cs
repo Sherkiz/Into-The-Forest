@@ -1,5 +1,7 @@
-using ITF.WorldGeneration;
+using ITF.Utilities;
+using ITF.World;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -19,14 +21,15 @@ namespace ITF.CustomTiles
             }
             if (!cellBounds.Contains(pos)) 
             {
-                Debug.Log("Tried to place tile " + tile.name + " out of bounds! (At position " + pos + ")");
+                if(tile != null) Debug.Log("Tried to place tile " + tile.name + " out of bounds! (At position " + pos + ")");
                 return; 
             }
             tilemap.SetTile(pos, tile);
-
+            if (tile == placeHolderTile) placeHolderTilesPosition.Add(pos);
             if (tile != null && setTileOccupied) occupiedTiles[pos] = tile;
         }
         public void SetTile(Vector2Int pos, TileBase tile) => SetTile(new Vector3Int(pos.x, pos.y), tile);
+        public void ClearTile(Vector3Int pos) => SetTile(pos, null);
         public bool TrySetTile(Vector3Int pos, TileBase tile, bool setTileOccupied = true)
         {
             if (GetTile(pos) != null) return false;
@@ -36,26 +39,9 @@ namespace ITF.CustomTiles
                 return true;
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pos">Position of the center tile</param>
-        /// <param name="xNeighbors">Number of tiles in the x direction to set occupied.</param>
-        /// <param name="yNeighbors">Number of tiles in the y direction to set occupied.</param>
-        public void SetNeighborsOccupied(Vector2Int pos, int xNeighbors, int yNeighbors)
-        {
-            for (int x = -xNeighbors; x <= xNeighbors; x++) 
-            {
-                for (int y = -yNeighbors; x <= yNeighbors; x++)
-                {
-                    if (x == 0 && y == 0) continue;
-                    occupiedTiles[(Vector3Int) (pos + new Vector2Int(x, y))] = placeHolderTile;
-                }
-            }
-        }
         public TileBase GetTile(Vector3Int pos)
         {
-            if (!cellBounds.Contains(pos)) Debug.Log("Out of bounds");
+            if (!cellBounds.Contains(pos)) return null;
             return tilemap.GetTile(pos);
         }
         public TileBase GetTile(Vector2Int pos) => GetTile(new Vector3Int(pos.x, pos.y));
@@ -68,6 +54,7 @@ namespace ITF.CustomTiles
         }
         private Dictionary<Vector3Int, TileBase> occupiedTiles = new();
         public Dictionary<Vector3Int, TileBase> OccupiedTiles {  get => occupiedTiles; }
+        private List<Vector3Int> placeHolderTilesPosition = new();
         public void PlaceMultipleTiles(MultipleTilesObject multipleTilesObject, Vector3Int position)
         {
             for (int i = 0; i < multipleTilesObject.tiles.Length; i++)
@@ -76,6 +63,42 @@ namespace ITF.CustomTiles
                 var posOffset = multipleTilesObject.posOffsets[i] + (Vector3Int)multipleTilesObject.expandLeftBottom;
                 SetTile(position + posOffset, tile);
             }
+            Vector2Int realSize = multipleTilesObject.size;
+            Vector2Int realPos = new Vector2Int(position.x, position.y);
+            if (multipleTilesObject.fillExpand)
+            {
+                for (int y = 0; y < multipleTilesObject.size.y; y++)
+                {
+                    for (int x = 0; x < multipleTilesObject.expandLeftBottom.x; x++)
+                        SetTile(new Vector3Int(x, y) + position, placeHolderTile);
+                    for (int x = multipleTilesObject.size.x - multipleTilesObject.expandRightTop.x; x < multipleTilesObject.size.x; x++)
+                        SetTile(new Vector3Int(x, y) + position, placeHolderTile);
+                }
+                for (int x = multipleTilesObject.size.x - multipleTilesObject.expandRightTop.x; x >= multipleTilesObject.expandLeftBottom.x; x--)
+                {
+                    for (int y = 0; y < multipleTilesObject.expandLeftBottom.y; y++)
+                    {
+                        SetTile(new Vector3Int(x, y) + position, placeHolderTile);
+                    }
+                    for (int y = multipleTilesObject.size.y - multipleTilesObject.expandRightTop.y; y < multipleTilesObject.size.y; y++)
+                    {
+                        SetTile(new Vector3Int(x, y) + position, placeHolderTile);
+                    }
+                }
+                realSize -= multipleTilesObject.expandLeftBottom + multipleTilesObject.expandRightTop;
+                realPos += multipleTilesObject.expandLeftBottom;
+            }
+            WorldManager.Map.AddMapObject(new MapObject(multipleTilesObject.name, new RectInt(realPos, realSize), multipleTilesObject.mapObjectType));
+        }
+        public void RemoveAllPlaceHolderTiles()
+        {
+            foreach (var pos in placeHolderTilesPosition) ClearTile(pos);
+            placeHolderTilesPosition.Clear();
+        }
+        public void RemoveAllPlaceHolderTiles(int zPos)
+        {
+            foreach (var pos in placeHolderTilesPosition.Where(pos => pos.z == zPos)) ClearTile(pos);
+            placeHolderTilesPosition = placeHolderTilesPosition.ExceptWhere(pos => pos.z == zPos).ToList();
         }
         public bool IsPlaceable(int xSize, int ySize, Vector3Int pos)
         {
@@ -101,6 +124,7 @@ namespace ITF.CustomTiles
         {
             tilemap.ClearAllTiles();
             occupiedTiles.Clear();
+            placeHolderTilesPosition.Clear();
         }
         private void Awake()
         {

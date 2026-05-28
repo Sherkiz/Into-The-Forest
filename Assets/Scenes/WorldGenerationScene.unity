@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 171417065}
   - component: {fileID: 171417064}
   - component: {fileID: 171417063}
+  - component: {fileID: 171417066}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -155,7 +156,7 @@ MonoBehaviour:
     generators:
     - {fileID: 11400000, guid: 549dfc00736eae94ba46ea3d56fe4ea5, type: 2}
     tilemap: {fileID: 2146821449}
-    worldSize: {x: 195, y: 18, z: 1}
+    worldSize: {x: 520, y: 36, z: 1}
   - name: objects
     generators:
     - {fileID: 11400000, guid: 3e2906386efdbe040b81f494b952a810, type: 2}
@@ -173,11 +174,15 @@ MonoBehaviour:
     - {fileID: 11400000, guid: c5083af42a9f532488a651118cef5843, type: 2}
     - {fileID: 11400000, guid: a68ac4e5450375c49a5eb7386d3ffe7b, type: 2}
     - {fileID: 11400000, guid: 595c9aac78a443148bee983b28b7c2e2, type: 2}
+    - {fileID: 11400000, guid: 4db778ae1ff9d884790f7a9c2e17e8d5, type: 2}
+    - {fileID: 11400000, guid: 51bdec8964e84584a9ab6f767c2a387a, type: 2}
+    - {fileID: 11400000, guid: 71297d9fa8e650744adeeea98f831849, type: 2}
     - {fileID: 11400000, guid: b8a91b42b7771c6418514cd19cb7cb5e, type: 2}
     - {fileID: 11400000, guid: 5d468fdd8b4e65b43af24152430f48ad, type: 2}
     - {fileID: 11400000, guid: dd819edf6a2d3634987ece47a2761517, type: 2}
+    - {fileID: 11400000, guid: 621c60dc1cbc1404fa698395d80b0138, type: 2}
     tilemap: {fileID: 2036913485}
-    worldSize: {x: 390, y: 36, z: 2}
+    worldSize: {x: 520, y: 36, z: 2}
   onSeedInitialized: {fileID: 11400000, guid: bfd13a9ca335fe848852ee8f94f97d1d, type: 2}
 --- !u!114 &171417064
 MonoBehaviour:
@@ -206,8 +211,31 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 192884475}
+  - {fileID: 767217060}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &171417066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171417062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec047601ac8f5a41bb21cf802502ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.World.WorldManager
+  map:
+    _tilemaps:
+    - {fileID: 2146821448}
+    - {fileID: 2036913484}
+    pathfindingMapName: Objects
+    maxCosts: 99999999
+    defaultCost: 10
+    hierachies:
+    - {x: 26, y: 18}
+    maxTraverse: 5000
 --- !u!1 &192884473
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +261,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 192884473}
   m_Enabled: 1
-  m_CellSize: {x: 1.28, y: 1.28, z: 0}
+  m_CellSize: {x: 0.64, y: 0.64, z: 0}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
@@ -398,7 +426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ITF.CameraControl.CameraControllerSkillTree
   mouseDraggingSpeed: 1
   mouseZoomSpeed: 1
-  cameraXBounds: {x: 0, y: 249.6}
+  cameraXBounds: {x: 0, y: 332.8}
   cameraYBounds: {x: 0, y: 23}
   minSize: 5
   maxSize: 10
@@ -479,13 +507,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767217058}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2036913482}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 171417065}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &977880492
 GameObject:
@@ -1407,7 +1435,7 @@ GameObject:
   - component: {fileID: 2036913483}
   - component: {fileID: 2036913485}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: Objects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1534,7 +1562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb4a2bcda49b374a907b8a15d295993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.TilemapManager
-  placeHolderTile: {fileID: 0}
+  placeHolderTile: {fileID: 11400000, guid: b197902a323716842b5a12715dabaef3, type: 2}
 --- !u!1 &2056792257
 GameObject:
   m_ObjectHideFlags: 0
@@ -1652,7 +1680,7 @@ GameObject:
   - component: {fileID: 2146821447}
   - component: {fileID: 2146821449}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: Grasses
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1779,7 +1807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb4a2bcda49b374a907b8a15d295993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.TilemapManager
-  placeHolderTile: {fileID: 0}
+  placeHolderTile: {fileID: 11400000, guid: b197902a323716842b5a12715dabaef3, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1787,6 +1815,5 @@ SceneRoots:
   - {fileID: 307428061}
   - {fileID: 2056792261}
   - {fileID: 171417065}
-  - {fileID: 767217060}
   - {fileID: 977880495}
   - {fileID: 1899966879}

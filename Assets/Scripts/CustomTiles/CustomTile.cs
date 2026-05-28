@@ -13,7 +13,7 @@ namespace ITF.CustomTiles
         /// <summary>
         /// The cost of passing through this Tile
         /// </summary>
-        public int PassCose { get; set; }
+        public int PassCost { get; set; }
     }
 
     public enum TileType
@@ -21,7 +21,9 @@ namespace ITF.CustomTiles
         None,
         Tree,
         Resource,
-        Road
+        Road,
+        Building,
+        Spawner,
     }
 
 }

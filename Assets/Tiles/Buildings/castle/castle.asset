@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e978d463036084e42bf4c05a7c1cb29b, type: 3}
+  m_Name: castle
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesBuilding
+  name: castle
+  size: {x: 7, y: 7}
+  tiles:
+  - {fileID: 11400000, guid: c5d5cd446ae9a5143aeff1c9f8f88644, type: 2}
+  - {fileID: 11400000, guid: 3f2b7fc7570c9a744867abf7960f0e42, type: 2}
+  - {fileID: 11400000, guid: ec352887c92867942a689b06a0710a33, type: 2}
+  - {fileID: 11400000, guid: 35aa670998b4e2f49a900374364fab3a, type: 2}
+  - {fileID: 11400000, guid: f3d959a9eb7f75846a60d668fd874d16, type: 2}
+  - {fileID: 11400000, guid: 3e269865a5bbb0f4a8db400972f68294, type: 2}
+  - {fileID: 11400000, guid: ec79f8790945ad44fa63baaedfc6e5f6, type: 2}
+  - {fileID: 11400000, guid: a3d44dd89d59f574d86ad19952346d73, type: 2}
+  - {fileID: 11400000, guid: 8f9ea8adfdfb8b341ab9b4e8175e2735, type: 2}
+  - {fileID: 11400000, guid: 505f67eedd05ccb4d800bd8cc419909e, type: 2}
+  - {fileID: 11400000, guid: 46af18a8fb2fcec4bb40ca4ae36dedac, type: 2}
+  - {fileID: 11400000, guid: d926e25c7ecc71648baf92ab7355e30f, type: 2}
+  - {fileID: 11400000, guid: 172205b69ce3cea42b82b148ae58f733, type: 2}
+  - {fileID: 11400000, guid: e59dad88c4165224fb106a1763b93c34, type: 2}
+  - {fileID: 11400000, guid: 38008686b5842b74d981cde45816d5c1, type: 2}
+  - {fileID: 11400000, guid: fe9d4d9c4b5add749a33e012a90eac19, type: 2}
+  - {fileID: 11400000, guid: ca5f0214b7eb1a346b0908a109580953, type: 2}
+  - {fileID: 11400000, guid: 2cfeca2afb4758c4f883139e1d8d55f9, type: 2}
+  - {fileID: 11400000, guid: e689e7160561ce64882635011264f4c7, type: 2}
+  - {fileID: 11400000, guid: 18fde86573de4e74fbc363b2aab0c0c3, type: 2}
+  - {fileID: 11400000, guid: 50edf62266308504180cebe469b8c52e, type: 2}
+  - {fileID: 11400000, guid: d1579f866b4a53945851ad73506610eb, type: 2}
+  - {fileID: 11400000, guid: 71d2cbab2dbaed44785f2d3b6cfe4e09, type: 2}
+  - {fileID: 11400000, guid: b8e0a6a695b5d2a48a0bb1d0260098a2, type: 2}
+  - {fileID: 11400000, guid: e972703549046db43a12905ce02ab085, type: 2}
+  posOffsets:
+  - {x: 0, y: 4, z: 0}
+  - {x: 1, y: 4, z: 0}
+  - {x: 2, y: 4, z: 0}
+  - {x: 3, y: 4, z: 0}
+  - {x: 4, y: 4, z: 0}
+  - {x: 0, y: 3, z: 0}
+  - {x: 1, y: 3, z: 0}
+  - {x: 2, y: 3, z: 0}
+  - {x: 3, y: 3, z: 0}
+  - {x: 4, y: 3, z: 0}
+  - {x: 0, y: 2, z: 0}
+  - {x: 1, y: 2, z: 0}
+  - {x: 2, y: 2, z: 0}
+  - {x: 3, y: 2, z: 0}
+  - {x: 4, y: 2, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 1, y: 1, z: 0}
+  - {x: 2, y: 1, z: 0}
+  - {x: 3, y: 1, z: 0}
+  - {x: 4, y: 1, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  - {x: 2, y: 0, z: 0}
+  - {x: 3, y: 0, z: 0}
+  - {x: 4, y: 0, z: 0}
+  expandLeftBottom: {x: 1, y: 1}
+  expandRightTop: {x: 1, y: 1}
+  fillExpand: 1
+  mapObjectType: 4
+  entranceTileIndex: 19
