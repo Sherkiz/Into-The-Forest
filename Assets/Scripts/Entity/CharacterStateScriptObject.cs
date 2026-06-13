@@ -4,15 +4,15 @@ using UnityEngine;
 namespace ITF.Entity
 {
 
-    [CreateAssetMenu(fileName = "CharacterAttribute", menuName = "ITF/Entity/CharacterAttribute")]
-    public class CharacterAttributeScriptObject : ScriptableObject
+    [CreateAssetMenu(fileName = "CharacterState", menuName = "ITF/Entity/CharacterState")]
+    public class CharacterStateScriptObject : ScriptableObject
     {
         public float maxHealth;
         public float health;
         public float power;
         public float speed;
 
-        public CharacterAttribute ToCharacterAttribute(bool isConstant)
+        public CharacterState ToCharacterAttribute(Character host, bool isConstant)
         {
             var attributes = new Dictionary<CharacterAttributeType, float>
             {
@@ -21,7 +21,7 @@ namespace ITF.Entity
                 { CharacterAttributeType.Power, power },
                 { CharacterAttributeType.Speed, speed }
             };
-            return new CharacterAttribute(attributes, isConstant);
+            return new CharacterState(attributes, host, isConstant);
         }
     }
 

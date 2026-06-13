@@ -1,30 +1,46 @@
+using ITF.EventChannels;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace ITF.Entity
 {
 
-    public abstract class Character : MonoBehaviour
+    public abstract class Character : MonoBehaviour, IReferencer
     {
-        public abstract CharacterAttribute BaseAttribute { get; }
-        public abstract CharacterAttribute CurrentAttribute { get; }
+        public abstract CharacterState BaseState { get; }
+        public abstract CharacterState CurrentState { get; }
+
+        public abstract bool Inited { get; }
+
+        public abstract GameObject GetReference(string name);
+        public abstract void SetOrAddReference(string name, GameObject reference);
+
+        public abstract void Init();
+
+        public abstract void Deinit();
     }
 
     [System.Serializable]
-    public class CharacterAttribute
+    public class CharacterState
     {
         Dictionary<CharacterAttributeType, float> attributes = new();
 
+        GameEvent<CharacterState, CharacterAttributeChangedInfo> gameEvent = new();
+        public GameEvent<CharacterState, CharacterAttributeChangedInfo> GameEvent { get { return gameEvent; } }
+
+        public readonly Character host;
         public readonly bool isConstant;
 
-        public CharacterAttribute(bool isConstant)
+        public CharacterState(Character host, bool isConstant)
         {
+            this.host = host;
             this.isConstant = isConstant;
         }
 
-        public CharacterAttribute(Dictionary<CharacterAttributeType, float> attributes, bool isConstant)
+        public CharacterState(Dictionary<CharacterAttributeType, float> attributes, Character host, bool isConstant)
         {
             this.attributes = attributes;
+            this.host = host;
             this.isConstant = isConstant;
         }
 
@@ -36,7 +52,9 @@ namespace ITF.Entity
             }
             if(attributes.ContainsKey(type))
             {
-                attributes[type] = value;
+                CharacterAttributeChangedInfo changeInfo = new CharacterAttributeChangedInfo(type, attributes[type], value);
+                gameEvent.Invoke(this, changeInfo);
+                attributes[type] = changeInfo.newValue;
             }
         }
 
@@ -50,9 +68,23 @@ namespace ITF.Entity
             return attributes.ContainsKey(type);
         }
 
-        public CharacterAttribute Clone()
+        public CharacterState Clone()
         {
-            return new CharacterAttribute(new Dictionary<CharacterAttributeType, float>(attributes), isConstant);
+            return new CharacterState(new Dictionary<CharacterAttributeType, float>(attributes), host, isConstant);
+        }
+    }
+
+    public class CharacterAttributeChangedInfo
+    {
+        public CharacterAttributeType AttributeType { get; private set; }
+        public readonly float oldValue;
+        public float newValue;
+
+        public CharacterAttributeChangedInfo(CharacterAttributeType attributeType, float oldValue, float newValue)
+        {
+            AttributeType = attributeType;
+            this.oldValue = oldValue; 
+            this.newValue = newValue;
         }
     }
 
