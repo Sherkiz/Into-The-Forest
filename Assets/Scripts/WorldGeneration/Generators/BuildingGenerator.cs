@@ -48,6 +48,8 @@ namespace ITF.WorldGeneration
         [SerializeField]
         BuildingGenerationInfo[] buildingGenerationInfos;
         [SerializeField] RectInt mapRange = new(5, 2, 22, 32);
+        [Tooltip("Range for the first building. Let it to default to not restrict spawn area."), SerializeField]
+        private RectInt firstBuildingRange;
         [Tooltip("The rate of distance between buildings, [x, y]")]
         public Vector2 distanceRateRange = new(1, 2);
 
@@ -119,7 +121,8 @@ namespace ITF.WorldGeneration
 
             // Start with a random point
             var firstBuilding = generatings[0];
-            Vector2Int firstPoint = new((int)random.Range(minX, maxX - firstBuilding.size.x), (int)random.Range(minY, maxY - firstBuilding.size.y));
+            if (firstBuildingRange == RectInt.zero) firstBuildingRange = mapRange;
+            Vector2Int firstPoint = new((int)random.Range(firstBuildingRange.xMin, firstBuildingRange.xMax - firstBuilding.size.x), (int)random.Range(firstBuildingRange.yMin, firstBuildingRange.xMax - firstBuilding.size.y));
             RectInt firstRect = new RectInt(firstPoint, firstBuilding.size);
             int triesCount = 0;
             while ((Overlap(firstRect, buildingRects) || Overlap(firstRect, excludedPoints)) && triesCount < 100)
