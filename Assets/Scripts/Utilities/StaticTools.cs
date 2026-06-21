@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace ITF.Utilities
 {
@@ -39,6 +40,20 @@ namespace ITF.Utilities
             }
 
             return BinaryIndex(array, e, order, start, end);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vec"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        public static Vector2 RotateVector2(Vector2 vec, float angle)
+        {
+            float rad = Mathf.Deg2Rad * angle;
+            float sin = Mathf.Sin(rad);
+            float cos = Mathf.Cos(rad);
+            return new(vec.x * cos - vec.y * sin, vec.x * sin + vec.y * cos);
         }
 
     }

@@ -37,6 +37,31 @@ namespace ITF.World
         /// </summary>
         public Action<Map> onBuilt;
 
+        public void Init()
+        {
+            tilemaps = new Dictionary<string, Tilemap>();
+            foreach (var tilemap in _tilemaps)
+            {
+                tilemaps.Add(tilemap.name, tilemap);
+            }
+        }
+
+        public TileBase GetTileOnPathfingTilemap(Vector2Int index)
+        {
+            if (tilemaps.TryGetValue(pathfindingMapName, out Tilemap tilemap))
+            {
+                for(int z = tilemap.cellBounds.zMin; z < tilemap.cellBounds.zMax; z++)
+                {
+                    var tile = tilemap.GetTile(new Vector3Int(index.x, index.y, z));
+                    if (tile != null)
+                    {
+                        return tile;
+                    }
+                }
+            }
+            return null;
+        }
+
         public void Rebuild()
         {
             if(rebuildTask != null && rebuildTask.Running)
