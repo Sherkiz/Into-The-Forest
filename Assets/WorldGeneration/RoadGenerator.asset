@@ -20,8 +20,8 @@ MonoBehaviour:
   roadTileTJonctionDown: {fileID: 11400000, guid: 8180b37387f121a4b9d35dec3dcd6c2e, type: 2}
   roadTileTJonctionLeft: {fileID: 11400000, guid: ac7681edb83210945af607a493f09eaf, type: 2}
   roadTileTJonctionRight: {fileID: 11400000, guid: c57f3b3e63c7b45449b907b25ca5fa64, type: 2}
-  roadTileCornerUpLeft: {fileID: 11400000, guid: bc588a599e572c145be77ba027124ed1, type: 2}
-  roadTileCornerUpRight: {fileID: 11400000, guid: 76897d69a8abfed48892f4f91c6f5acc, type: 2}
+  roadTileCornerUpLeft: {fileID: 11400000, guid: 76897d69a8abfed48892f4f91c6f5acc, type: 2}
+  roadTileCornerUpRight: {fileID: 11400000, guid: bc588a599e572c145be77ba027124ed1, type: 2}
   roadTileCornerDownLeft: {fileID: 11400000, guid: 6423adf8486c13d4daba0967446dcd99, type: 2}
   roadTileCornerDownRight: {fileID: 11400000, guid: d763f94103fde9f4a94b7d25a21e4966, type: 2}
   roadTile4Jonction: {fileID: 11400000, guid: 68a7350a2785eab4eb3a8a37cecfae80, type: 2}
@@ -32,5 +32,6 @@ MonoBehaviour:
   pathfindingHierachies:
   - {x: 26, y: 18}
   pathfindingMaxCost: 99999999
+  pathfindingRoadCost: 4
   pathfindingDefaultCost: 10
-  roadZ: 0
+  roadZ: 2

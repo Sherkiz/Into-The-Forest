@@ -48,6 +48,7 @@ namespace ITF.WorldGeneration
         [Space(20)]
         [SerializeField] private Vector2Int[] pathfindingHierachies;
         [SerializeField] private int pathfindingMaxCost = 9999_9999;
+        [SerializeField] private int pathfindingRoadCost = 4;
         [SerializeField] private int pathfindingDefaultCost = 10;
         [SerializeField] private int roadZ = 0;
 
@@ -191,6 +192,7 @@ namespace ITF.WorldGeneration
                                     for (int x = Mathf.Min(lastRoadPos.x, newRoadPos.x); x <= Mathf.Max(lastRoadPos.x, newRoadPos.x); x++)
                                     {
                                         roadTilesPositionList.Add(new Vector3Int(x, pos.y + bounds.yMin, roadZ));
+                                        pathFinder.UpdateMap(new Vector2Int(x, pos.y + bounds.yMin), new int[][] { new int[] { pathfindingRoadCost } }); //Could be done in one call instead of calling it in the loop
                                     }
                                 }
                                 if (Mathf.Abs(lastRoadPos.y - newRoadPos.y) > 1)
@@ -198,11 +200,13 @@ namespace ITF.WorldGeneration
                                     for (int y = Mathf.Min(lastRoadPos.y, newRoadPos.y); y <= Mathf.Max(lastRoadPos.y, newRoadPos.y); y++)
                                     {
                                         roadTilesPositionList.Add(new Vector3Int(pos.x, y, roadZ));
+                                        pathFinder.UpdateMap(new Vector2Int(pos.x, pos.y), new int[][] { new int[] { pathfindingRoadCost } });
                                     }
                                 }
                             }
                             lastRoadPos = newRoadPos;
                             roadTilesPositionList.Add(lastRoadPos);
+                            pathFinder.UpdateMap(new Vector2Int(lastRoadPos.x, lastRoadPos.y), new int[][] { new int[] { pathfindingRoadCost } });
                         }
                     }
                     else
@@ -218,7 +222,6 @@ namespace ITF.WorldGeneration
 
             yield break;
         }
-
         private PathFinder BuildPathFinder(TilemapManager tilemap)
         {
             var bounds = tilemap.cellBounds;
