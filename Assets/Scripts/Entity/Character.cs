@@ -1,6 +1,7 @@
 using ITF.EventChannels;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace ITF.Entity
 {
@@ -11,6 +12,10 @@ namespace ITF.Entity
         public abstract CharacterState CurrentState { get; }
 
         public abstract bool Inited { get; }
+
+        public abstract UnityEvent<Character> OnInited { get; }
+
+        public abstract UnityEvent<Character> OnDeinited { get; }
 
         public abstract GameObject GetReference(string name);
         public abstract void SetOrAddReference(string name, GameObject reference);

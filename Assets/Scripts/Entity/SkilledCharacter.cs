@@ -28,6 +28,16 @@ namespace ITF.Entity
         public PassiveSkillAddor[] PassiveSkillAddors => (PassiveSkillAddor[])passiveSkillAddors.Clone();
         List<PassiveSkill> passiveSkills = new();
 
+        #region Events
+
+        [SerializeField]
+        UnityEvent<Character> onInited;
+        public override UnityEvent<Character> OnInited => onInited;
+
+        [SerializeField]
+        UnityEvent<Character> onDeinited;
+        public override UnityEvent<Character> OnDeinited => onDeinited;
+
         [SerializeField]
         UnityEvent<IStateContainer, StateUnit> onStateUnitAdded;
         public UnityEvent<IStateContainer, StateUnit> OnStateUnitAdded => onStateUnitAdded;
@@ -35,6 +45,8 @@ namespace ITF.Entity
         [SerializeField]
         UnityEvent<IStateContainer, StateUnit> onStateUnitRemoved;
         public UnityEvent<IStateContainer, StateUnit> OnStateUnitRemoved => onStateUnitRemoved;
+
+        #endregion
 
         #region public methods
 
