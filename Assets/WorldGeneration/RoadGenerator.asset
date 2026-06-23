@@ -32,6 +32,6 @@ MonoBehaviour:
   pathfindingHierachies:
   - {x: 26, y: 18}
   pathfindingMaxCost: 99999999
-  pathfindingRoadCost: 4
-  pathfindingDefaultCost: 10
+  pathfindingRoadCost: 15
+  pathfindingDefaultCost: 20
   roadZ: 2

@@ -34,6 +34,7 @@ namespace ITF.World
         private void Awake()
         {
             if (instance == null) instance = this;
+            Map.mapObjectList = new();
         }
 
         private void OnDestroy()

@@ -48,9 +48,9 @@ namespace ITF.WorldGeneration
         [Space(20)]
         [SerializeField] private Vector2Int[] pathfindingHierachies;
         [SerializeField] private int pathfindingMaxCost = 9999_9999;
-        [SerializeField] private int pathfindingRoadCost = 4;
-        [SerializeField] private int pathfindingDefaultCost = 10;
-        [SerializeField] private int roadZ = 0;
+        [SerializeField] private int pathfindingRoadCost = 15;
+        [SerializeField] private int pathfindingDefaultCost = 50;
+        [SerializeField] private int roadZ = 2;
 
         // Map the generate status to the task, 
         Dictionary<GenerateStatus, Task> statusTaskMap = new();
@@ -176,37 +176,47 @@ namespace ITF.WorldGeneration
                 for (int i = 1; i < playerBuildings.Length; i++)
                 {
                     MapObject building = playerBuildings[i];
-                    ResultPath path = pathFinder.FindPath(firstBuilding.range.position, building.range.position, false);
-                    Vector3Int lastRoadPos = (Vector3Int) firstBuilding.range.position;
+                    ResultPath path = pathFinder.FindPath(firstBuilding.pathEntrancePosition, building.pathEntrancePosition, false);
+                    Vector3Int lastRoadPos = firstBuilding.pathEntrancePosition;
                     Debug.Log(building.name);
-                    Debug.Log(building.range.position);
+                    Debug.Log(building.pathEntrancePosition);
                     if (path.path != null)
                     {
                         foreach (var pos in path.path)
                         {
+                            Debug.Log(pos);
                             Vector3Int newRoadPos = new Vector3Int(pos.x + bounds.xMin, pos.y + bounds.yMin, roadZ);
-                            if (lastRoadPos != Vector3Int.zero)
+                            if (Mathf.Abs(lastRoadPos.x - newRoadPos.x) > 1)
                             {
-                                if (Mathf.Abs(lastRoadPos.x - newRoadPos.x) > 1)
+                                for (int x = Mathf.Min(lastRoadPos.x, newRoadPos.x); x <= Mathf.Max(lastRoadPos.x, newRoadPos.x); x++)
                                 {
-                                    for (int x = Mathf.Min(lastRoadPos.x, newRoadPos.x); x <= Mathf.Max(lastRoadPos.x, newRoadPos.x); x++)
+                                    Vector3Int roadPos = new Vector3Int(x, pos.y + bounds.yMin, roadZ);
+                                    if (!roadTilesPositionList.Contains(roadPos))
                                     {
-                                        roadTilesPositionList.Add(new Vector3Int(x, pos.y + bounds.yMin, roadZ));
-                                        pathFinder.UpdateMap(new Vector2Int(x, pos.y + bounds.yMin), new int[][] { new int[] { pathfindingRoadCost } }); //Could be done in one call instead of calling it in the loop
-                                    }
-                                }
-                                if (Mathf.Abs(lastRoadPos.y - newRoadPos.y) > 1)
-                                {
-                                    for (int y = Mathf.Min(lastRoadPos.y, newRoadPos.y); y <= Mathf.Max(lastRoadPos.y, newRoadPos.y); y++)
-                                    {
-                                        roadTilesPositionList.Add(new Vector3Int(pos.x, y, roadZ));
-                                        pathFinder.UpdateMap(new Vector2Int(pos.x, pos.y), new int[][] { new int[] { pathfindingRoadCost } });
+                                        roadTilesPositionList.Add(roadPos);
+                                        pathFinder.UpdateMap(new Vector2Int(roadPos.x, roadPos.y), new int[][] { new int[] { pathfindingRoadCost } }); //Could be done in one call instead of calling it in the loop
                                     }
                                 }
                             }
+                            if (Mathf.Abs(lastRoadPos.y - newRoadPos.y) > 1)
+                            {
+                                for (int y = Mathf.Min(lastRoadPos.y, newRoadPos.y); y <= Mathf.Max(lastRoadPos.y, newRoadPos.y); y++)
+                                {
+                                    Vector3Int roadPos = new Vector3Int(pos.x + bounds.xMin, y, roadZ);
+                                    if (!roadTilesPositionList.Contains(roadPos))
+                                    {
+                                        roadTilesPositionList.Add(roadPos);
+                                        pathFinder.UpdateMap(new Vector2Int(roadPos.x, roadPos.y), new int[][] { new int[] { pathfindingRoadCost } });
+                                    }
+                                }
+                            }
+                            
                             lastRoadPos = newRoadPos;
-                            roadTilesPositionList.Add(lastRoadPos);
-                            pathFinder.UpdateMap(new Vector2Int(lastRoadPos.x, lastRoadPos.y), new int[][] { new int[] { pathfindingRoadCost } });
+                            if (!roadTilesPositionList.Contains(lastRoadPos))
+                            {
+                                roadTilesPositionList.Add(lastRoadPos);
+                                pathFinder.UpdateMap(new Vector2Int(lastRoadPos.x, lastRoadPos.y), new int[][] { new int[] { pathfindingRoadCost } });
+                            }
                         }
                     }
                     else

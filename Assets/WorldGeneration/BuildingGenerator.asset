@@ -37,7 +37,7 @@ MonoBehaviour:
     height: 32
   firstBuildingRange:
     x: 5
-    y: 2
+    y: 8
     width: 22
     height: 10
   distanceRateRange: {x: 1, y: 2}

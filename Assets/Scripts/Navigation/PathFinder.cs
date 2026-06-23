@@ -91,6 +91,18 @@ namespace ITF.Navigation
         }
 
         /// <summary>
+        /// Find path based on hierarchical A* algorithm
+        /// </summary>
+        /// <param name="startPoint"></param>
+        /// <param name="endPoint"></param>
+        /// <param name="isAbstract">Whether only find abstract path, false by default</param>
+        /// <returns>returns the found path, if the search fails, the returned path will be null</returns>
+        public ResultPath FindPath(Vector3Int startPoint, Vector3Int endPoint, bool isAbstract = false)
+        {
+            return FindPath(new Vector2Int(startPoint.x, startPoint.y), new Vector2Int(endPoint.x, endPoint.y), isAbstract);
+        }
+
+        /// <summary>
         /// Find path based on A*
         /// </summary>
         /// <param name="map">map costs</param>
