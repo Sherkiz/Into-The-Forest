@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: warriors_hall
   m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesBuilding
   name: warriors_hall
-  size: {x: 6, y: 6}
+  size: {x: 7, y: 7}
   tiles:
   - {fileID: 11400000, guid: ff38c09ed32d07b4795dbfd21984c5cc, type: 2}
   - {fileID: 11400000, guid: 32cda5ab8f9fa314596d15e43ebb4a35, type: 2}
@@ -41,24 +41,33 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6c686378e2db09943ae13df7e37c1356, type: 2}
   - {fileID: 11400000, guid: f301550b0532d2046b52266250b7d74e, type: 2}
   posOffsets:
+  - {x: 0, y: 4, z: 0}
+  - {x: 1, y: 4, z: 0}
+  - {x: 2, y: 4, z: 0}
+  - {x: 3, y: 4, z: 0}
+  - {x: 4, y: 4, z: 0}
   - {x: 0, y: 3, z: 0}
   - {x: 1, y: 3, z: 0}
   - {x: 2, y: 3, z: 0}
   - {x: 3, y: 3, z: 0}
+  - {x: 4, y: 3, z: 0}
   - {x: 0, y: 2, z: 0}
   - {x: 1, y: 2, z: 0}
   - {x: 2, y: 2, z: 0}
   - {x: 3, y: 2, z: 0}
+  - {x: 4, y: 2, z: 0}
   - {x: 0, y: 1, z: 0}
   - {x: 1, y: 1, z: 0}
   - {x: 2, y: 1, z: 0}
   - {x: 3, y: 1, z: 0}
+  - {x: 4, y: 1, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}
   - {x: 2, y: 0, z: 0}
   - {x: 3, y: 0, z: 0}
+  - {x: 4, y: 0, z: 0}
   expandLeftBottom: {x: 1, y: 1}
   expandRightTop: {x: 1, y: 1}
   fillExpand: 1
   mapObjectType: 4
-  entranceTileIndex: 13
+  entranceTileIndex: 21
