@@ -125,6 +125,7 @@ namespace ITF.WorldGeneration
                             }
                         }
                         int xOffset = random.Range(0, 101) > (101 - (xOffsetPercentChance + bonusOffsetChance)) ? 1 : 0;
+                        if (x + xOffset >= bounds.xMax) continue;
                         Vector3Int treePos = new Vector3Int(x + xOffset, y, bottomZ);
                         if (tilemap.IsPlaceable(2, 2, treePos))
                         {
