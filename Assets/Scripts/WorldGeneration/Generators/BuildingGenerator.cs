@@ -122,7 +122,7 @@ namespace ITF.WorldGeneration
             // Start with a random point
             var firstBuilding = generatings[0];
             if (firstBuildingRange == RectInt.zero) firstBuildingRange = mapRange;
-            Vector2Int firstPoint = new((int)random.Range(firstBuildingRange.xMin, firstBuildingRange.xMax - firstBuilding.size.x), (int)random.Range(firstBuildingRange.yMin, firstBuildingRange.xMax - firstBuilding.size.y));
+            Vector2Int firstPoint = new((int)random.Range(firstBuildingRange.xMin, firstBuildingRange.xMax - firstBuilding.size.x), (int)random.Range(firstBuildingRange.yMin, firstBuildingRange.yMax - firstBuilding.size.y));
             RectInt firstRect = new RectInt(firstPoint, firstBuilding.size);
             int triesCount = 0;
             while ((Overlap(firstRect, buildingRects) || Overlap(firstRect, excludedPoints)) && triesCount < 100)
