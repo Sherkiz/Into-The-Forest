@@ -98,9 +98,9 @@ namespace ITF.WorldGeneration
             int generatedCount = 0;
             int totalCells = size.x * size.y;
             int counter = 0;
-            for (int x = bounds.xMin; x < bounds.xMax; x++)
+            for (int x = bounds.xMin - 1; x < bounds.xMax; x++)
             {
-                for(int y = bounds.yMin; y < bounds.yMax; y++)
+                for(int y = bounds.yMin - 1; y < bounds.yMax; y++)
                 {
                     generatedCount++;
                     counter++;
@@ -109,8 +109,6 @@ namespace ITF.WorldGeneration
                     float worleyValue = worleyNoise.Sample2D(x * worleyScale.x, y * worleyScale.y);
                     if (noiseValue < density && worleyValue > minWorleyValue)
                     {
-                        //Avoid covering other tile
-                        //RectInt treeRect = new RectInt(x, y, 2, 2);
                         int bonusOffsetChance = 0;
                         if (tilemap.GetTile(new Vector3Int(x,y, topZ)) == tileTopLeft)
                         {
@@ -129,8 +127,8 @@ namespace ITF.WorldGeneration
                         Vector3Int treePos = new Vector3Int(x + xOffset, y, bottomZ);
                         if (tilemap.IsPlaceable(2, 2, treePos))
                         {
-                            tilemap.SetTile(treePos, tileBottomLeft);
-                            if (x + xOffset + 1 < bounds.xMax) tilemap.SetTile(treePos + Vector3Int.right, tileBottomRight);
+                            if (x + xOffset >= bounds.xMin && y >= bounds.yMin) tilemap.SetTile(treePos, tileBottomLeft);
+                            if (x + xOffset + 1 < bounds.xMax && y >= bounds.yMin) tilemap.SetTile(treePos + Vector3Int.right, tileBottomRight);
                             if (y + 1 < bounds.yMax)
                             {
                                 tilemap.SetTile(treePos + new Vector3Int(0, 1, topZ - bottomZ), tileTopLeft);
