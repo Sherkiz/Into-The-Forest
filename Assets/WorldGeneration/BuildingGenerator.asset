@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldGeneration.BuildingGenerator
   name: building_generator
   buildingGenerationInfos:
-  - buildingTiles: {fileID: 11400000, guid: 19b1300bc9442d24385791dc7f362b8a, type: 2}
-    num: {x: 1, y: 0}
   - buildingTiles: {fileID: 11400000, guid: 3a740cd4150513b4e8c46f200835ffa5, type: 2}
+    num: {x: 1, y: 0}
+  - buildingTiles: {fileID: 11400000, guid: 19b1300bc9442d24385791dc7f362b8a, type: 2}
     num: {x: 1, y: 0}
   - buildingTiles: {fileID: 11400000, guid: f9e867c83c78f7d47ac4af97555594a7, type: 2}
     num: {x: 3, y: 0}
@@ -35,4 +35,9 @@ MonoBehaviour:
     y: 2
     width: 22
     height: 32
+  firstBuildingRange:
+    x: 5
+    y: 8
+    width: 22
+    height: 10
   distanceRateRange: {x: 1, y: 2}

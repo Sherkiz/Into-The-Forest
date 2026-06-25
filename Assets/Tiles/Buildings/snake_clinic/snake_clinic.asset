@@ -52,4 +52,4 @@ MonoBehaviour:
   expandRightTop: {x: 1, y: 1}
   fillExpand: 1
   mapObjectType: 4
-  entranceTileIndex: 17
+  entranceTileIndex: 14

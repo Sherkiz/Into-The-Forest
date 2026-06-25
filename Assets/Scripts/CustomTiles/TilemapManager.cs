@@ -88,7 +88,7 @@ namespace ITF.CustomTiles
                 realSize -= multipleTilesObject.expandLeftBottom + multipleTilesObject.expandRightTop;
                 realPos += multipleTilesObject.expandLeftBottom;
             }
-            WorldManager.Map.AddMapObject(new MapObject(multipleTilesObject.name, new RectInt(realPos, realSize), multipleTilesObject.mapObjectType));
+            WorldManager.Map.AddMapObject(new MapObject(multipleTilesObject, new RectInt(realPos, realSize)));
         }
         public void RemoveAllPlaceHolderTiles()
         {

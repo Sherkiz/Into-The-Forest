@@ -130,7 +130,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 192
+        y: 256
         width: 64
         height: 64
       alignment: 0
@@ -152,7 +152,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 192
+        y: 256
         width: 64
         height: 64
       alignment: 0
@@ -174,7 +174,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 192
+        y: 256
         width: 64
         height: 64
       alignment: 0
@@ -195,7 +195,7 @@ TextureImporter:
       name: warriors_hall_3
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 192
         width: 64
         height: 64
@@ -217,8 +217,8 @@ TextureImporter:
       name: warriors_hall_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
+        x: 64
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -239,8 +239,8 @@ TextureImporter:
       name: warriors_hall_5
       rect:
         serializedVersion: 2
-        x: 64
-        y: 128
+        x: 128
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -261,8 +261,8 @@ TextureImporter:
       name: warriors_hall_6
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
+        x: 192
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -283,8 +283,8 @@ TextureImporter:
       name: warriors_hall_7
       rect:
         serializedVersion: 2
-        x: 192
-        y: 128
+        x: 256
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -306,7 +306,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -328,7 +328,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 64
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -350,7 +350,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 64
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -372,7 +372,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 64
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -393,8 +393,8 @@ TextureImporter:
       name: warriors_hall_12
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 256
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -415,8 +415,8 @@ TextureImporter:
       name: warriors_hall_13
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 0
+        y: 64
         width: 64
         height: 64
       alignment: 0
@@ -437,8 +437,8 @@ TextureImporter:
       name: warriors_hall_14
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
+        x: 64
+        y: 64
         width: 64
         height: 64
       alignment: 0
@@ -459,8 +459,8 @@ TextureImporter:
       name: warriors_hall_15
       rect:
         serializedVersion: 2
-        x: 192
-        y: 0
+        x: 128
+        y: 64
         width: 64
         height: 64
       alignment: 0
@@ -473,6 +473,160 @@ TextureImporter:
       bones: []
       spriteID: 093ec08c00146dd41a24e436f600bb74
       internalID: -1426504942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: warriors_hall_16
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bab05ff75a030349b0ccc638ebb1dcf
+      internalID: -1143277208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: warriors_hall_17
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bef2babbd2fbfb6489bbf9dd06d52038
+      internalID: -1153587014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: warriors_hall_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfa989547487e2a44bb1ebb41b5a5aee
+      internalID: 1239970510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: warriors_hall_19
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff134294720cee04fab5be04b2e1503b
+      internalID: 493729604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: warriors_hall_20
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 915c6bab99378674787a92114bf7b0c5
+      internalID: 883837979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: warriors_hall_21
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dda1b9ac3a3ca3344a62386348bc5ba1
+      internalID: 282178042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: warriors_hall_22
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6feec2371f698a408b5b95a0df5ff19
+      internalID: 1527709854
       vertices: []
       indices: 
       edges: []
@@ -501,7 +655,14 @@ TextureImporter:
       warriors_hall_13: -1529766702
       warriors_hall_14: 922270333
       warriors_hall_15: -1426504942
+      warriors_hall_16: -1143277208
+      warriors_hall_17: -1153587014
+      warriors_hall_18: 1239970510
+      warriors_hall_19: 493729604
       warriors_hall_2: -801944526
+      warriors_hall_20: 883837979
+      warriors_hall_21: 282178042
+      warriors_hall_22: 1527709854
       warriors_hall_3: 417042253
       warriors_hall_4: 35498412
       warriors_hall_5: -1474164611
