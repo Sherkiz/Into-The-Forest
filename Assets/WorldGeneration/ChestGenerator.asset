@@ -18,5 +18,6 @@ MonoBehaviour:
   spawnProbability: 0.3
   spawnSize: {x: 5, y: 5}
   chestTile: {fileID: 11400000, guid: ba8185a08b18f474683ec64bb3470550, type: 2}
-  excludedSpawnerNames: []
+  excludedSpawnerNames:
+  - skeleton_cursed_tree_boss
   zPosition: 0

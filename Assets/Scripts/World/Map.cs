@@ -27,7 +27,8 @@ namespace ITF.World
         [Space(20)]
         public int maxTraverse = 5_000;
 
-        List<MapObject> mapObjectList = new();
+        [SerializeField]
+        public List<MapObject> mapObjectList = new();
 
         Task rebuildTask;
         PathFinder pathFinder;
@@ -154,12 +155,21 @@ namespace ITF.World
         public readonly string name;
         public readonly RectInt range;
         public readonly TileType type;
-
-        public MapObject(string name, RectInt range, TileType type)
+        public readonly Vector3Int entranceOffset;
+        public Vector3Int pathEntrancePosition { get => new Vector3Int(range.xMin, range.yMin) + entranceOffset; }
+        public MapObject(string name, RectInt range, TileType type, Vector3Int entranceOffset)
         {
             this.name = name;
             this.range = range;
             this.type = type;
+            this.entranceOffset = entranceOffset;
+        }
+        public MapObject(MultipleTilesObject multipleTilesObject, RectInt range)
+        {
+            name = multipleTilesObject.name;
+            this.range = range;
+            type = multipleTilesObject.mapObjectType;
+            if (multipleTilesObject is MultipleTilesBuilding building) entranceOffset = building.posOffsets[building.entranceTileIndex];
         }
     }
 
