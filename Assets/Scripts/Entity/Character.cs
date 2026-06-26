@@ -11,6 +11,8 @@ namespace ITF.Entity
         public abstract CharacterState BaseState { get; }
         public abstract CharacterState CurrentState { get; }
 
+        public abstract Faction Faction { get; }
+
         public abstract bool Inited { get; }
 
         public abstract UnityEvent<Character> OnInited { get; }

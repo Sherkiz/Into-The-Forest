@@ -20,6 +20,9 @@ namespace ITF.Entity
         CharacterState currentState;
         public override CharacterState CurrentState => currentState;
 
+        [SerializeField] Faction faction;
+        public override Faction Faction => faction;
+
         bool inited = false;
         public override bool Inited => inited;
 
