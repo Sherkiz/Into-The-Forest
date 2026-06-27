@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ITF.CustomTiles;
+using ITF.World;
 
 namespace ITF.WorldGeneration
 {
@@ -107,6 +108,8 @@ namespace ITF.WorldGeneration
             }
             Debug.Log("Generated!");
             generating = null;
+
+            WorldManager.RebuildMap();
         }
     }
 }

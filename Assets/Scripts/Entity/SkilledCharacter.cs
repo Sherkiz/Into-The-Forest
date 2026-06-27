@@ -77,6 +77,9 @@ namespace ITF.Entity
         {
             if(inited) return;
 
+            baseState = _characterStateScriptObject.ToCharacterState(this, true);
+            currentState = _characterStateScriptObject.ToCharacterState(this, false);
+
             //add passive skills
             foreach (var addor in passiveSkillAddors)
             {

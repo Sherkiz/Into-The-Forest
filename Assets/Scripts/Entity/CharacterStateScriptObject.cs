@@ -12,16 +12,16 @@ namespace ITF.Entity
         public float power;
         public float speed;
 
-        public CharacterState ToCharacterAttribute(Character host, bool isConstant)
+        public CharacterState ToCharacterState(Character host, bool isConstant)
         {
-            var attributes = new Dictionary<CharacterAttributeType, float>
+            var states = new Dictionary<CharacterStateType, float>
             {
-                { CharacterAttributeType.MaxHealth, maxHealth },
-                { CharacterAttributeType.Health, health },
-                { CharacterAttributeType.Power, power },
-                { CharacterAttributeType.Speed, speed }
+                { CharacterStateType.MaxHealth, maxHealth },
+                { CharacterStateType.Health, health },
+                { CharacterStateType.Power, power },
+                { CharacterStateType.Speed, speed }
             };
-            return new CharacterState(attributes, host, isConstant);
+            return new CharacterState(states, host, isConstant);
         }
     }
 

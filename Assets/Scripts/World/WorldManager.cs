@@ -37,6 +37,11 @@ namespace ITF.World
             Map.mapObjectList = new();
         }
 
+        private void Start()
+        {
+            map.Init();
+        }
+
         private void OnDestroy()
         {
             if (instance == this) instance = null;

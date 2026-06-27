@@ -1,5 +1,6 @@
 using ITF.Entity;
 using ITF.Utilities;
+using ITF.World;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -34,7 +35,7 @@ namespace ITF.Spawners
 
         private void Update()
         {
-            if(maxSpawnCount > 0 && spawnCount >= maxSpawnCount) return;
+            if(maxSpawnCount > 0 && spawnCount >= maxSpawnCount || !WorldManager.IsMapBuilt) return;
             spawnTimer += Time.deltaTime;
             if (spawnTimer > spawnInterval)
             {
@@ -43,6 +44,7 @@ namespace ITF.Spawners
                 {
                     character.transform.position = transform.position;
                 }
+                character.Init();
                 spawnTimer = 0;
             }
         }

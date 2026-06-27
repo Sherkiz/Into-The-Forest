@@ -30,10 +30,10 @@ namespace ITF.Entity
     [System.Serializable]
     public class CharacterState
     {
-        Dictionary<CharacterAttributeType, float> attributes = new();
+        Dictionary< CharacterStateType, float> states = new();
 
-        GameEvent<CharacterState, CharacterAttributeChangedInfo> gameEvent = new();
-        public GameEvent<CharacterState, CharacterAttributeChangedInfo> GameEvent { get { return gameEvent; } }
+        GameEvent<CharacterState, CharacterStateChangedInfo> gameEvent = new();
+        public GameEvent<CharacterState, CharacterStateChangedInfo> GameEvent { get { return gameEvent; } }
 
         public readonly Character host;
         public readonly bool isConstant;
@@ -44,58 +44,58 @@ namespace ITF.Entity
             this.isConstant = isConstant;
         }
 
-        public CharacterState(Dictionary<CharacterAttributeType, float> attributes, Character host, bool isConstant)
+        public CharacterState(Dictionary<CharacterStateType, float> states, Character host, bool isConstant)
         {
-            this.attributes = attributes;
+            this.states = states;
             this.host = host;
             this.isConstant = isConstant;
         }
 
-        public void SetAttribute(CharacterAttributeType type, float value)
+        public void SetState(CharacterStateType type, float value)
         {
             if (isConstant)
             {
                 throw new System.InvalidOperationException("Cannot modify a constant attribute.");
             }
-            if(attributes.ContainsKey(type))
+            if(states.ContainsKey(type))
             {
-                CharacterAttributeChangedInfo changeInfo = new CharacterAttributeChangedInfo(type, attributes[type], value);
+                CharacterStateChangedInfo changeInfo = new CharacterStateChangedInfo(type, states[type], value);
                 gameEvent.Invoke(this, changeInfo);
-                attributes[type] = changeInfo.newValue;
+                states[type] = changeInfo.newValue;
             }
         }
 
-        public float GetAttribute(CharacterAttributeType type)
+        public float GetState(CharacterStateType type)
         {
-            return attributes.TryGetValue(type, out var value) ? value : 0f;
+            return states.TryGetValue(type, out var value) ? value : 0f;
         }
 
-        public bool HasAttribute(CharacterAttributeType type)
+        public bool HasState(CharacterStateType type)
         {
-            return attributes.ContainsKey(type);
+            return states.ContainsKey(type);
         }
 
         public CharacterState Clone()
         {
-            return new CharacterState(new Dictionary<CharacterAttributeType, float>(attributes), host, isConstant);
+            return new CharacterState(new Dictionary<CharacterStateType, float>(states), host, isConstant);
         }
     }
 
-    public class CharacterAttributeChangedInfo
+    public class CharacterStateChangedInfo
     {
-        public CharacterAttributeType AttributeType { get; private set; }
+        public CharacterStateType StateType { get; private set; }
         public readonly float oldValue;
         public float newValue;
 
-        public CharacterAttributeChangedInfo(CharacterAttributeType attributeType, float oldValue, float newValue)
+        public CharacterStateChangedInfo(CharacterStateType stateType, float oldValue, float newValue)
         {
-            AttributeType = attributeType;
+            StateType = stateType;
             this.oldValue = oldValue; 
             this.newValue = newValue;
         }
     }
 
-    public enum CharacterAttributeType
+    public enum CharacterStateType
     {
         None = 0,
         MaxHealth = 1,

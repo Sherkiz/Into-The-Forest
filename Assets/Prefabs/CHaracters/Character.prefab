@@ -101,6 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 731240851754272692}
   - component: {fileID: 4201692041151325823}
+  - component: {fileID: 4547293591931355322}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -171,6 +172,35 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4547293591931355322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7732646135270022565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d57e9bd6a7c7f84db1cadc212a3e26c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.Entity.SkilledCharacter
+  references:
+    _serializedList: []
+  _characterStateScriptObject: {fileID: 11400000, guid: fe497cbc86fdc2a4c884e586a0b303b9, type: 2}
+  faction: 0
+  passiveSkillAddors: []
+  onInited:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeinited:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateUnitAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateUnitRemoved:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8321932690919186855
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,6 +217,7 @@ GameObject:
   - component: {fileID: 4918405215348479888}
   - component: {fileID: 8590167534101260851}
   - component: {fileID: 5098530968101432185}
+  - component: {fileID: 732630971783486986}
   m_Layer: 0
   m_Name: BehaviourTree
   m_TagString: Untagged
@@ -360,3 +391,16 @@ MonoBehaviour:
   minDistance: 3
   maxDistance: 10
   stopInterval: {x: 1, y: 3}
+--- !u!114 &732630971783486986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8321932690919186855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e5f392bbea2fa2499665ed8b604ff86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.MBTExecutor
+  monoBehaviourTree: {fileID: 1482194911924581511}

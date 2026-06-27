@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 707c3b2d354ae7a4cba0beebba07cf96, type: 3}
+  m_Name: CharacterSpawnerGenerator
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldGeneration.CharacterSpawnerGenerator
+  name: character_spawner_generator
+  characterSpawnerGenerateUnits:
+  - mapObjectName: pentagram_fire_demons
+    spawnerPrefab: {fileID: 3843382216890802491, guid: 31ed88dc437265e4c9176649f7248ed3, type: 3}

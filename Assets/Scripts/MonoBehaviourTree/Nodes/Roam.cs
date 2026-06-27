@@ -28,7 +28,8 @@ namespace ITF.BehaviourTree.Nodes
         public override void OnEnter()
         {
             stopTimer = 0;
-            if(character == null) character = host.GetVariable().GetComponent<Character>();
+            if(character == null) character = host.Value.GetComponent<Character>();
+            Debug.Log($"character:{host.Value}");
         }
 
         public override NodeResult Execute()
@@ -53,7 +54,7 @@ namespace ITF.BehaviourTree.Nodes
                 }
 
                 //move to target position
-                float speed = character.CurrentState.GetAttribute(CharacterAttributeType.Speed);
+                float speed = character.CurrentState.GetState(CharacterStateType.Speed);
                 character.transform.position = Vector2.MoveTowards(character.transform.position, path.path[pathIndex], speed * Time.deltaTime);
                 if((Vector2)character.transform.position == path.path[pathIndex])
                 {
