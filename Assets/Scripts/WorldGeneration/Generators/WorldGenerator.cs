@@ -3,7 +3,6 @@ using ITF.Math;
 using ITF.Utilities;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using ITF.CustomTiles;
 
@@ -30,8 +29,12 @@ namespace ITF.WorldGeneration
 
         [SerializeField]
         GenerationUnit[] generationUnits;
+        [Space(20), Header("Events")]
         [SerializeField] 
         IntEventChannelSO onSeedInitialized;
+        [SerializeField] private FloatEventChannelSO loadingValueEvent;
+        [SerializeField] private StringEventChannelSO loadingMessageEvent;
+        [SerializeField] private VoidEventChannelSO onLoadingCompleted;
 
         Task generating;
 
@@ -89,6 +92,7 @@ namespace ITF.WorldGeneration
                 generationUnit.tilemap.ResizeBounds();
                 var generators = generationUnit.generators;
                 Debug.Log($"Generating {generationUnit.name}...");
+                loadingMessageEvent.RaiseEvent($"Generating {generationUnit.name}...");
                 for (int i = 0; i < generators.Length; i++)
                 {
                     var status = generators[i].Generate(generationUnit.tilemap);
@@ -101,11 +105,13 @@ namespace ITF.WorldGeneration
                             yield break;
                         }
                         Debug.Log($"Generating {(i + status.progress) / generators.Length * 100f}%");
+                        loadingValueEvent.RaiseEvent((i + status.progress) / generators.Length);
                         yield return null;
                     }
                 }
             }
             Debug.Log("Generated!");
+            onLoadingCompleted.RaiseEvent();
             generating = null;
         }
     }
