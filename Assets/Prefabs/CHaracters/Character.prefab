@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 731240851754272692}
   - component: {fileID: 4201692041151325823}
   - component: {fileID: 4547293591931355322}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 8590167534101260851}
   - component: {fileID: 5098530968101432185}
   - component: {fileID: 732630971783486986}
+  - component: {fileID: 4569105541117542385}
   m_Layer: 0
   m_Name: BehaviourTree
   m_TagString: Untagged
@@ -271,6 +272,7 @@ MonoBehaviour:
   variables:
   - {fileID: 3900707452328558925}
   - {fileID: 8590167534101260851}
+  - {fileID: 4569105541117542385}
   masterBlackboard: {fileID: 0}
 --- !u!114 &3900707452328558925
 MonoBehaviour:
@@ -387,10 +389,19 @@ MonoBehaviour:
     blackboard: {fileID: 7931998564243900340}
     key: target_position
     constantValue: {x: 0, y: 0}
+  startCell:
+    useConstant: 0
+    mode: 0
+    blackboard: {fileID: 7931998564243900340}
+    key: start_cell
+    constantValue: {x: 0, y: 0}
   maxAngle: 360
   minDistance: 3
   maxDistance: 10
   stopInterval: {x: 1, y: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &732630971783486986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,3 +415,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.MBTExecutor
   monoBehaviourTree: {fileID: 1482194911924581511}
+--- !u!114 &4569105541117542385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8321932690919186855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa62ce5e63cc9d45ae0efc52561ace7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.Vector2Variable
+  key: start_cell
+  val: {x: 0, y: 0}

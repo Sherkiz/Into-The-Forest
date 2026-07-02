@@ -41,6 +41,11 @@ namespace ITF.Navigation
             mapCluster = new(lowerClusters, true);
         }
 
+        public float GetCost(Vector2Int point)
+        {
+            return map[point.x][point.y];
+        }
+
         /// <summary>
         /// 
         /// </summary>

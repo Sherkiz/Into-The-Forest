@@ -30,8 +30,28 @@ namespace ITF.World
         [SerializeField]
         public List<MapObject> mapObjectList = new();
 
+        Tilemap pathfindingTilemap;
+        public Tilemap PathfindingTilemap
+        {
+            get
+            {
+                if (pathfindingTilemap == null)
+                {
+                    if (!tilemaps.TryGetValue(pathfindingMapName, out pathfindingTilemap))
+                    {
+                        throw new Exception("Pathfinding map not found: " + pathfindingMapName);
+                    }
+                }
+                return pathfindingTilemap;
+            }
+        }
+
         Task rebuildTask;
         PathFinder pathFinder;
+
+        Texture2D mapTexture;
+        Sprite mapSprite;
+        public SpriteRenderer mapTextureRenderer;
 
         /// <summary>
         /// Triggered after the map is built.
@@ -61,6 +81,15 @@ namespace ITF.World
                 }
             }
             return null;
+        }
+
+        public bool IsPassable(Vector2Int cell)
+        {
+            if(cell.x < 0 || cell.y < 0 || cell.x >= PathfindingTilemap.size.x || cell.y >= PathfindingTilemap.size.y)
+            {
+                return false;
+            }
+            return pathFinder.GetCost(cell) < maxCosts;
         }
 
         public void Rebuild()
@@ -114,17 +143,14 @@ namespace ITF.World
                     costs.Add(costList);
                     for(int y = bound.yMin; y < bound.yMax; y++)
                     {
-                        for(int z = bound.zMin; z < bound.zMax; z++)
+                        int cost = defaultCost;
+                        for (int z = bound.zMin; z < bound.zMax; z++)
                         {
                             var tile = tilemap.GetTile(new Vector3Int(x, y, z));
                             if (tile != null)
                             {
-                                int cost = (tile is ICustomTile customTile) ? customTile.PassCost : maxCosts;
-                                costList.Add(cost);
-                            }
-                            else
-                            {
-                                costList.Add(defaultCost);
+                                cost = (tile is ICustomTile customTile) ? Mathf.Clamp(customTile.PassCost, 0, maxCosts) : maxCosts;
+                                break;
                             }
 
                             if(++counter >= maxTraverse)
@@ -133,6 +159,7 @@ namespace ITF.World
                                 counter = 0;
                             }
                         }
+                        costList.Add(cost);
                     }
                 }
             }
@@ -147,6 +174,42 @@ namespace ITF.World
 
             onBuilt?.Invoke(this);
             rebuildTask = null;
+
+            if(mapTexture == null)
+            {
+                mapTexture = new Texture2D(costs.Count, costs[0].Count);
+                mapTexture.filterMode = FilterMode.Point;
+                for(int i = 0; i < costs.Count; i++)
+                {
+                    for(int j = 0; j < costs[i].Count; j++)
+                    {
+                        int cost = costs[i][j];
+                        Color color = Color.white;
+                        if(cost >= maxCosts)
+                        {
+                            color = Color.black;
+                        }
+                        else if(cost > defaultCost)
+                        {
+                            color = Color.white;
+                        }
+                        mapTexture.SetPixel(i, j, color);
+                    }
+                }
+                mapTexture.Apply();
+                mapSprite = Sprite.Create(mapTexture, new Rect(0, 0, mapTexture.width, mapTexture.height), new Vector2(0.5f, 0.5f));
+                mapTextureRenderer.sprite = mapSprite;
+            }
+        }
+
+        void OnDestroy()
+        {
+            if(mapTexture != null)
+            {
+                UnityEngine.Object.Destroy(mapTexture);
+                UnityEngine.Object.Destroy(mapSprite);
+
+            }
         }
     }
 

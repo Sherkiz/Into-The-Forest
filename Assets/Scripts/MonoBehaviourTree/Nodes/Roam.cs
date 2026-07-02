@@ -14,11 +14,13 @@ namespace ITF.BehaviourTree.Nodes
     {
         public GameObjectReference host;
         public Vector2Reference targetPosition;
+        public Vector2Reference startCell;
 
         public float maxAngle = 360;
         public float minDistance = 3;
         public float maxDistance = 10;
         public Vector2 stopInterval = new(1, 3);
+        public LayerMask layerMask;
 
         private float stopTimer = 0;
         private Character character;
@@ -29,7 +31,6 @@ namespace ITF.BehaviourTree.Nodes
         {
             stopTimer = 0;
             if(character == null) character = host.Value.GetComponent<Character>();
-            Debug.Log($"character:{host.Value}");
         }
 
         public override NodeResult Execute()
@@ -41,7 +42,9 @@ namespace ITF.BehaviourTree.Nodes
                 {
                     stopTimer = 0;
                     targetPosition.Value = FindNextPosition();
-                    path = WorldManager.Map.FindPath(character.transform.position.RoundToVector2Int(), targetPosition.Value.ToVector2Int());
+                    Vector2Int startCell = (Vector2Int)WorldManager.Map.PathfindingTilemap.WorldToCell(character.transform.position);
+                    this.startCell.Value = startCell;
+                    path = WorldManager.Map.FindPath(startCell, targetPosition.Value.ToVector2Int());
                     pathIndex = 0;
                 }
             }
@@ -55,8 +58,10 @@ namespace ITF.BehaviourTree.Nodes
 
                 //move to target position
                 float speed = character.CurrentState.GetState(CharacterStateType.Speed);
-                character.transform.position = Vector2.MoveTowards(character.transform.position, path.path[pathIndex], speed * Time.deltaTime);
-                if((Vector2)character.transform.position == path.path[pathIndex])
+                Vector3 targetWorldPosition = WorldManager.Map.PathfindingTilemap.CellToWorld((Vector3Int)path.path[pathIndex]);
+                targetWorldPosition += (Vector3)Vector2.one * 0.5f; //center of the tile
+                character.transform.position = Vector2.MoveTowards(character.transform.position, targetWorldPosition, speed * Time.deltaTime);
+                if (character.transform.position == targetWorldPosition)
                 {
                     pathIndex++;
                 }
@@ -65,38 +70,60 @@ namespace ITF.BehaviourTree.Nodes
             return NodeResult.running;
         }
 
-        Vector2 FindNextPosition()
+        Vector2Int FindNextPosition()
         {
             var angle = Random.Range(0, maxAngle);
             Vector2 direction = host.GetVariable().transform.right;
             direction = StaticTools.RotateVector2(direction, angle);
             float distance = Random.Range(minDistance, maxDistance);
-            Vector2 targetPosition = GetFarestPosition((Vector2)host.Value.transform.position, direction, distance);
-            targetPosition = new((int)targetPosition.x + 0.5f, (int)targetPosition.y + 0.5f);
-            return targetPosition;
+            return GetFarestPosition((Vector2)host.Value.transform.position, direction, distance);
         }
 
-        Vector2 GetFarestPosition(Vector2 startPosition, Vector2 direction, float maxDistance)
+        Vector2Int GetFarestPosition(Vector2 startPosition, Vector2 direction, float maxDistance)
         {
-            RaycastHit2D hit = Physics2D.Raycast(startPosition, direction, maxDistance);
-            Vector2 targetPosition;
-            if (hit.collider != null)
-            {
-                targetPosition = hit.point;
-            }
-            else
-            {
-                targetPosition = startPosition + direction * maxDistance;
-            }
+            Vector3Int startCell = WorldManager.Map.PathfindingTilemap.WorldToCell(new((int)startPosition.x, (int)startPosition.y, 0));
+            Vector2Int farestCell = GetFarestPassableTile(new(startCell.x, startCell.y), direction, maxDistance);
+            return farestCell;
+        }
 
-            Vector2Int tilePos = new((int)targetPosition.x, (int)targetPosition.y);
-            while(Vector2.Distance(tilePos, startPosition) >= 1 && WorldManager.Map.GetTileOnPathfingTilemap(tilePos) != null)
+        static Vector2Int GetFarestPassableTile(Vector2Int startCell, Vector2 direction, float maxDistance)
+        {
+            Vector2 targetPosition = startCell + direction * maxDistance;
+            Vector2Int lastCell = startCell;
+            Vector2Int cell = new((int)targetPosition.x, (int)targetPosition.y);
+            for(float distance = 0; distance < maxDistance && WorldManager.Map.IsPassable(cell); distance += 1f)
             {
-                targetPosition -= direction;
-                tilePos = new((int)targetPosition.x, (int)targetPosition.y);
+                lastCell = cell;
+                do
+                {
+                    targetPosition += direction;
+                    cell = new((int)targetPosition.x, (int)targetPosition.y);
+                } while (cell == lastCell);
             }
+            return lastCell;
+        }
 
-            return targetPosition;
+        private void OnDrawGizmos()
+        {
+            if(path.path != null)
+            {
+                if(WorldManager.Instance == null || WorldManager.Map == null) return;
+
+                Gizmos.color = Color.green;
+                Vector2Int start = startCell.Value.ToVector2Int();
+                for (int i = 0; i < path.path.Count; i++)
+                {
+                    Vector2Int end = path.path[i];
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawLine(WorldManager.Map.PathfindingTilemap.CellToWorld((Vector3Int)start) + Vector3.one * .5f, 
+                        WorldManager.Map.PathfindingTilemap.CellToWorld((Vector3Int)end) + Vector3.one * .5f);
+                    start = end;
+                }
+
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(WorldManager.Map.PathfindingTilemap.CellToWorld((Vector3Int)startCell.Value.ToVector2Int()) + Vector3.one * .5f, 
+                    WorldManager.Map.PathfindingTilemap.CellToWorld((Vector3Int)targetPosition.Value.ToVector2Int()) + Vector3.one * .5f);
+            }
         }
     }
 

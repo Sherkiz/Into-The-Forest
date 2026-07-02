@@ -25,11 +25,15 @@ namespace ITF.Spawners
         UnityEvent<Character> onCharacterSpawned;
         public override UnityEvent<Character> OnCharacterSpawned => onCharacterSpawned;
 
+        public static int spawned = 0;
+
         public override Character SpawnCharacter()
         {
+            if (spawned > 0) return null;
             if (maxSpawnCount > 0 && spawnCount >= maxSpawnCount) return null;
             GameObject character = GameObjectPool.CreateGameObject(characterPrefab.gameObject);
             spawnCount++;
+            spawned++;
             return character.GetComponent<Character>();
         }
 
@@ -43,8 +47,8 @@ namespace ITF.Spawners
                 if (character != null)
                 {
                     character.transform.position = transform.position;
+                    character.Init();
                 }
-                character.Init();
                 spawnTimer = 0;
             }
         }
