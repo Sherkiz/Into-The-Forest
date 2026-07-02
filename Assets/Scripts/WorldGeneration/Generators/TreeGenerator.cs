@@ -131,7 +131,7 @@ namespace ITF.WorldGeneration
                             if (x + xOffset + 1 < bounds.xMax && y >= bounds.yMin) tilemap.SetTile(treePos + Vector3Int.right, tileBottomRight);
                             if (y + 1 < bounds.yMax)
                             {
-                                tilemap.SetTile(treePos + new Vector3Int(0, 1, topZ - bottomZ), tileTopLeft);
+                                if (x + xOffset >= bounds.xMin) tilemap.SetTile(treePos + new Vector3Int(0, 1, topZ - bottomZ), tileTopLeft);
                                 if (x + xOffset + 1 < bounds.xMax) tilemap.SetTile(treePos + new Vector3Int(1, 1, topZ - bottomZ), tileTopRight);
                             }
                         }
