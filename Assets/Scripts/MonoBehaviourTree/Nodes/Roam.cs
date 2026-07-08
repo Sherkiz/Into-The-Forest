@@ -102,29 +102,6 @@ namespace ITF.BehaviourTree.Nodes
             }
             return lastCell;
         }
-
-        private void OnDrawGizmos()
-        {
-            if(path.path != null)
-            {
-                if(WorldManager.Instance == null || WorldManager.Map == null) return;
-
-                Gizmos.color = Color.green;
-                Vector2Int start = startCell.Value.ToVector2Int();
-                for (int i = 0; i < path.path.Count; i++)
-                {
-                    Vector2Int end = path.path[i];
-                    Gizmos.color = Color.green;
-                    Gizmos.DrawLine(WorldManager.Map.PathfindingTilemap.CellToWorld((Vector3Int)start) + Vector3.one * .5f, 
-                        WorldManager.Map.PathfindingTilemap.CellToWorld((Vector3Int)end) + Vector3.one * .5f);
-                    start = end;
-                }
-
-                Gizmos.color = Color.red;
-                Gizmos.DrawLine(WorldManager.Map.PathfindingTilemap.CellToWorld((Vector3Int)startCell.Value.ToVector2Int()) + Vector3.one * .5f, 
-                    WorldManager.Map.PathfindingTilemap.CellToWorld((Vector3Int)targetPosition.Value.ToVector2Int()) + Vector3.one * .5f);
-            }
-        }
     }
 
 }

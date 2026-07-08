@@ -49,10 +49,6 @@ namespace ITF.World
         Task rebuildTask;
         PathFinder pathFinder;
 
-        Texture2D mapTexture;
-        Sprite mapSprite;
-        public SpriteRenderer mapTextureRenderer;
-
         /// <summary>
         /// Triggered after the map is built.
         /// </summary>
@@ -101,13 +97,13 @@ namespace ITF.World
             rebuildTask = new Task(BuildMap());
         }
 
-        public ResultPath FindPath(Vector2Int startPoint, Vector2Int endPoint)
+        public ResultPath FindPath(Vector2Int startPoint, Vector2Int endPoint, bool isAbstracth = false)
         {
             if (pathFinder == null)
             {
                 throw new Exception("Map not built yet.");
             }
-            return pathFinder.FindPath(startPoint, endPoint);
+            return pathFinder.FindPath(startPoint, endPoint, isAbstracth);
         }
 
         /// <summary>
@@ -127,6 +123,11 @@ namespace ITF.World
 
         public MapObject[] GetMapObjects() => mapObjectList.ToArray();
         public MapObject[] GetMapObjectsOfType(TileType tileType) => mapObjectList.Where(obj => obj.type == tileType).ToArray();
+
+        public void DrawGizmos()
+        {
+            pathFinder?.DrawGizmos(pathfindingTilemap);
+        }
 
         IEnumerator BuildMap()
         {
@@ -170,46 +171,10 @@ namespace ITF.World
 
             yield return null;
 
-            pathFinder = new PathFinder(costs, hierachies, defaultCost, maxCosts);
+            pathFinder = new PathFinder(costs, hierachies, defaultCost, maxCosts, 4);
 
             onBuilt?.Invoke(this);
             rebuildTask = null;
-
-            if(mapTexture == null)
-            {
-                mapTexture = new Texture2D(costs.Count, costs[0].Count);
-                mapTexture.filterMode = FilterMode.Point;
-                for(int i = 0; i < costs.Count; i++)
-                {
-                    for(int j = 0; j < costs[i].Count; j++)
-                    {
-                        int cost = costs[i][j];
-                        Color color = Color.white;
-                        if(cost >= maxCosts)
-                        {
-                            color = Color.black;
-                        }
-                        else if(cost > defaultCost)
-                        {
-                            color = Color.white;
-                        }
-                        mapTexture.SetPixel(i, j, color);
-                    }
-                }
-                mapTexture.Apply();
-                mapSprite = Sprite.Create(mapTexture, new Rect(0, 0, mapTexture.width, mapTexture.height), new Vector2(0.5f, 0.5f));
-                mapTextureRenderer.sprite = mapSprite;
-            }
-        }
-
-        void OnDestroy()
-        {
-            if(mapTexture != null)
-            {
-                UnityEngine.Object.Destroy(mapTexture);
-                UnityEngine.Object.Destroy(mapSprite);
-
-            }
         }
     }
 
