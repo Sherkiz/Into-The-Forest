@@ -126,6 +126,9 @@ namespace ITF.CustomTiles
             occupiedTiles.Clear();
             placeHolderTilesPosition.Clear();
         }
+
+        public Vector3 GetCellCenterWorld(Vector3Int cellPosition) => tilemap.GetCellCenterWorld(cellPosition);
+
         private void Awake()
         {
             tilemap = GetComponent<Tilemap>();

@@ -1,6 +1,7 @@
 using ITF.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace ITF.Navigation
 {
@@ -39,6 +40,11 @@ namespace ITF.Navigation
             MapCluster[][] lowerClusters = SplitMap(map, hierarchies[0], defaultCost, maxCost, maxContinuum);
             for (int i = 1; i < hierarchies.Length; i++) lowerClusters = SplitMap(lowerClusters, hierarchies[i]);
             mapCluster = new(lowerClusters, true);
+        }
+
+        public float GetCost(Vector2Int point)
+        {
+            return map[point.x][point.y];
         }
 
         /// <summary>
@@ -188,21 +194,19 @@ namespace ITF.Navigation
                 if (index.x >= x) CheckNeighbor(node, index);
             }
 
-            int g = 0;
-            if (endNode != null)
+            if(endNode == null || endNode.index != endPoint) return new ResultPath(null, 0);
+
+            int g = endNode.g;
+            if (endPoint != startPoint) path.Insert(0, endPoint);
+            while (endNode.parent != null)
             {
-                g = endNode.g;
-                if (endPoint != startPoint) path.Insert(0, endPoint);
-                while (endNode.parent != null)
+                Vector2Int lastIndex = path[0];
+                //Check whether the current node is a turning point, if not, skip adding it to the path
+                if (!((lastIndex.x == endNode.index.x && endNode.index.x == endNode.parent.index.x) || (lastIndex.y == endNode.index.y && endNode.index.y == endNode.parent.index.y)))
                 {
-                    Vector2Int lastIndex = path[0];
-                    //Check whether the current node is a turning point, if not, skip adding it to the path
-                    if (!((lastIndex.x == endNode.index.x && endNode.index.x == endNode.parent.index.x) || (lastIndex.y == endNode.index.y && endNode.index.y == endNode.parent.index.y)))
-                    {
-                        path.Insert(0, endNode.index);
-                    }
-                    endNode = endNode.parent;
+                    path.Insert(0, endNode.index);
                 }
+                endNode = endNode.parent;
             }
 
             return new ResultPath(path, g);
@@ -268,6 +272,14 @@ namespace ITF.Navigation
             }
 
             return clusters;
+        }
+
+        /// <summary>
+        /// For Debug
+        /// </summary>
+        public void DrawGizmos(Tilemap tilemap)
+        {
+            mapCluster.DrawGizmos(tilemap);
         }
     }
 
@@ -469,12 +481,18 @@ namespace ITF.Navigation
                 if (links.TryGetValue(startPoint, out List<TransitionLink> sLinks))
                 {
                     TransitionLink link = sLinks.Find(_ => _.index == endPoint);
-                    if (link != null) return new ResultPath(link.path, link.g);
+                    if (link != null)
+                    {
+                        return new ResultPath(link.path, link.g);
+                    }
                 }
                 if (linksBuff.TryGetValue(startPoint, out sLinks))
                 {
                     TransitionLink link = sLinks.Find(_ => _.index == endPoint);
-                    if (link != null) return new(link.path, link.g);
+                    if (link != null)
+                    {
+                        return new ResultPath(link.path, link.g);
+                    }
                 }
             }
 
@@ -639,7 +657,8 @@ namespace ITF.Navigation
                 foreach (var pair in links)
                 {
                     ResultPath path = PathFinder.FindPath(map, point, pair.Key, maxCost, defaultCost, startIndex.x, startIndex.y, size.x, size.y);
-                    if (path.path.Count > 0) buffLinks.Add(new TransitionLink(pair.Key, path.path, path.g));
+                    if (path.path == null || path.path.Count == 0) continue;
+                    buffLinks.Add(new TransitionLink(pair.Key, path.path, path.g));
 
                     ResultPath reverse = path.Inverse(map, point);
                     if (linksBuff.TryGetValue(pair.Key, out List<TransitionLink> value)) value.Add(new TransitionLink(point, reverse.path, reverse.g));
@@ -790,6 +809,7 @@ namespace ITF.Navigation
             {
                 cost = endNode.g;
                 if (endPoint != startPoint) path.Insert(0, endPoint);
+                var node = endNode;
                 while (endNode.parent != null)
                 {
                     endNode = endNode.parent;
@@ -837,7 +857,8 @@ namespace ITF.Navigation
                         if (last)
                         {
                             List<Vector2Int> points = new();
-                            if (Mathf.Abs(cPoint.x - lastEntry.x) < maxContinuum && Mathf.Abs(cPoint.y - lastEntry.y) < maxContinuum)
+                            int maxSpace = Mathf.Max(Mathf.Abs(cPoint.x - lastEntry.x), Mathf.Abs(cPoint.y - lastEntry.y));
+                            if (maxSpace <= maxContinuum)
                             {
                                 points.Add((cPoint + lastEntry) / 2);
 
@@ -846,6 +867,14 @@ namespace ITF.Navigation
                             {
                                 points.Add(lastEntry);
                                 points.Add(cPoint - dir);
+                                int t = Mathf.CeilToInt(maxSpace / (float)maxContinuum);
+                                int delta = maxSpace / t;
+                                Vector2Int point = lastEntry;
+                                for (;t > 1; t--)
+                                {
+                                    point += dir * delta;
+                                    points.Add(point);
+                                }
                             }
                             foreach (Vector2Int point in points)
                             {
@@ -887,7 +916,7 @@ namespace ITF.Navigation
                 {
                     if (visited.Contains(other.Key)) continue;
                     ResultPath path = PathFinder.FindPath(map, pair.Key, other.Key, maxCost, defaultCost, startPoint.x, startPoint.y, size.x, size.y);
-                    if (path.path.Count > 0)
+                    if (path.path != null && path.path.Count > 0)
                     {
                         pair.Value.Add(new(other.Key, path.path, path.g));
                         ResultPath otherPath = path.Inverse(map, pair.Key);
@@ -910,6 +939,43 @@ namespace ITF.Navigation
 
             point -= startIndex;
             return new(point.x / subClusters[0][0].size.x, point.y / subClusters[0][0].size.y);
+        }
+
+        public void DrawGizmos(Tilemap tilemap)
+        {
+            if (subClusters != null)
+            {
+                foreach (var clusters in subClusters)
+                {
+                    foreach (MapCluster cluster in clusters)
+                    {
+                        cluster.DrawGizmos(tilemap);
+                    }
+                }
+            }
+            if (links != null)
+            {
+                Gizmos.color = Color.yellow;
+                foreach (var pair in links)
+                {
+                    Vector2Int start = pair.Key;
+                    foreach (TransitionLink link in pair.Value)
+                    {
+                        Vector2Int end = link.index;
+                        Gizmos.DrawLine(tilemap.CellToWorld((Vector3Int)start), tilemap.CellToWorld((Vector3Int)end));
+                    }
+                }
+                Gizmos.color = Color.purple;
+                foreach(var pair in linksBuff)
+                {
+                    Vector2Int start = pair.Key;
+                    foreach (TransitionLink link in pair.Value)
+                    {
+                        Vector2Int end = link.index;
+                        Gizmos.DrawLine(tilemap.CellToWorld((Vector3Int)start), tilemap.CellToWorld((Vector3Int)end));
+                    }
+                }
+            }
         }
 
         /// <summary>
