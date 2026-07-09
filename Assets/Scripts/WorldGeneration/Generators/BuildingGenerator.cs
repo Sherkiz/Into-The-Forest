@@ -1,7 +1,6 @@
 using ITF.CustomTiles;
 using ITF.Math;
 using ITF.Utilities;
-using ITF.World;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -173,7 +172,7 @@ namespace ITF.WorldGeneration
                         break;
                     }
                 }
-                if (!foundNewPoint)
+                if (!foundNewPoint && randomIndex != 0)
                 {
                     samplePoints.RemoveAt(randomIndex);
                     buildingRects.RemoveAt(randomIndex);
