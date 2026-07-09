@@ -30,6 +30,22 @@ namespace ITF.World
         [SerializeField]
         public List<MapObject> mapObjectList = new();
 
+        Tilemap pathfindingTilemap;
+        public Tilemap PathfindingTilemap
+        {
+            get
+            {
+                if (pathfindingTilemap == null)
+                {
+                    if (!tilemaps.TryGetValue(pathfindingMapName, out pathfindingTilemap))
+                    {
+                        throw new Exception("Pathfinding map not found: " + pathfindingMapName);
+                    }
+                }
+                return pathfindingTilemap;
+            }
+        }
+
         Task rebuildTask;
         PathFinder pathFinder;
 
@@ -37,6 +53,40 @@ namespace ITF.World
         /// Triggered after the map is built.
         /// </summary>
         public Action<Map> onBuilt;
+
+        public void Init()
+        {
+            tilemaps = new Dictionary<string, Tilemap>();
+            foreach (var tilemap in _tilemaps)
+            {
+                tilemaps.Add(tilemap.name, tilemap);
+            }
+        }
+
+        public TileBase GetTileOnPathfingTilemap(Vector2Int index)
+        {
+            if (tilemaps.TryGetValue(pathfindingMapName, out Tilemap tilemap))
+            {
+                for(int z = tilemap.cellBounds.zMin; z < tilemap.cellBounds.zMax; z++)
+                {
+                    var tile = tilemap.GetTile(new Vector3Int(index.x, index.y, z));
+                    if (tile != null)
+                    {
+                        return tile;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public bool IsPassable(Vector2Int cell)
+        {
+            if(cell.x < 0 || cell.y < 0 || cell.x >= PathfindingTilemap.size.x || cell.y >= PathfindingTilemap.size.y)
+            {
+                return false;
+            }
+            return pathFinder.GetCost(cell) < maxCosts;
+        }
 
         public void Rebuild()
         {
@@ -47,13 +97,13 @@ namespace ITF.World
             rebuildTask = new Task(BuildMap());
         }
 
-        public ResultPath FindPath(Vector2Int startPoint, Vector2Int endPoint)
+        public ResultPath FindPath(Vector2Int startPoint, Vector2Int endPoint, bool isAbstracth = false)
         {
             if (pathFinder == null)
             {
                 throw new Exception("Map not built yet.");
             }
-            return pathFinder.FindPath(startPoint, endPoint);
+            return pathFinder.FindPath(startPoint, endPoint, isAbstracth);
         }
 
         /// <summary>
@@ -74,6 +124,11 @@ namespace ITF.World
         public MapObject[] GetMapObjects() => mapObjectList.ToArray();
         public MapObject[] GetMapObjectsOfType(TileType tileType) => mapObjectList.Where(obj => obj.type == tileType).ToArray();
 
+        public void DrawGizmos()
+        {
+            pathFinder?.DrawGizmos(pathfindingTilemap);
+        }
+
         IEnumerator BuildMap()
         {
             List<List<int>> costs;
@@ -89,17 +144,14 @@ namespace ITF.World
                     costs.Add(costList);
                     for(int y = bound.yMin; y < bound.yMax; y++)
                     {
-                        for(int z = bound.zMin; z < bound.zMax; z++)
+                        int cost = defaultCost;
+                        for (int z = bound.zMin; z < bound.zMax; z++)
                         {
                             var tile = tilemap.GetTile(new Vector3Int(x, y, z));
                             if (tile != null)
                             {
-                                int cost = (tile is ICustomTile customTile) ? customTile.PassCost : maxCosts;
-                                costList.Add(cost);
-                            }
-                            else
-                            {
-                                costList.Add(defaultCost);
+                                cost = (tile is ICustomTile customTile) ? Mathf.Clamp(customTile.PassCost, 0, maxCosts) : maxCosts;
+                                break;
                             }
 
                             if(++counter >= maxTraverse)
@@ -108,6 +160,7 @@ namespace ITF.World
                                 counter = 0;
                             }
                         }
+                        costList.Add(cost);
                     }
                 }
             }
@@ -118,7 +171,7 @@ namespace ITF.World
 
             yield return null;
 
-            pathFinder = new PathFinder(costs, hierachies, defaultCost, maxCosts);
+            pathFinder = new PathFinder(costs, hierachies, defaultCost, maxCosts, 4);
 
             onBuilt?.Invoke(this);
             rebuildTask = null;
