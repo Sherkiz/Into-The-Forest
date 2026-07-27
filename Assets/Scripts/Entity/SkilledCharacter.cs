@@ -31,6 +31,9 @@ namespace ITF.Entity
         public PassiveSkillAddor[] PassiveSkillAddors => (PassiveSkillAddor[])passiveSkillAddors.Clone();
         List<PassiveSkill> passiveSkills = new();
 
+        [SerializeField, Tooltip("If true, auto initialize on start")] 
+        bool autoInit = false;
+
         #region Events
 
         [SerializeField]
@@ -109,6 +112,18 @@ namespace ITF.Entity
                 skill.ToState(null);
             }
             passiveSkills.Clear();
+        }
+
+        #endregion
+
+        #region private methods
+
+        void Start()
+        {
+            if (autoInit)
+            {
+                Init();
+            }
         }
 
         #endregion

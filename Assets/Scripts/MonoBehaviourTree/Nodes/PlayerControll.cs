@@ -4,12 +4,13 @@ using ITF.World;
 using MBT;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 namespace ITF.BehaviourTree.Nodes
 {
 
     [AddComponentMenu("")]
-    [MBTNode(name = "ITF/Roam")]
+    [MBTNode(name = "ITF/PlayerControll")]
     public class PlayerControll : Leaf
     {
 
@@ -17,6 +18,7 @@ namespace ITF.BehaviourTree.Nodes
         public Vector2Reference targetPosition;
 
         InputControls inputAction;
+        Vector2 moveInput;
 
         Character character;
 
@@ -26,59 +28,69 @@ namespace ITF.BehaviourTree.Nodes
             
             inputAction ??= new InputControls();
             inputAction.Player.Move.performed += OnMovePerformed;
+            inputAction.Player.Move.canceled += OnMoveCanceled;
             inputAction.Enable();
+
+            targetPosition.Value = (Vector3)WorldManager.Map.PathfindingTilemap.WorldToCell(character.transform.position);
         }
 
         public override void OnExit()
         {
             inputAction.Player.Move.performed -= OnMovePerformed;
+            inputAction.Player.Move.canceled -= OnMoveCanceled;
         }
 
         public override NodeResult Execute()
         {
+            UpdateTargetPos();
+
             //To move
+            Vector3 pos = character.transform.position;
+            Vector3 targetPos = WorldManager.Map.PathfindingTilemap.GetCellCenterWorld((Vector3Int)targetPosition.Value.ToVector2Int());
+            pos.z = targetPos.z = 0;
+            float speed = character.CurrentState.GetState(CharacterStateType.Speed);
+            character.transform.position = Vector3.MoveTowards(pos, targetPos, speed * Time.deltaTime);
 
             return NodeResult.running;
         }
 
-        void OnMovePerformed(InputAction.CallbackContext context)
+        void UpdateTargetPos()
         {
-            Vector2Int targetCell = targetPosition.Value.ToVector2Int();
-            Vector3 targetWorldPos = WorldManager.Map.PathfindingTilemap.GetCellCenterWorld((Vector3Int)targetCell);
-            if(Vector3.Distance(targetWorldPos, character.transform.position) > 0.1f)
-            {
-                return;
-            }
-
-            Vector2 input = context.ReadValue<Vector2>();
             Vector2Int moveOffset = Vector2Int.zero;
+            moveOffset.x = (int)(moveInput.x * 1.9f);
+            moveOffset.y = (int)(moveInput.y * 1.9f);
 
-            moveOffset.x = (int)(input.x * 1.9f);
-            moveOffset.y = (int)(input.y * 1.9f);
+            Vector2Int currentCell = (Vector2Int)WorldManager.Map.PathfindingTilemap.WorldToCell(character.transform.position);
 
-            if(WorldManager.Map.IsPassable(targetCell + moveOffset))
+            if (moveOffset.x != 0)
             {
-                targetPosition.Value = targetCell + moveOffset;
-                return;
-            }
-            else
-            {
-                Vector2Int offset = new(0, moveOffset.y);
-                if(WorldManager.Map.IsPassable(targetCell + offset))
+                Vector2Int targetCell = currentCell + new Vector2Int(moveOffset.x, 0);
+                if (WorldManager.Map.IsPassable(targetCell))
                 {
-                    targetPosition.Value = targetCell + offset;
+                    targetPosition.Value = targetCell;
                     return;
                 }
-                else
+            }
+
+            if (moveOffset.y != 0)
+            {
+                Vector2Int targetCell = currentCell + new Vector2Int(0, moveOffset.y);
+                if (WorldManager.Map.IsPassable(targetCell))
                 {
-                    offset = new Vector2Int(moveOffset.x, 0);
-                    if(WorldManager.Map.IsPassable(targetCell + offset))
-                    {
-                        targetPosition.Value = targetCell + offset;
-                        return;
-                    }
+                    targetPosition.Value = targetCell;
+                    return;
                 }
             }
+        }
+
+        void OnMovePerformed(InputAction.CallbackContext context)
+        {
+            moveInput = context.ReadValue<Vector2>();
+        }
+
+        void OnMoveCanceled(InputAction.CallbackContext context)
+        {
+            moveInput = context.ReadValue<Vector2>();
         }
     }
 
