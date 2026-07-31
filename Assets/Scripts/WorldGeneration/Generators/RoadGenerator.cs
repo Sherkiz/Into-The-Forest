@@ -221,7 +221,8 @@ namespace ITF.WorldGeneration
                     }
                     else
                     {
-                        throw new Exception("Path not found between buildings to generate road!");
+                        generateStatus.failed = true;
+                        throw new Exception("Path not found between buildings " + firstBuilding.name + " and " + building.name + " to generate road!");
                     }
                 }
                 SetRoadTiles(roadTilesPositionList, tilemap);
