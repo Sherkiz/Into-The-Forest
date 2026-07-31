@@ -30,7 +30,7 @@ MonoBehaviour:
   mainRoadGenerationPercentChance: 60
   mainRoadXMax: 30
   pathfindingHierachies:
-  - {x: 36, y: 18}
+  - {x: 26, y: 18}
   pathfindingMaxCost: 99999999
   pathfindingRoadCost: 10
   pathfindingDefaultCost: 50
