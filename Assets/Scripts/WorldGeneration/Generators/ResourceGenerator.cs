@@ -64,6 +64,7 @@ namespace ITF.WorldGeneration
             var bounds = tilemap.cellBounds;
             var size = bounds.size;
             var totalCells = size.x * size.y;
+            int counter = 0;
             XorShiftRandom random = new((uint)RandomManager.GetSeedFor(name));
             // The resources waiting to be generated
             List<ResourceGenerationInfos> generatings = new();
@@ -77,6 +78,8 @@ namespace ITF.WorldGeneration
                     generatings.Add(resource);
                 }
             }
+            int totalNumberToSpawn = generatings.Count();
+            int numberSpawned = 0;
             resourcesInfosArray.OrderByDescending(resourceInfo => resourceInfo.minDistance); // To place resources with the most important constraints first
             while (generatings.Count > 0)
             {
@@ -90,7 +93,7 @@ namespace ITF.WorldGeneration
                 {
                     Vector2Int candidatePoint = new((int)random.Range(minX, maxX), (int)random.Range(minY, maxY));
                     RectInt candidateRect = new(candidatePoint.x, candidatePoint.y, resourceToSpawn.size.x, resourceToSpawn.size.y);
-                    if (candidateRect.xMin < minX || candidateRect.xMax > maxX || candidateRect.yMin < minY || candidateRect.yMax > maxY) // part of resource is out of bounds
+                    if (candidateRect.xMin < minX || candidateRect.xMax > maxX || candidateRect.yMin < minY || candidateRect.yMax > maxY) // Check that all the resource object is in bounds
                     {
                         continue;
                     }
@@ -99,7 +102,8 @@ namespace ITF.WorldGeneration
                         resourcesLocations[candidateRect] = resourceToSpawn;
                         generatings.RemoveAt(0);
                         tilemap.PlaceMultipleTiles(resourceToSpawn.resourceTiles, (Vector3Int) candidatePoint);
-                        success = true; 
+                        success = true;
+                        numberSpawned++;
                         break;
                     }                    
                 }
@@ -108,6 +112,12 @@ namespace ITF.WorldGeneration
                     // To update !! Needs to do something more when placement failed
                     generatings.RemoveAt(0);
                     Debug.Log("Failed to place " + resourceToSpawn.resourceTiles.name);
+                }
+                if (counter >= maxTriesPerFrame)
+                {
+                    counter = 0;
+                    generateStatus.progress = numberSpawned / (float) totalNumberToSpawn;
+                    if (numberSpawned < totalCells) yield return null;
                 }
             }
             generateStatus.progress = 1;

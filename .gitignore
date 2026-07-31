@@ -76,3 +76,4 @@ crashlytics-build.properties
 Assets/Wwise/API/Runtime/Plugins/Windows/x86_64/Profile/AkUnitySoundEngine.dll.meta
 Assets/Wwise/Resources/WwiseLoggerSettings.asset
 Assets/Wwise/Resources/WwiseLoggerSettings.asset.meta
+Assets/Wwise/Editor/ProjectData/AkWwiseProjectData.asset
