@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ITF.Spawners.FixedIntervalCharacterSpawner
   characterPrefab: {fileID: 4547293591931355322, guid: 0cb0e792dba19334e9558be7e1252519, type: 3}
   spawnInterval: 5
-  maxSpawnCount: 10
+  maxSpawnCount: 1
   onCharacterSpawned:
     m_PersistentCalls:
       m_Calls: []
