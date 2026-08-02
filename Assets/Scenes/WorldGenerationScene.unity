@@ -1187,6 +1187,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332760130}
   m_CullTransparentMesh: 1
+--- !u!1 &1583887379
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1583887381}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1583887380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732792184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9086283aaa765a45a097f89a90e6796, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.UI.LoadingScreen
+  onLoadingCompleted: {fileID: 11400000, guid: d0352072432d5c94eb9e250693aab8f8, type: 2}
+--- !u!4 &1583887381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583887379}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1684135123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,7 +1317,7 @@ GameObject:
   - component: {fileID: 1732792185}
   - component: {fileID: 1732792187}
   - component: {fileID: 1732792186}
-  - component: {fileID: 1732792188}
+  - component: {fileID: 1583887380}
   m_Layer: 5
   m_Name: LoadingScreen
   m_TagString: Untagged
@@ -1340,58 +1384,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1732792184}
   m_CullTransparentMesh: 1
---- !u!114 &1732792188
---- !u!1 &1583887379
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1583887381}
-  - component: {fileID: 1583887380}
-  m_Layer: 0
-  m_Name: Managers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1583887380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732792184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9086283aaa765a45a097f89a90e6796, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ITF.UI.LoadingScreen
-  onLoadingCompleted: {fileID: 11400000, guid: d0352072432d5c94eb9e250693aab8f8, type: 2}
-  m_GameObject: {fileID: 1583887379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da8c43fc1a0ef564c8ec3ca5f7265113, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ITF.Utilities.GameObjectPool
---- !u!4 &1583887381
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1583887379}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1786631995
 GameObject:
   m_ObjectHideFlags: 0
