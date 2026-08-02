@@ -119,6 +119,38 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &39566996
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 39566997}
+  m_Layer: 0
+  m_Name: SubEntityManagers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &39566997
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39566996}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2118099966}
+  m_Father: {fileID: 1583887381}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &171417062
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,6 +273,9 @@ MonoBehaviour:
     hierachies:
     - {x: 26, y: 18}
     maxTraverse: 5000
+  onWorldGenerated:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &192884473
 GameObject:
   m_ObjectHideFlags: 0
@@ -1197,6 +1232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1583887381}
   - component: {fileID: 1583887382}
+  - component: {fileID: 1583887383}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -1229,7 +1265,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 39566997}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1583887382
@@ -1244,6 +1281,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da8c43fc1a0ef564c8ec3ca5f7265113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ITF.Utilities.GameObjectPool
+--- !u!114 &1583887383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583887379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc0d4e4050dd2849842b43bd9f0fe75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.Entity.EntityManager
+  managers: []
 --- !u!1 &1684135123
 GameObject:
   m_ObjectHideFlags: 0
@@ -2389,6 +2439,57 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &2118099965
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2118099966}
+  - component: {fileID: 2118099967}
+  m_Layer: 0
+  m_Name: WorkerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2118099966
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118099965}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 39566997}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2118099967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118099965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e30a3d7e98670db4587e16a92f66f0fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.Entity.WorkerManager
+  workerPrefab: {fileID: 6367471534111396631, guid: f822cc71291bd5f48ad904d4155a6021, type: 3}
+  workerCount: 8
+  spawnRange:
+    x: 5
+    y: 5
+    width: 22
+    height: 26
 --- !u!1 &2146821445
 GameObject:
   m_ObjectHideFlags: 0

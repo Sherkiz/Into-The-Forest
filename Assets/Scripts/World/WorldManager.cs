@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace ITF.World
 {
@@ -13,6 +14,14 @@ namespace ITF.World
 
         bool isMapBuilt = false;
         public static bool IsMapBuilt => instance.isMapBuilt;
+
+        #region events
+
+        [SerializeField]
+        UnityEvent onWorldGenerated;
+        public static UnityEvent OnWorldGenerated => instance.onWorldGenerated;
+
+        #endregion
 
         public static void RebuildMap()
         {

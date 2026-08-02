@@ -88,6 +88,38 @@ namespace ITF.World
             return pathFinder.GetCost(cell) < maxCosts;
         }
 
+        public bool GetNearestPassableCell(Vector2Int cell, RectInt range, out Vector2Int passableCell)
+        {
+            passableCell = cell;
+            if (IsPassable(cell)) return true;
+
+            List<Vector2Int> opening = new();
+            List<Vector2Int> closed = new();
+            closed.Add(cell);
+
+            if(cell.y < range.yMax) opening.Add(cell + Vector2Int.up);
+            if(cell.y > range.yMin) opening.Add(cell + Vector2Int.down);
+            if(cell.x > range.xMin) opening.Add(cell + Vector2Int.left);
+            if(cell.x < range.xMax) opening.Add(cell + Vector2Int.right);
+            while(opening.Count > 0)
+            {
+                var current = opening[0];
+                opening.RemoveAt(0);
+                closed.Add(current);
+                if (IsPassable(current))
+                {
+                    passableCell = current;
+                    return true;
+                }
+                if (current.y < range.yMax && !closed.Contains(current + Vector2Int.up)) opening.Add(current + Vector2Int.up);
+                if (current.y > range.yMin && !closed.Contains(current + Vector2Int.down)) opening.Add(current + Vector2Int.down);
+                if (current.x > range.xMin && !closed.Contains(current + Vector2Int.left)) opening.Add(current + Vector2Int.left);
+                if (current.x < range.xMax && !closed.Contains(current + Vector2Int.right)) opening.Add(current + Vector2Int.right);
+            }
+
+            return false;
+        }
+
         public void Rebuild()
         {
             if(rebuildTask != null && rebuildTask.Running)

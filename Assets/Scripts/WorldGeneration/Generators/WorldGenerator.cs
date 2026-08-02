@@ -115,6 +115,7 @@ namespace ITF.WorldGeneration
             onLoadingCompleted.RaiseEvent();
             generating = null;
 
+            WorldManager.OnWorldGenerated.Invoke();
             WorldManager.RebuildMap();
         }
     }
