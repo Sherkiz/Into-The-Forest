@@ -176,8 +176,10 @@ namespace ITF.WorldGeneration
                 for (int i = 1; i < playerBuildings.Length; i++)
                 {
                     MapObject building = playerBuildings[i];
-                    ResultPath path = pathFinder.FindPath(firstBuilding.pathEntrancePosition, building.pathEntrancePosition, false);
+                    ResultPath path = pathFinder.FindPath(firstBuilding.pathEntrancePosition + Vector3Int.down, building.pathEntrancePosition + Vector3Int.down, false);
                     Vector3Int lastRoadPos = firstBuilding.pathEntrancePosition;
+                    path.path.Add(new Vector2Int(building.pathEntrancePosition.x, building.pathEntrancePosition.y));
+                    path.path.Insert(0, new Vector2Int(firstBuilding.pathEntrancePosition.x, firstBuilding.pathEntrancePosition.y));
                     Debug.Log(building.name);
                     Debug.Log(building.pathEntrancePosition);
                     if (path.path != null)
@@ -195,6 +197,7 @@ namespace ITF.WorldGeneration
                                     {
                                         roadTilesPositionList.Add(roadPos);
                                         pathFinder.UpdateMap(new Vector2Int(roadPos.x, roadPos.y), new int[][] { new int[] { pathfindingRoadCost } }); //Could be done in one call instead of calling it in the loop
+                                        Debug.Log(roadPos);
                                     }
                                 }
                             }
@@ -207,10 +210,10 @@ namespace ITF.WorldGeneration
                                     {
                                         roadTilesPositionList.Add(roadPos);
                                         pathFinder.UpdateMap(new Vector2Int(roadPos.x, roadPos.y), new int[][] { new int[] { pathfindingRoadCost } });
+                                        Debug.Log(roadPos);
                                     }
                                 }
                             }
-                            
                             lastRoadPos = newRoadPos;
                             if (!roadTilesPositionList.Contains(lastRoadPos))
                             {
