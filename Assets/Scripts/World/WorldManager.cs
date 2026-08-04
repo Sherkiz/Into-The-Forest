@@ -46,6 +46,10 @@ namespace ITF.World
         {
             if (instance == this) instance = null;
         }
+        public static void Clear()
+        {
+            Map.mapObjectList = new();
+        }
     }
 
 }
