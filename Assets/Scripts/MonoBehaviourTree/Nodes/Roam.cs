@@ -9,7 +9,7 @@ namespace ITF.BehaviourTree.Nodes
 {
 
     [AddComponentMenu("")]
-    [MBTNode(name = "ITF/Roam")]
+    [MBTNode(name = "Tasks/Roam")]
     public class Roam : Leaf
     {
         public GameObjectReference host;

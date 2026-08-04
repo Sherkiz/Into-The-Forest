@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 850747608430074903}
   - component: {fileID: 6144928616638070179}
   - component: {fileID: 6848356511744923768}
+  - component: {fileID: 1051079456088234071}
+  - component: {fileID: 376682266372341339}
   m_Layer: 0
   m_Name: BehaviourTree
   m_TagString: Untagged
@@ -51,7 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25af8627659c6949b60949c3aa8d91d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.MonoBehaviourTree
-  selectedEditorNode: {fileID: 0}
+  selectedEditorNode: {fileID: 1051079456088234071}
   repeatOnFinish: 0
   maxExecutionsPerTick: 1000
   parent: {fileID: 0}
@@ -131,7 +133,8 @@ MonoBehaviour:
     width: 160
     height: 44
   parent: {fileID: 6104850793793902503}
-  children: []
+  children:
+  - {fileID: 1051079456088234071}
   behaviourTree: {fileID: 0}
   runtimePriority: 0
   breakpoint: 0
@@ -177,6 +180,74 @@ MonoBehaviour:
   m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.Vector2Variable
   key: target_cell
   val: {x: 0, y: 0}
+--- !u!114 &1051079456088234071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925080336301891168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e157c8e59adde48bc3a86e3efc9b09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.BehaviourTree.Nodes.AtTargetCondition
+  title: AtTargetCondition
+  rect:
+    serializedVersion: 2
+    x: 480
+    y: 360
+    width: 160
+    height: 44
+  parent: {fileID: 3463099734382254458}
+  children:
+  - {fileID: 376682266372341339}
+  behaviourTree: {fileID: 0}
+  runtimePriority: 0
+  breakpoint: 0
+  targetCell:
+    useConstant: 0
+    mode: 0
+    blackboard: {fileID: 4549612188277953241}
+    key: target_cell
+    constantValue: {x: 0, y: 0}
+  inverterCondition: 1
+--- !u!114 &376682266372341339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925080336301891168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a95b63f2a7307f4ca02c709847735c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.BehaviourTree.Nodes.MoveToTarget
+  title: MoveToTarget
+  rect:
+    serializedVersion: 2
+    x: 480
+    y: 460
+    width: 160
+    height: 44
+  parent: {fileID: 1051079456088234071}
+  children: []
+  behaviourTree: {fileID: 0}
+  runtimePriority: 0
+  breakpoint: 0
+  host:
+    useConstant: 0
+    mode: 0
+    blackboard: {fileID: 4549612188277953241}
+    key: host
+    constantValue: {fileID: 0}
+  targetCell:
+    useConstant: 0
+    mode: 0
+    blackboard: {fileID: 4549612188277953241}
+    key: target_cell
+    constantValue: {x: 0, y: 0}
 --- !u!1 &7302953086849982555
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,7 +433,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ITF.Entity.SkilledCharacter
   references:
-    _serializedList: []
+    _serializedList:
+    - Key: blackboard
+      Value: {fileID: 1925080336301891168}
   _characterStateScriptObject: {fileID: 11400000, guid: fe497cbc86fdc2a4c884e586a0b303b9, type: 2}
   faction: 0
   passiveSkillAddors: []

@@ -68,7 +68,11 @@ namespace ITF.Entity
 
         public override GameObject GetReference(string name)
         {
-            throw new System.NotImplementedException();
+            if(references.TryGetValue(name, out GameObject reference))
+            {
+                return reference;
+            }
+            return null;
         }
 
         public T[] GetStateUnits<T>() where T : StateUnit

@@ -29,6 +29,7 @@ namespace ITF.World
 
         [SerializeField]
         public List<MapObject> mapObjectList = new();
+        Dictionary<string, List<MapObject>> mapObjectDict = new();
 
         Tilemap pathfindingTilemap;
         public Tilemap PathfindingTilemap
@@ -150,11 +151,27 @@ namespace ITF.World
 
         public void AddMapObject(MapObject mapObject)
         {
+            if (mapObjectList.Contains(mapObject)) return;
             mapObjectList.Add(mapObject);
+            if (!mapObjectDict.TryGetValue(mapObject.name, out List<MapObject> list))
+            {
+                list = new List<MapObject>();
+                mapObjectDict.Add(mapObject.name, list);
+            }
+            list.Add(mapObject);
         }
 
         public MapObject[] GetMapObjects() => mapObjectList.ToArray();
         public MapObject[] GetMapObjectsOfType(TileType tileType) => mapObjectList.Where(obj => obj.type == tileType).ToArray();
+
+        public MapObject[] GetMapObjectsByName(string name)
+        {
+            if (mapObjectDict.TryGetValue(name, out List<MapObject> list))
+            {
+                return list.ToArray();
+            }
+            return Array.Empty<MapObject>();
+        }
 
         public void DrawGizmos()
         {

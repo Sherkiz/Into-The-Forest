@@ -1,5 +1,6 @@
 using ITF.Utilities;
 using ITF.World;
+using MBT;
 using UnityEngine;
 
 namespace ITF.Entity
@@ -51,6 +52,35 @@ namespace ITF.Entity
                     worker.name = $"Worker_{i}";
                     workers[i] = worker;
                     worker.transform.position = WorldManager.Map.PathfindingTilemap.GetCellCenterWorld((Vector3Int)spawnCell);
+                    worker.Init();
+
+                    if(i < 4)
+                    {
+                        GameObject blackboardGo = worker.GetReference("blackboard");
+                        if(blackboardGo != null)
+                        {
+                            Blackboard blackboard = blackboardGo.GetComponent<Blackboard>();
+                            MapObject[] goldenStones = WorldManager.Map.GetMapObjectsByName("gold_stones");
+                            Debug.Log($"gold stone count: {goldenStones.Length}");
+                            if (goldenStones.Length > 0)
+                            {
+                                Vector2 targetPosition = goldenStones[0].range.min;
+                                targetPosition += i switch
+                                {
+                                    0 => new Vector2(0, -1),
+                                    1 => new Vector2(-1, 0),
+                                    2 => new Vector2(0, 2),
+                                    3 => new Vector2(2, 0),
+                                    _ => new Vector2(0, -1),
+                                };
+                                Vector2Variable targetCell = blackboard.GetVariable<Vector2Variable>("target_cell");
+                                if (targetCell != null)
+                                {
+                                    targetCell.Value = targetPosition;
+                                }
+                            }
+                        }
+                    }
                 }
             }
             WorldManager.Map.onBuilt -= OnMapBuilt;

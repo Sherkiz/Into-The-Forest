@@ -10,7 +10,7 @@ namespace ITF.BehaviourTree.Nodes
 {
 
     [AddComponentMenu("")]
-    [MBTNode(name = "ITF/PlayerControll")]
+    [MBTNode(name = "Tasks/PlayerControll")]
     public class PlayerControll : Leaf
     {
 
