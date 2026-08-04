@@ -125,7 +125,9 @@ namespace ITF.WorldGeneration
                         int xOffset = random.Range(0, 101) > (101 - (xOffsetPercentChance + bonusOffsetChance)) ? 1 : 0;
                         if (x + xOffset >= bounds.xMax) continue;
                         Vector3Int treePos = new Vector3Int(x + xOffset, y, bottomZ);
-                        if (tilemap.IsPlaceable(2, 2, treePos))
+                        bool isPlaceable = tilemap.IsPlaceable(2, 2, treePos);
+                        if (y < bounds.yMin) isPlaceable = tilemap.IsPlaceable(2,1, treePos + new Vector3Int(0, 1, topZ - bottomZ));
+                        if (isPlaceable)
                         {
                             if (x + xOffset >= bounds.xMin && y >= bounds.yMin) tilemap.SetTile(treePos, tileBottomLeft);
                             if (x + xOffset + 1 < bounds.xMax && y >= bounds.yMin) tilemap.SetTile(treePos + Vector3Int.right, tileBottomRight);

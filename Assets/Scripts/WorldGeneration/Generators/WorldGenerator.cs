@@ -85,6 +85,7 @@ namespace ITF.WorldGeneration
 
         IEnumerator GenerateCoroutine()
         {
+            WorldManager.Clear();
             foreach (var generationUnit in generationUnits)
             {
                 generationUnit.tilemap.Clear();
