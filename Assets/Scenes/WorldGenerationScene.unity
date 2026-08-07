@@ -1233,6 +1233,7 @@ GameObject:
   - component: {fileID: 1583887381}
   - component: {fileID: 1583887382}
   - component: {fileID: 1583887383}
+  - component: {fileID: 1583887384}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -1293,7 +1294,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dc0d4e4050dd2849842b43bd9f0fe75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ITF.Entity.EntityManager
-  managers: []
+  managers:
+  - {fileID: 2118099965}
+--- !u!114 &1583887384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583887379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bcf0b43f5c13be45b37dc475c513d5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.TimeManager
+  dayTime: 600
+  nightTime: 600
 --- !u!1 &1684135123
 GameObject:
   m_ObjectHideFlags: 0
@@ -2490,6 +2506,7 @@ MonoBehaviour:
     y: 5
     width: 22
     height: 26
+  shiftInterval: 60
 --- !u!1 &2146821445
 GameObject:
   m_ObjectHideFlags: 0

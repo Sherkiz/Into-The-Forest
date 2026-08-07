@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 6848356511744923768}
   - component: {fileID: 1051079456088234071}
   - component: {fileID: 376682266372341339}
+  - component: {fileID: 6853779182100730979}
   m_Layer: 0
   m_Name: BehaviourTree
   m_TagString: Untagged
@@ -54,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.MonoBehaviourTree
   selectedEditorNode: {fileID: 1051079456088234071}
-  repeatOnFinish: 0
+  repeatOnFinish: 1
   maxExecutionsPerTick: 1000
   parent: {fileID: 0}
 --- !u!114 &4549612188277953241
@@ -73,6 +74,7 @@ MonoBehaviour:
   - {fileID: 4019360805576125786}
   - {fileID: 6144928616638070179}
   - {fileID: 6848356511744923768}
+  - {fileID: 6853779182100730979}
   masterBlackboard: {fileID: 0}
 --- !u!114 &4019360805576125786
 MonoBehaviour:
@@ -104,7 +106,7 @@ MonoBehaviour:
   rect:
     serializedVersion: 2
     x: 320
-    y: 180
+    y: 80
     width: 160
     height: 44
   parent: {fileID: 0}
@@ -129,7 +131,7 @@ MonoBehaviour:
   rect:
     serializedVersion: 2
     x: 320
-    y: 280
+    y: 220
     width: 160
     height: 44
   parent: {fileID: 6104850793793902503}
@@ -211,6 +213,12 @@ MonoBehaviour:
     blackboard: {fileID: 4549612188277953241}
     key: target_cell
     constantValue: {x: 0, y: 0}
+  host:
+    useConstant: 0
+    mode: 0
+    blackboard: {fileID: 4549612188277953241}
+    key: host
+    constantValue: {fileID: 0}
   inverterCondition: 1
 --- !u!114 &376682266372341339
 MonoBehaviour:
@@ -248,6 +256,20 @@ MonoBehaviour:
     blackboard: {fileID: 4549612188277953241}
     key: target_cell
     constantValue: {x: 0, y: 0}
+--- !u!114 &6853779182100730979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925080336301891168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa62ce5e63cc9d45ae0efc52561ace7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.Vector2Variable
+  key: spawn_cell
+  val: {x: 0, y: 0}
 --- !u!1 &7302953086849982555
 GameObject:
   m_ObjectHideFlags: 0

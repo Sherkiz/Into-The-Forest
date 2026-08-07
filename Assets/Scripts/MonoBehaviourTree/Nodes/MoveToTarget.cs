@@ -32,6 +32,14 @@ namespace ITF.BehaviourTree.Nodes
                 return NodeResult.From(Status.Failure);
             }
 
+            if (targetCell.Value != path.path[^1])
+            {
+                Vector2Int startCell = (Vector2Int)WorldManager.Map.PathfindingTilemap.WorldToCell(character.transform.position);
+                path = WorldManager.Map.FindPath(startCell, targetCell.Value.ToVector2Int());
+                pathIndex = 0;
+                return NodeResult.From(Status.Running);
+            }
+
             float speed = character.CurrentState.GetState(CharacterStateType.Speed);
             Vector3 targetPos = WorldManager.Map.PathfindingTilemap.GetCellCenterWorld((Vector3Int)path.path[pathIndex]);
 
