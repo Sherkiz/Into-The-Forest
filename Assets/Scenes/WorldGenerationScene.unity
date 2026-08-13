@@ -2506,7 +2506,7 @@ MonoBehaviour:
     y: 5
     width: 22
     height: 26
-  shiftInterval: 60
+  shiftInterval: 120
 --- !u!1 &2146821445
 GameObject:
   m_ObjectHideFlags: 0

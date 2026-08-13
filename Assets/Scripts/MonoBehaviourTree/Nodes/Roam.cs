@@ -13,61 +13,28 @@ namespace ITF.BehaviourTree.Nodes
     public class Roam : Leaf
     {
         public GameObjectReference host;
-        public Vector2Reference targetPosition;
+        public Vector2Reference targetCell;
         public Vector2Reference startCell;
 
         public float maxAngle = 360;
         public float minDistance = 3;
         public float maxDistance = 10;
-        public Vector2 stopInterval = new(1, 3);
-        public LayerMask layerMask;
+        public bool limitRange = true;
+        [Tooltip("The range within which the character is allowed to roam. \n Only used if Limit Range is enabled.")]
+        public RectInt roamRange = new(5, 5, 30, 30);
 
-        private float stopTimer = 0;
         private Character character;
-        private ResultPath path;
-        private int pathIndex = 0;
 
         public override void OnEnter()
         {
-            stopTimer = 0;
             if(character == null) character = host.Value.GetComponent<Character>();
         }
 
         public override NodeResult Execute()
         {
-            if(stopTimer > 0)
-            {
-                stopTimer -= Time.deltaTime;
-                if(stopTimer <= 0)
-                {
-                    stopTimer = 0;
-                    targetPosition.Value = FindNextPosition();
-                    Vector2Int startCell = (Vector2Int)WorldManager.Map.PathfindingTilemap.WorldToCell(character.transform.position);
-                    this.startCell.Value = startCell;
-                    path = WorldManager.Map.FindPath(startCell, targetPosition.Value.ToVector2Int());
-                    pathIndex = 0;
-                }
-            }
-            else
-            {
-                if(path.path == null || pathIndex >= path.path.Count)
-                {
-                    stopTimer = Random.Range(stopInterval.x, stopInterval.y);
-                    return NodeResult.running;
-                }
+            targetCell.Value = FindNextPosition();
 
-                //move to target position
-                float speed = character.CurrentState.GetState(CharacterStateType.Speed);
-                Vector3 targetWorldPosition = WorldManager.Map.PathfindingTilemap.CellToWorld((Vector3Int)path.path[pathIndex]);
-                targetWorldPosition += (Vector3)Vector2.one * 0.5f; //center of the tile
-                character.transform.position = Vector2.MoveTowards(character.transform.position, targetWorldPosition, speed * Time.deltaTime);
-                if (character.transform.position == targetWorldPosition)
-                {
-                    pathIndex++;
-                }
-            }
-
-            return NodeResult.running;
+            return NodeResult.success;
         }
 
         Vector2Int FindNextPosition()
@@ -81,18 +48,29 @@ namespace ITF.BehaviourTree.Nodes
 
         Vector2Int GetFarestPosition(Vector2 startPosition, Vector2 direction, float maxDistance)
         {
-            Vector3Int startCell = WorldManager.Map.PathfindingTilemap.WorldToCell(new((int)startPosition.x, (int)startPosition.y, 0));
-            Vector2Int farestCell = GetFarestPassableTile(new(startCell.x, startCell.y), direction, maxDistance);
+            Vector3Int startCell = WorldManager.Map.PathfindingTilemap.WorldToCell(startPosition);
+            RectInt range;
+            if(limitRange)
+            {
+                range = roamRange;
+            }
+            else
+            {
+                var bounds = WorldManager.Map.PathfindingTilemap.cellBounds;
+                range = new RectInt(bounds.xMin, bounds.yMin, bounds.size.x, bounds.size.y);
+            }
+            Vector2Int farestCell = GetFarestPassableTile(new(startCell.x, startCell.y), direction, maxDistance, range);
             return farestCell;
         }
 
-        static Vector2Int GetFarestPassableTile(Vector2Int startCell, Vector2 direction, float maxDistance)
+        static Vector2Int GetFarestPassableTile(Vector2Int startCell, Vector2 direction, float maxDistance, RectInt range)
         {
-            Vector2 targetPosition = startCell + direction * maxDistance;
+            Vector2 targetPosition = startCell;
             Vector2Int lastCell = startCell;
             Vector2Int cell = new((int)targetPosition.x, (int)targetPosition.y);
             for(float distance = 0; distance < maxDistance && WorldManager.Map.IsPassable(cell); distance += 1f)
             {
+                if(!range.Contains(cell)) break;
                 lastCell = cell;
                 do
                 {

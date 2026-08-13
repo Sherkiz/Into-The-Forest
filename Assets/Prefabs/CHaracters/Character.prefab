@@ -189,6 +189,7 @@ MonoBehaviour:
   _characterStateScriptObject: {fileID: 11400000, guid: fe497cbc86fdc2a4c884e586a0b303b9, type: 2}
   faction: 0
   passiveSkillAddors: []
+  autoInit: 0
   onInited:
     m_PersistentCalls:
       m_Calls: []
@@ -383,7 +384,7 @@ MonoBehaviour:
     blackboard: {fileID: 7931998564243900340}
     key: host
     constantValue: {fileID: 0}
-  targetPosition:
+  targetCell:
     useConstant: 0
     mode: 0
     blackboard: {fileID: 7931998564243900340}
@@ -398,10 +399,12 @@ MonoBehaviour:
   maxAngle: 360
   minDistance: 3
   maxDistance: 10
-  stopInterval: {x: 1, y: 3}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 1
+  limitRange: 0
+  roamRange:
+    x: 5
+    y: 5
+    width: 30
+    height: 30
 --- !u!114 &732630971783486986
 MonoBehaviour:
   m_ObjectHideFlags: 0

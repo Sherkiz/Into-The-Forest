@@ -89,52 +89,15 @@ namespace ITF.Entity
 
                     if(i < aWorkerCount)
                     {
-                        if(blackboard != null)
-                        {
-                            MapObject[] goldenStones = WorldManager.Map.GetMapObjectsByName("gold_stones");
-                            if (goldenStones.Length > 0)
-                            {
-                                Vector2 targetPosition = goldenStones[0].range.min;
-                                targetPosition += i switch
-                                {
-                                    0 => new Vector2(0, -1),
-                                    1 => new Vector2(-1, 0),
-                                    2 => new Vector2(0, 2),
-                                    3 => new Vector2(2, 0),
-                                    _ => new Vector2(0, -1),
-                                };
-                                Vector2Variable targetCell = blackboard.GetVariable<Vector2Variable>("target_cell");
-                                if (targetCell != null)
-                                {
-                                    targetCell.Value = targetPosition;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogWarning($"Worker {worker.name} does not have a blackboard component.");
-                        }
                         shiftAWorkers[i] = worker;
                     }
                     else
                     {
                         int index = i - aWorkerCount; 
-                        if (blackboard != null)
-                        {
-                            MapObject[] goldenStones = WorldManager.Map.GetMapObjectsByName("gold_stones");
-                            if (goldenStones.Length > 0)
-                            {
-                                Vector2Variable targetCell = blackboard.GetVariable<Vector2Variable>("target_cell");
-                                if (targetCell != null)
-                                {
-                                    targetCell.Value = spawnCell;
-                                }
-                            }
-                        }
-                        else Debug.LogWarning($"Worker {worker.name} does not have a blackboard component.");
                         shiftBWorkers[index] = worker;
                     }
                 }
+                ShiftWorkers(shiftAWorkers, shiftBWorkers);
             }
             isAWorking = true;
             shiftBTimer.timer = 0;
@@ -150,6 +113,7 @@ namespace ITF.Entity
                 if(blackboard != null)
                 {
                     blackboard.GetVariable<Vector2Variable>("target_cell").Value = blackboard.GetVariable<Vector2Variable>("spawn_cell").Value;
+                    blackboard.GetVariable<BoolVariable>("resting").Value = true;
                 }
             }
 
@@ -171,6 +135,7 @@ namespace ITF.Entity
                             _ => new Vector2(0, -1),
                         };
                         blackboard.GetVariable<Vector2Variable>("target_cell").Value = targetPosition;
+                        blackboard.GetVariable<BoolVariable>("resting").Value = false;
                     }
                 }
             }
