@@ -252,7 +252,7 @@ namespace ITF.World
             name = multipleTilesObject.name;
             this.range = range;
             type = multipleTilesObject.mapObjectType;
-            if (multipleTilesObject is MultipleTilesBuilding building) entranceOffset = building.posOffsets[building.entranceTileIndex];
+            if (multipleTilesObject is MultipleTilesBuilding building) entranceOffset = building.posOffsets[building.entranceTileIndex] + Vector3Int.down;
         }
     }
 
