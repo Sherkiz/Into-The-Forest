@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace ITF.CameraControl
 {
-    public class CameraControllerSkillTree : MonoBehaviour
+    public class PlayingCameraMovement : MonoBehaviour
     {
         [SerializeField] private float mouseDraggingSpeed = 1f;
         [SerializeField] private float mouseZoomSpeed = 1f;
