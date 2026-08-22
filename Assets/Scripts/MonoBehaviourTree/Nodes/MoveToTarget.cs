@@ -21,7 +21,7 @@ namespace ITF.BehaviourTree.Nodes
         {
             if(character == null) character = host.Value.GetComponent<Character>();
             Vector2Int startCell = (Vector2Int)WorldManager.Map.PathfindingTilemap.WorldToCell(character.transform.position);
-            path = WorldManager.Map.FindPath(startCell, targetCell.Value.ToVector2Int());
+            path = WorldManager.Map.FindPath(startCell, targetCell.Value.ToVector2Int(), true);
             pathIndex = 0;
         }
 
@@ -55,6 +55,22 @@ namespace ITF.BehaviourTree.Nodes
             }
 
             return NodeResult.From(Status.Running);
+        }
+
+        private void OnDrawGizmos()
+        {
+            if(path.path != null)
+            {
+                Gizmos.color = Color.green;
+                Vector3 startPos = host.Value.transform.position;
+                for (int i = pathIndex; i < path.path.Count - 1; i++)
+                {
+                    Vector3 endPos = WorldManager.Map.PathfindingTilemap.GetCellCenterWorld((Vector3Int)path.path[i + 1]);
+                    Gizmos.DrawLine(startPos, endPos);
+
+                    startPos = endPos;
+                }
+            }
         }
     }
 

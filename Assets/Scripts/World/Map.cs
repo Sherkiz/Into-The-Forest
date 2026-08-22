@@ -49,6 +49,7 @@ namespace ITF.World
 
         Task rebuildTask;
         PathFinder pathFinder;
+        PathFinder pathFinderEightWay;
 
         /// <summary>
         /// Triggered after the map is built.
@@ -130,13 +131,14 @@ namespace ITF.World
             rebuildTask = new Task(BuildMap());
         }
 
-        public ResultPath FindPath(Vector2Int startPoint, Vector2Int endPoint, bool isAbstracth = false)
+        public ResultPath FindPath(Vector2Int startPoint, Vector2Int endPoint, bool eightWay = false, bool isAbstracth = false)
         {
             if (pathFinder == null)
             {
                 throw new Exception("Map not built yet.");
             }
-            return pathFinder.FindPath(startPoint, endPoint, isAbstracth);
+            return eightWay ? pathFinderEightWay.FindPath(startPoint, endPoint, isAbstracth) :
+                pathFinder.FindPath(startPoint, endPoint, isAbstracth);
         }
 
         /// <summary>
@@ -221,6 +223,10 @@ namespace ITF.World
             yield return null;
 
             pathFinder = new PathFinder(costs, hierachies, defaultCost, maxCosts, 4);
+
+            yield return null;
+
+            pathFinderEightWay = new PathFinder(costs, hierachies, defaultCost, maxCosts, 4, true);
 
             onBuilt?.Invoke(this);
             rebuildTask = null;

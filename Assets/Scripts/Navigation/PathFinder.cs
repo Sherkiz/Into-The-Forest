@@ -6,7 +6,9 @@ using UnityEngine.Tilemaps;
 namespace ITF.Navigation
 {
     /// <summary>
-    /// 寻路者,采用分层A*寻路算法
+    /// HPA* pathfinding algorithm, supports dynamic map updates, and can find paths in large maps with high efficiency. 
+    /// The algorithm divides the map into clusters, and each cluster contains transition points that connect to other clusters. 
+    /// The algorithm first finds an abstract path through the transition points, and then finds the complete path through the waypoints within the clusters.
     /// </summary>
     public class PathFinder
     {
@@ -23,6 +25,8 @@ namespace ITF.Navigation
         //the highest level cluster, usually contains the entire map
         MapCluster mapCluster;
 
+        bool eightWay = false;
+
         /// <summary>
         /// constructor
         /// </summary>
@@ -31,13 +35,14 @@ namespace ITF.Navigation
         /// <param name="defaultCost"></param>
         /// <param name="maxCost">maximum cost, areas with a cost greater than this value are considered impassable</param>
         /// <param name="maxContinuum">maximum number of continuous entrances, if the number of continuous entrances is greater than this value, transition points will be generated at both ends, otherwise a transition point will be generated at the center</param>
-        public PathFinder(List<List<int>> map, Vector2Int[] hierarchies, int defaultCost, int maxCost = 9999_9999, uint maxContinuum = 6)
+        public PathFinder(List<List<int>> map, Vector2Int[] hierarchies, int defaultCost, int maxCost = 9999_9999, uint maxContinuum = 6, bool eightWay = false)
         {
             this.maxContinuum = maxContinuum;
             this.maxCost = maxCost;
             this.map = map;
+            this.eightWay = eightWay;
 
-            MapCluster[][] lowerClusters = SplitMap(map, hierarchies[0], defaultCost, maxCost, maxContinuum);
+            MapCluster[][] lowerClusters = SplitMap(map, hierarchies[0], defaultCost, maxCost, maxContinuum, eightWay);
             for (int i = 1; i < hierarchies.Length; i++) lowerClusters = SplitMap(lowerClusters, hierarchies[i]);
             mapCluster = new(lowerClusters, true);
         }
@@ -66,6 +71,51 @@ namespace ITF.Navigation
             startPoint -= new Vector2Int(1, 1);
             size += new Vector2Int(1, 1);
             mapCluster.UpdateMap(startPoint, size, maxCost, maxContinuum);
+        }
+
+        public ResultPath GetDiagonalPath(Vector2Int startPos, ResultPath path)
+        {
+            ResultPath diagonalPath = new(null, path.g);
+            if(path.path == null || path.path.Count == 0) return diagonalPath;
+            if(path.path.Count == 1)
+            {
+                diagonalPath.path = new List<Vector2Int>() { path.path[0] };
+                return diagonalPath;
+            }
+
+            diagonalPath.path = new List<Vector2Int>();
+            Vector2Int point1 = startPos;
+            for(int i = 0; i < path.path.Count - 1; i++)
+            {
+
+                Vector2Int point2 = path.path[i];
+                Vector2Int point3 = path.path[i + 1];
+
+                if (point1 == point2) continue;
+
+                Vector2Int delta1 = point1 - point2;
+                delta1.x = (int)Mathf.Sign(delta1.x);
+                delta1.y = (int)Mathf.Sign(delta1.y);
+                Vector2Int delta2 = point3 - point2;
+                delta2.x = (int)Mathf.Sign(delta2.x);
+                delta2.y = (int)Mathf.Sign(delta2.y);
+                Vector2Int diagonalPoint = point2 + delta1 + delta2;
+                Debug.Log($"diagonalPoint: {diagonalPoint}, y size :{map[diagonalPoint.x].Count}");
+
+                if (map[diagonalPoint.x][diagonalPoint.y] < maxCost)
+                {
+                    diagonalPath.path.Add(point2 + delta1);
+                    point1 = point2 + delta2;
+                    diagonalPath.path.Add(point1);
+                }
+                else
+                {
+                    diagonalPath.path.Add(point2);
+                    point1 = point2;
+                }
+            }
+
+            return diagonalPath;
         }
 
         /// <summary>
@@ -114,6 +164,7 @@ namespace ITF.Navigation
         /// <param name="map">map costs</param>
         /// <param name="startPoint"></param>
         /// <param name="endPoint"></param>
+        /// <param name="eightWay">Whether to allow eight-way movement</param>
         /// <param name="maxCost">maximum cost, areas with a cost greater than this value are considered impassable</param>
         /// <param name="defaultCost">used to calculate the estimated cost</param>
         /// <param name="x">starting x value of the searchable area</param>
@@ -121,7 +172,7 @@ namespace ITF.Navigation
         /// <param name="width">width of the searchable area, should be greater than 0</param>
         /// <param name="height">height of the searchable area, should be greater than 0</param>
         /// <returns>returns a list of path waypoints, if no path is found, the list will be empty</returns>
-        public static ResultPath FindPath(List<List<int>> map, Vector2Int startPoint, Vector2Int endPoint, int maxCost, int defaultCost = 1, int x = 0, int y = 0, int width = -1, int height = -1)
+        public static ResultPath FindPath(List<List<int>> map, Vector2Int startPoint, Vector2Int endPoint, bool eightWay, int maxCost, int defaultCost = 1, int x = 0, int y = 0, int width = -1, int height = -1)
         {
             if (width < 0) width = map.Count;
             if (height < 0) height = map[0].Count;
@@ -192,6 +243,22 @@ namespace ITF.Navigation
                 //left
                 index = new(node.index.x - 1, node.index.y);
                 if (index.x >= x) CheckNeighbor(node, index);
+
+                if (eightWay)
+                {
+                    //up-right
+                    index = new(node.index.x + 1, node.index.y - 1);
+                    if (index.x < x + width && index.y >= y) CheckNeighbor(node, index);
+                    //down-right
+                    index = new(node.index.x + 1, node.index.y + 1);
+                    if (index.x < x + width && index.y < y + height) CheckNeighbor(node, index);
+                    //down-left
+                    index = new(node.index.x - 1, node.index.y + 1);
+                    if (index.x >= x && index.y < y + height) CheckNeighbor(node, index);
+                    //up-left
+                    index = new(node.index.x - 1, node.index.y - 1);
+                    if (index.x >= x && index.y >= y) CheckNeighbor(node, index);
+                }
             }
 
             if(endNode == null || endNode.index != endPoint) return new ResultPath(null, 0);
@@ -220,8 +287,9 @@ namespace ITF.Navigation
         /// <param name="defaultCost">default cost</param>
         /// <param name="maxCost">maximum cost, areas with a cost higher than this are considered impassable</param>
         /// <param name="maxContinuum">maximum number of continuous entrances</param>
+        /// <param name="eightWay">Indicates whether movement is allowed in eight directions</param>
         /// <returns>returns the divided clusters</returns>
-        static MapCluster[][] SplitMap(List<List<int>> map, Vector2Int size, int defaultCost, int maxCost, uint maxContinuum)
+        static MapCluster[][] SplitMap(List<List<int>> map, Vector2Int size, int defaultCost, int maxCost, uint maxContinuum, bool eightWay)
         {
             if (map.Count % size.x != 0 || map[0].Count % size.y != 0) 
                 throw new UnalignedException("The size division is not aligned with the map size");
@@ -235,7 +303,7 @@ namespace ITF.Navigation
                 clusters[i] = new MapCluster[height];
                 for (int j = 0; j < height; j++)
                 {
-                    clusters[i][j] = new(map, new(i * size.x, j * size.y), size, defaultCost, maxCost, maxContinuum);
+                    clusters[i][j] = new(map, new(i * size.x, j * size.y), size, defaultCost, maxCost, maxContinuum, eightWay);
                 }
             }
             return clusters;
@@ -385,6 +453,8 @@ namespace ITF.Navigation
 
         public int maxCost = 9999_9999;
 
+        public bool eightWay = false;
+
         //Store the transition links between target point and the transition points
         Dictionary<Vector2Int, List<TransitionLink>> linksBuff = new();
 
@@ -397,16 +467,18 @@ namespace ITF.Navigation
         /// <param name="defaultCost"></param>
         /// <param name="maxCost">The maximum cost, values greater than or equal to this are considered impassable</param>
         /// <param name="maxContinuum">The maximum number of consecutive entrances, values greater than this will have their ends as transition points</param>
-        public MapCluster(List<List<int>> map, Vector2Int startIndex, Vector2Int size, int defaultCost, int maxCost, uint maxContinuum)
+        /// <param name="eightWay">Indicates whether movement is allowed in eight directions</param>
+        public MapCluster(List<List<int>> map, Vector2Int startIndex, Vector2Int size, int defaultCost, int maxCost, uint maxContinuum, bool eightWay)
         {
             this.map = map;
             this.startIndex = startIndex;
             this.size = size;
+            this.eightWay = eightWay;
             subClusters = null;
             this.defaultCost = defaultCost;
             this.maxCost = maxCost;
 
-            links = GetTransitions(map, startIndex, size, defaultCost, maxCost, maxContinuum);
+            links = GetTransitions(map, startIndex, size, eightWay, defaultCost, maxCost, maxContinuum);
         }
 
         /// <summary>
@@ -423,6 +495,7 @@ namespace ITF.Navigation
             this.subClusters = subClusters;
             defaultCost = sample.defaultCost;
             maxCost = sample.maxCost;
+            eightWay = sample.eightWay;
 
             if (!isGreatest)
             {
@@ -442,7 +515,7 @@ namespace ITF.Navigation
             ClearAllBuff();
             if (subClusters == null)
             {
-                links = GetTransitions(map, this.startIndex, this.size, defaultCost, maxCost, maxContinumm);
+                links = GetTransitions(map, this.startIndex, this.size, eightWay, defaultCost, maxCost, maxContinumm);
             }
             else
             {
@@ -509,13 +582,13 @@ namespace ITF.Navigation
                 {
                     MapCluster subCluster = subClusters[subIndex.x][subIndex.y];
                     ResultPath path = subCluster.subClusters == null ?
-                        PathFinder.FindPath(map, startPoint, endPoint, maxCost, defaultCost, subCluster.startIndex.x, subCluster.startIndex.y, subCluster.size.x, subCluster.size.y)
+                        PathFinder.FindPath(map, startPoint, endPoint, eightWay, maxCost, defaultCost, subCluster.startIndex.x, subCluster.startIndex.y, subCluster.size.x, subCluster.size.y)
                         : subCluster.GetAbstractPath(startPoint, endPoint);
                     if (path.path != null && path.path.Count > 0) return path;
                 }
             }
 
-            return subClusters == null ? PathFinder.FindPath(map, startPoint, endPoint, maxCost, defaultCost, startIndex.x, startIndex.y, size.x, size.y) : BridgePoints(startPoint, endPoint);
+            return subClusters == null ? PathFinder.FindPath(map, startPoint, endPoint, eightWay, maxCost, defaultCost, startIndex.x, startIndex.y, size.x, size.y) : BridgePoints(startPoint, endPoint);
         }
 
         /// <summary>
@@ -656,7 +729,7 @@ namespace ITF.Navigation
             {
                 foreach (var pair in links)
                 {
-                    ResultPath path = PathFinder.FindPath(map, point, pair.Key, maxCost, defaultCost, startIndex.x, startIndex.y, size.x, size.y);
+                    ResultPath path = PathFinder.FindPath(map, point, pair.Key, eightWay, maxCost, defaultCost, startIndex.x, startIndex.y, size.x, size.y);
                     if (path.path == null || path.path.Count == 0) continue;
                     buffLinks.Add(new TransitionLink(pair.Key, path.path, path.g));
 
@@ -826,11 +899,12 @@ namespace ITF.Navigation
         /// <param name="map">The map.</param>
         /// <param name="startPoint">The starting point of the cluster.</param>
         /// <param name="size">The size of the cluster.</param>
+        /// <param name="eightWay">Indicates whether movement is allowed in eight directions.</param>
         /// <param name="defaultCost"></param>
         /// <param name="maxCost">The maximum cost. Any cost greater than or equal to this value is considered impassable.</param>
         /// <param name="maxContinuum">The maximum continuum. If the continuous entrance is greater than or equal to this value, two transition points will be recorded; otherwise, the endpoint will be used as the transition point.</param>
         /// <returns>Returns the found transition points and all their links.</returns>
-        static Dictionary<Vector2Int, List<TransitionLink>> GetTransitions(List<List<int>> map, Vector2Int startPoint, Vector2Int size, int defaultCost, int maxCost, uint maxContinuum)
+        static Dictionary<Vector2Int, List<TransitionLink>> GetTransitions(List<List<int>> map, Vector2Int startPoint, Vector2Int size, bool eightWay, int defaultCost, int maxCost, uint maxContinuum)
         {
             Dictionary<Vector2Int, List<TransitionLink>> links = new();
 
@@ -915,7 +989,7 @@ namespace ITF.Navigation
                 foreach (var other in links)
                 {
                     if (visited.Contains(other.Key)) continue;
-                    ResultPath path = PathFinder.FindPath(map, pair.Key, other.Key, maxCost, defaultCost, startPoint.x, startPoint.y, size.x, size.y);
+                    ResultPath path = PathFinder.FindPath(map, pair.Key, other.Key, eightWay, maxCost, defaultCost, startPoint.x, startPoint.y, size.x, size.y);
                     if (path.path != null && path.path.Count > 0)
                     {
                         pair.Value.Add(new(other.Key, path.path, path.g));
