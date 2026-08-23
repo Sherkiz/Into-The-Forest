@@ -138,7 +138,7 @@ namespace ITF.Entity
                     Blackboard blackboard = worker.GetReference("blackboard")?.GetComponent<Blackboard>();
                     if(blackboard != null)
                     {
-                        targetPosition += i switch
+                        Vector2 offset = i switch
                         {
                             0 => new Vector2(0, -1),
                             1 => new Vector2(-1, 0),
@@ -146,7 +146,7 @@ namespace ITF.Entity
                             3 => new Vector2(2, 0),
                             _ => new Vector2(0, -1),
                         };
-                        blackboard.GetVariable<Vector2Variable>("target_cell").Value = targetPosition;
+                        blackboard.GetVariable<Vector2Variable>("target_cell").Value = targetPosition + offset;
                         blackboard.GetVariable<BoolVariable>("resting").Value = false;
                     }
                 }
