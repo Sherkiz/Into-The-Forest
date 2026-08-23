@@ -36,7 +36,7 @@ namespace ITF.Rendering
                 {
                     fowHandle?.Release();
 
-                    RenderTextureDescriptor renderTextureDescriptor = new RenderTextureDescriptor(textureSize.x, textureSize.y, GraphicsFormat.R32_SFloat, 0)
+                    RenderTextureDescriptor renderTextureDescriptor = new RenderTextureDescriptor(textureSize.x, textureSize.y, GraphicsFormat.R8_UInt, 0)
                     {
                         enableRandomWrite = true,
                         msaaSamples = 1,
