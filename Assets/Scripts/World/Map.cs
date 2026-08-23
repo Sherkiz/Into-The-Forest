@@ -1,4 +1,5 @@
 using ITF.CustomTiles;
+using ITF.Entity;
 using ITF.Navigation;
 using ITF.Utilities;
 using System;
@@ -27,9 +28,14 @@ namespace ITF.World
         [Space(20)]
         public int maxTraverse = 5_000;
 
+        [Space(20)]
+        [SerializeField] private Vector2Int mapChunkSize;
+
         [SerializeField]
         public List<MapObject> mapObjectList = new();
         Dictionary<string, List<MapObject>> mapObjectDict = new();
+
+        private Dictionary<Vector2, MapChunk> mapChunksDict = new();
 
         Tilemap pathfindingTilemap;
         public Tilemap PathfindingTilemap
@@ -228,8 +234,31 @@ namespace ITF.World
 
             pathFinderEightWay = new PathFinder(costs, hierachies, defaultCost, maxCosts, 4, true);
 
+            CreateMapChunks();
+
             onBuilt?.Invoke(this);
             rebuildTask = null;
+        }
+        private void CreateMapChunks()
+        {
+            if (tilemaps.TryGetValue(pathfindingMapName, out Tilemap tilemap))
+            {
+                var bounds = tilemap.cellBounds;
+                var size = bounds.size;
+                if (size.x % mapChunkSize.x != 0 || size.y % mapChunkSize.y != 0)
+                {
+                    throw new Exception("Tilemap size is not a multiple of map chunk size. Should be updated!");
+                }
+                for (int x = 0; x < size.x / mapChunkSize.x; x++)
+                {
+                    for (int y = 0; y < size.y / mapChunkSize.y; y++) 
+                    {
+                        Vector2 chunkCenterPos = new Vector2((x + mapChunkSize.x) / 2f,(y + mapChunkSize.y) / 2f );
+                        Rect chunkRect = new Rect(chunkCenterPos, mapChunkSize);
+                        mapChunksDict[chunkCenterPos] = new MapChunk(chunkRect);
+                    }
+                }
+            }
         }
     }
 
@@ -255,5 +284,19 @@ namespace ITF.World
             if (multipleTilesObject is MultipleTilesBuilding building) entranceOffset = building.posOffsets[building.entranceTileIndex];
         }
     }
+    public class MapChunk
+    {
+        public Rect bounds;
+        public List<MapObject> mapObjects;
+        public List<Character> characters;
+        public bool isActive;
 
+        public MapChunk(Rect bounds, List<MapObject> mapObjects = null, List<Character> characters = null, bool isActive = false)
+        {
+            this.bounds = bounds;
+            this.mapObjects = mapObjects;
+            this.characters = characters;
+            this.isActive = isActive;
+        }
+    }
 }
