@@ -1,0 +1,29 @@
+#pragma kernel CSMain
+
+struct ViewField
+{
+    float2 Position;
+    float radius;
+};
+
+uint2 MapResolution;
+float CellSize; // The size of each cell in world space
+float2 MapOffset; // The offset of the map in world space
+bool oddFrame;
+
+ByteAddressBuffer MapData;
+StructuredBuffer<ViewField> ViewFields;
+
+RWTexture2D<uint> Result1;
+RWTexture2D<uint> Result2;
+
+uint2 IndexCell(uint x, uint y)
+{
+    return uint2((uint) (MapOffset.x / CellSize.x) + x, (uint) (MapOffset.y / CellSize.y) + y);
+}
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    
+}
