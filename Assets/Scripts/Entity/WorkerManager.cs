@@ -1,6 +1,7 @@
 using ITF.Utilities;
 using ITF.World;
 using MBT;
+using System.Linq;
 using UnityEngine;
 
 namespace ITF.Entity
@@ -17,7 +18,7 @@ namespace ITF.Entity
         [Tooltip("The interval(s) of the workers to shift"), SerializeField]
         float shiftInterval = 60f;
 
-        Character[] workers;
+        static Character[] workers;
         Character[] shiftAWorkers;
         Character[] shiftBWorkers;
         bool isAWorking;
@@ -27,6 +28,7 @@ namespace ITF.Entity
 
         void Start()
         {
+            workers = null;
             shiftATimer = new(shiftInterval, _ =>
             {
                 ShiftWorkers(shiftAWorkers, shiftBWorkers);
@@ -43,6 +45,16 @@ namespace ITF.Entity
             });
 
             WorldManager.OnWorldGenerated.AddListener(OnWorldGenerated);
+        }
+
+        public static Vector2[] GetWorkersPositions()
+        {
+            if (workers == null) return null;
+            if (workers.All(w => w == null)) return null;
+            return workers.Where(w => w != null)
+                .Select(w => Camera.main.WorldToScreenPoint(w.transform.position))
+                .Where(pos => pos.x >= 0 && pos.x < Screen.width && pos.y >= 0 && pos.y < Screen.height)
+                .Select(pos => new Vector2(pos.x / 3, pos.y / 3)).ToArray();
         }
 
         void OnWorldGenerated()

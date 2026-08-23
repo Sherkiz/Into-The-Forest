@@ -1,0 +1,36 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWTexture2D<float4> fowTexture;
+float2 textureSize;
+
+StructuredBuffer<float2> unitsPositions;
+int unitsCount;
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    int2 pixel = int2(id.xy);
+    float2 uv = pixel;
+    float visibility = 0;
+    
+    for (int i = 0; i < unitsCount; i++)
+    {
+        float2 unitPos = unitsPositions[i];
+        float dist = distance(uv, unitPos);
+        float clearRadius = 20;
+        float linearDecreaseRadius = 50;
+        if (dist < clearRadius)
+        {
+            visibility += 1;
+        }
+        else
+        {
+            visibility += 1 - saturate((dist - clearRadius) / linearDecreaseRadius);
+        }
+    }
+    visibility = saturate(visibility);
+    fowTexture[pixel] = visibility;
+}
