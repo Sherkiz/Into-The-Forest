@@ -1,5 +1,3 @@
-using ITF.Entity;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace ITF.Rendering.FOW
