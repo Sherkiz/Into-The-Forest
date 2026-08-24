@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 2636677069072536459}
   - component: {fileID: 2467627825365866231}
   - component: {fileID: 2670029397505672014}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BehaviourTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -537,7 +537,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9191351854067162781}
   - component: {fileID: 1464369729133710763}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: bear_worker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -629,7 +629,8 @@ GameObject:
   - component: {fileID: 5581590755299423216}
   - component: {fileID: 2010961557228551646}
   - component: {fileID: 6367471534111396631}
-  m_Layer: 6
+  - component: {fileID: 131710455162206285}
+  m_Layer: 7
   m_Name: Worker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,3 +732,30 @@ MonoBehaviour:
   onStateUnitRemoved:
     m_PersistentCalls:
       m_Calls: []
+--- !u!50 &131710455162206285
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8460206788401936952}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

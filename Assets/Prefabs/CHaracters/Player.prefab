@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 856176481838214114}
   - component: {fileID: 41800224233480134}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: bear_mage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 8100993482193910270}
   - component: {fileID: 9113156781202617203}
   - component: {fileID: 174508609283559645}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BehaviourTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 1483221023016348820}
   - component: {fileID: 5359601769484702191}
   - component: {fileID: 592155788199570515}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}

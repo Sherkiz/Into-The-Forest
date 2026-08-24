@@ -272,6 +272,9 @@ MonoBehaviour:
     hierachies:
     - {x: 26, y: 18}
     maxTraverse: 5000
+    mapChunkSize: {x: 130, y: 18}
+    mapChunkPrefab: {fileID: 1860542684687661670, guid: d7829db5180e56c4ba01bfe220a0f2d0, type: 3}
+    onCameraMoved: {fileID: 11400000, guid: 50d7893cdbacda940a33e21558f86fa2, type: 2}
   onWorldGenerated:
     m_PersistentCalls:
       m_Calls: []
@@ -380,7 +383,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 183
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -469,6 +472,7 @@ MonoBehaviour:
   cameraYBounds: {x: 0, y: 23}
   minSize: 5
   maxSize: 10
+  onCameraMoved: {fileID: 11400000, guid: 50d7893cdbacda940a33e21558f86fa2, type: 2}
 --- !u!114 &307428064
 MonoBehaviour:
   m_ObjectHideFlags: 0

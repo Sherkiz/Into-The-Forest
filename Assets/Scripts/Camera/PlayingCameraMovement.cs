@@ -1,3 +1,4 @@
+using ITF.EventChannels;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,12 +6,17 @@ namespace ITF.CameraControl
 {
     public class PlayingCameraMovement : MonoBehaviour
     {
+        [Header("Speed")]
         [SerializeField] private float mouseDraggingSpeed = 1f;
         [SerializeField] private float mouseZoomSpeed = 1f;
+        [Header("Bounds")]
         [SerializeField] private Vector2 cameraXBounds;
         [SerializeField] private Vector2 cameraYBounds;
+        [Header("Size")]
         [SerializeField] private float minSize;
         [SerializeField] private float maxSize;
+        [Space(20), Header("Events")]
+        [SerializeField] private RectEventChannelSO onCameraMoved;
         private Camera cam;
         private readonly float initialZoom = 5f;
         private float cameraMinX;
@@ -19,12 +25,14 @@ namespace ITF.CameraControl
         private float cameraMaxY;
         private float RelativeZoomLevel { get => initialZoom / cam.orthographicSize; }
         private Vector3 initialPosition;
+        private Rect currentCameraViewRect;
 
         private void Awake()
         {
             cam = GetComponent<Camera>();
             CalculateCameraBounds();
             initialPosition = new Vector3(cameraMinX, cameraMinY, -10);
+            currentCameraViewRect = GetCameraViewRect();
         }
         private void Start()
         {
@@ -67,6 +75,12 @@ namespace ITF.CameraControl
         {
             position.x = Mathf.Clamp(position.x, cameraMinX, cameraMaxX);
             position.y = Mathf.Clamp(position.y, cameraMinY, cameraMaxY);
+            if (currentCameraViewRect != GetCameraViewRect())
+            {
+                Debug.Log("Camera moved !");
+                currentCameraViewRect = GetCameraViewRect();
+                onCameraMoved.RaiseEvent(GetCameraViewRect());
+            }
             return position;
         }
         private void ClampPositionToBounds()
@@ -109,13 +123,18 @@ namespace ITF.CameraControl
             translation *= mouseDraggingSpeed * Time.fixedDeltaTime / RelativeZoomLevel;
             TeleportCameraToPosition(transform.position + (Vector3)translation);
         }
-
         private void HandleOtherInputs()
         {
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
                 ResetPosition();
             }
+        }
+        private Rect GetCameraViewRect()
+        {
+            float camHeight = cam.orthographicSize * 2f;
+            float camWidth = camHeight * cam.aspect;
+            return new Rect(cam.transform.position.x - camWidth / 2f, cam.transform.position.y - camHeight / 2, camWidth, camHeight);
         }
     }
 }

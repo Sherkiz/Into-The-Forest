@@ -36,7 +36,7 @@ namespace ITF.Rendering
                 {
                     fowHandle?.Release();
 
-                    RenderTextureDescriptor renderTextureDescriptor = new RenderTextureDescriptor(textureSize.x, textureSize.y, GraphicsFormat.R8_UInt, 0)
+                    RenderTextureDescriptor renderTextureDescriptor = new RenderTextureDescriptor(textureSize.x, textureSize.y, GraphicsFormat.R32_SFloat, 0)
                     {
                         enableRandomWrite = true,
                         msaaSamples = 1,
@@ -116,7 +116,6 @@ namespace ITF.Rendering
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
             if (computeShader == null || WorkerManager.GetWorkersPositions() == null) return;
-            Debug.Log(WorkerManager.GetWorkersPositions().Length);
             fowPass.Initialize(computeShader);
             renderer.EnqueuePass(fowPass);
         }

@@ -1,5 +1,6 @@
 using ITF.CustomTiles;
 using ITF.Entity;
+using ITF.EventChannels;
 using ITF.Navigation;
 using ITF.Utilities;
 using System;
@@ -30,12 +31,18 @@ namespace ITF.World
 
         [Space(20)]
         [SerializeField] private Vector2Int mapChunkSize;
+        [SerializeField] private MapChunk mapChunkPrefab;
 
+        [Space(20)]
+        [SerializeField] private RectEventChannelSO onCameraMoved;
+
+        [Space(20)]
         [SerializeField]
         public List<MapObject> mapObjectList = new();
         Dictionary<string, List<MapObject>> mapObjectDict = new();
 
         private Dictionary<Vector2, MapChunk> mapChunksDict = new();
+        private List<MapChunk> activeMapChunks = new();
 
         Tilemap pathfindingTilemap;
         public Tilemap PathfindingTilemap
@@ -70,7 +77,14 @@ namespace ITF.World
                 tilemaps.Add(tilemap.name, tilemap);
             }
         }
-
+        public void OnEnable()
+        {
+            onCameraMoved.OnEventRaised += UpdateMapChunks;
+        }
+        public void OnDisable()
+        {
+            onCameraMoved.OnEventRaised -= UpdateMapChunks;
+        }
         public TileBase GetTileOnPathfingTilemap(Vector2Int index)
         {
             if (tilemaps.TryGetValue(pathfindingMapName, out Tilemap tilemap))
@@ -245,20 +259,50 @@ namespace ITF.World
             {
                 var bounds = tilemap.cellBounds;
                 var size = bounds.size;
+                if (mapChunkSize.x == 0) mapChunkSize.x = size.x;
+                if (mapChunkSize.y == 0) mapChunkSize.y = size.y;
                 if (size.x % mapChunkSize.x != 0 || size.y % mapChunkSize.y != 0)
                 {
                     throw new Exception("Tilemap size is not a multiple of map chunk size. Should be updated!");
                 }
                 for (int x = 0; x < size.x / mapChunkSize.x; x++)
                 {
-                    for (int y = 0; y < size.y / mapChunkSize.y; y++) 
+                    for (int y = 0; y < size.y / mapChunkSize.y; y++)
                     {
-                        Vector2 chunkCenterPos = new Vector2((x + mapChunkSize.x) / 2f,(y + mapChunkSize.y) / 2f );
-                        Rect chunkRect = new Rect(chunkCenterPos, mapChunkSize);
-                        mapChunksDict[chunkCenterPos] = new MapChunk(chunkRect);
+                        Vector2 chunkBottomCorner = tilemap.CellToWorld(new Vector3Int(x * mapChunkSize.x, y * mapChunkSize.y, 0));
+                        Vector2 chunkTopCorner = tilemap.CellToWorld(new Vector3Int((x + 1) * mapChunkSize.x, (y + 1) * mapChunkSize.y, 0));
+                        Vector2 chunkCenterPos = (chunkBottomCorner + chunkTopCorner) / 2f;
+                        MapChunk mapChunk = GameObject.Instantiate(mapChunkPrefab);
+                        Vector2 worldChunkSize = new Vector2(mapChunkSize.x * tilemap.cellSize.x, mapChunkSize.y * tilemap.cellSize.y);
+                        mapChunk.SetMapChunkRange(chunkCenterPos, worldChunkSize);
+                        mapChunksDict[chunkCenterPos] = mapChunk;
                     }
                 }
             }
+        }
+        private void UpdateMapChunks(Rect cameraViewRect)
+        {
+            foreach (var centerPos in mapChunksDict.Keys) 
+            {
+                MapChunk mapChunk = mapChunksDict[centerPos];
+                if (cameraViewRect.Contains(centerPos))
+                {
+                    if (!activeMapChunks.Contains(mapChunk)) activeMapChunks.Add(mapChunk);
+                }
+                else
+                {
+                    if (activeMapChunks.Contains(mapChunk)) activeMapChunks.Remove(mapChunk);
+                }
+            }
+        }
+        public List<Character> GetActiveCharacters()
+        {
+            List<Character> characters = new List<Character>();
+            foreach(var chunk in activeMapChunks)
+            {
+                characters.AddRange(chunk.characters);
+            }
+            return characters;
         }
     }
 
@@ -284,19 +328,5 @@ namespace ITF.World
             if (multipleTilesObject is MultipleTilesBuilding building) entranceOffset = building.posOffsets[building.entranceTileIndex];
         }
     }
-    public class MapChunk
-    {
-        public Rect bounds;
-        public List<MapObject> mapObjects;
-        public List<Character> characters;
-        public bool isActive;
-
-        public MapChunk(Rect bounds, List<MapObject> mapObjects = null, List<Character> characters = null, bool isActive = false)
-        {
-            this.bounds = bounds;
-            this.mapObjects = mapObjects;
-            this.characters = characters;
-            this.isActive = isActive;
-        }
-    }
+    
 }
