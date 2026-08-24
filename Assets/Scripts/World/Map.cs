@@ -272,7 +272,7 @@ namespace ITF.World
                         Vector2 chunkBottomCorner = tilemap.CellToWorld(new Vector3Int(x * mapChunkSize.x, y * mapChunkSize.y, 0));
                         Vector2 chunkTopCorner = tilemap.CellToWorld(new Vector3Int((x + 1) * mapChunkSize.x, (y + 1) * mapChunkSize.y, 0));
                         Vector2 chunkCenterPos = (chunkBottomCorner + chunkTopCorner) / 2f;
-                        MapChunk mapChunk = GameObject.Instantiate(mapChunkPrefab);
+                        MapChunk mapChunk = GameObject.Instantiate(mapChunkPrefab, WorldManager.Instance.transform);
                         Vector2 worldChunkSize = new Vector2(mapChunkSize.x * tilemap.cellSize.x, mapChunkSize.y * tilemap.cellSize.y);
                         mapChunk.SetMapChunkRange(chunkCenterPos, worldChunkSize);
                         mapChunksDict[chunkCenterPos] = mapChunk;
