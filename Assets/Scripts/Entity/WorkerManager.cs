@@ -51,10 +51,8 @@ namespace ITF.Entity
         {
             if (workers == null) return null;
             if (workers.All(w => w == null)) return null;
-            return workers.Where(w => w != null)
-                .Select(w => Camera.main.WorldToScreenPoint(w.transform.position))
-                .Where(pos => pos.x >= 0 && pos.x < Screen.width && pos.y >= 0 && pos.y < Screen.height)
-                .Select(pos => new Vector2(pos.x / 3, pos.y / 3)).ToArray();
+
+            return workers.Select(worker => (Vector2)worker.transform.position).ToArray();
         }
 
         void OnWorldGenerated()

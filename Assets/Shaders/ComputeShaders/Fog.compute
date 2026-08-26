@@ -3,27 +3,117 @@
 struct ViewField
 {
     float2 Position;
-    float radius;
+    float clearRadius;
+    float fadeRadius;
 };
 
+#define STEP 2
+
 uint2 MapResolution;
+uint2 TotalThreads;
 float CellSize; // The size of each cell in world space
 float2 MapOffset; // The offset of the map in world space
-bool oddFrame;
+float2 LastMapOffset; // The offset of the map in world space during the last frame
+float PixelRatioWorldToScreen;
 
-ByteAddressBuffer MapData;
+StructuredBuffer<uint> MapData;
 StructuredBuffer<ViewField> ViewFields;
+uint ViewFieldCount;
 
-RWTexture2D<uint> Result1;
-RWTexture2D<uint> Result2;
+RWTexture2D<float> LastResult;
+RWTexture2D<float> Result;
 
-uint2 IndexCell(uint x, uint y)
+int2 IndexCellByWorldPos(float2 worldPos)
 {
-    return uint2((uint) (MapOffset.x / CellSize.x) + x, (uint) (MapOffset.y / CellSize.y) + y);
+    return int2(worldPos / CellSize);
+}
+
+float2 ScreenPosToWorldPos(float2 screenPos)
+{
+    return screenPos * PixelRatioWorldToScreen + MapOffset;
+}
+
+int2 WorldPosToScreenPos(float2 worldPos)
+{
+    return int2((worldPos - MapOffset) / PixelRatioWorldToScreen);
+}
+
+int2 CurrentIDToLastID(int2 threadID)
+{
+    int2 screenOffset = int2((MapOffset - LastMapOffset) / PixelRatioWorldToScreen);
+    return threadID + screenOffset;
+}
+
+float LastVisibilityValue(int2 screenPos)
+{
+    int2 lastID = CurrentIDToLastID(screenPos);
+    if (lastID.x < 0 || lastID.y < 0 || lastID.x >= (int) TotalThreads.x || lastID.y >= (int) TotalThreads.y)
+        return 0; // Out of bounds, treat as not visible
+    
+    float visibilityValue;
+    visibilityValue = LastResult.Load(lastID);
+    return visibilityValue;
+}
+
+bool IsBlocked(int2 screenPos, uint2 cellIndex)
+{
+    uint index = cellIndex.y * MapResolution.x + cellIndex.x;
+    uint cellValue = MapData[index];
+    if (cellValue == 1)
+        return true; // Blocked
+    return LastVisibilityValue(screenPos) < 0.01; // If the last result is 0, it's blocked
 }
 
 [numthreads(8,8,1)]
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
+    uint2 threadID = id.xy;
+    float visibleDis = CellSize * 0.707;
+    float2 mapRange = MapResolution * CellSize;
     
+    float visibility = 0;
+    float2 worldPos = ScreenPosToWorldPos(threadID);
+    //uint2 cellIndex = IndexCellByWorldPos(worldPos);
+    for(uint i = 0; i < ViewFieldCount; i++)
+    {
+        ViewField viewField = ViewFields[i];
+        float2 toViewField = worldPos - viewField.Position;
+        float distance = length(toViewField);
+        
+        if (distance > viewField.clearRadius + viewField.fadeRadius) 
+            continue;
+        
+        if(distance <= visibleDis)
+        {
+            visibility += 1;
+            continue;
+        }
+        
+        toViewField = normalize(toViewField);
+        bool blocked = false;
+        for (int j = 1; j <= STEP; j++)
+        {
+            float stepDis = j * visibleDis / 2;
+            if (stepDis > distance)
+                break;
+            float2 nextWorldPos = worldPos - stepDis * toViewField;
+            int2 screenPos = WorldPosToScreenPos(nextWorldPos);
+            if (IsBlocked(screenPos, IndexCellByWorldPos(nextWorldPos)))
+            {
+                blocked = true;
+                break;
+            }
+        }
+        if (blocked)
+            continue;
+        
+        if (distance < viewField.clearRadius)
+        {
+            visibility += 1;
+            continue;
+        }
+        visibility += 1 - (distance - viewField.clearRadius) / viewField.fadeRadius;
+    }
+    
+    Result[threadID.xy] = saturate(visibility);
 }
