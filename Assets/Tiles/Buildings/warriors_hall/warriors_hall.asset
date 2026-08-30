@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e978d463036084e42bf4c05a7c1cb29b, type: 3}
+  m_Script: {fileID: 11500000, guid: 25238d88ae295d647bc1de713cf0d53c, type: 3}
   m_Name: warriors_hall
-  m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesBuilding
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.World.TrainingBuilding
   name: warriors_hall
   size: {x: 7, y: 7}
   tiles:
