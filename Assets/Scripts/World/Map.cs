@@ -42,6 +42,7 @@ namespace ITF.World
         Dictionary<string, List<MapObject>> mapObjectDict = new();
 
         private Dictionary<Vector2, MapChunk> mapChunksDict = new();
+        private Dictionary<Vector2Int, MapChunk> mapChunksCellDict = new(); // key: bottom left cell of the chunk
         private List<MapChunk> activeMapChunks = new();
 
         Tilemap pathfindingTilemap;
@@ -140,6 +141,88 @@ namespace ITF.World
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Get the nearest empty cell (passable and no character) from the given cell within the range.
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <param name="range"></param>
+        /// <param name="emptyCell"></param>
+        /// <returns></returns>
+        public bool GetNearestEmptyCell(Vector2Int cell, RectInt range, out Vector2Int emptyCell)
+        {
+            emptyCell = cell;
+            if (pathFinder.GetCost(cell) == defaultCost && GetCharacterAt(cell) == null) return true;
+            List<Vector2Int> opening = new();
+            List<Vector2Int> closed = new();
+            closed.Add(cell);
+            Dictionary<MapChunk, List<Vector2Int>> chunkCellsDict = new();
+            if (cell.y < range.yMax) opening.Add(cell + Vector2Int.up);
+            if (cell.y > range.yMin) opening.Add(cell + Vector2Int.down);
+            if (cell.x > range.xMin) opening.Add(cell + Vector2Int.left);
+            if (cell.x < range.xMax) opening.Add(cell + Vector2Int.right);
+            while (opening.Count > 0)
+            {
+                var current = opening[0];
+                opening.RemoveAt(0);
+                closed.Add(current);
+                if (IsPassable(current))
+                {
+                    MapChunk mapChunk = GetChunkContains(current);
+                    if(chunkCellsDict.TryGetValue(mapChunk, out List<Vector2Int> characterCells))
+                    {
+                        bool isEmpty = true;
+                        for(int i = 0; i < characterCells.Count; i++)
+                        {
+                            if(current == characterCells[i])
+                            {
+                                characterCells.RemoveAt(i);
+                                isEmpty = false;
+                                break;
+                            }
+                        }
+                        if(isEmpty)
+                        {
+                            emptyCell = current;
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        characterCells = new List<Vector2Int>(mapChunk.characters.Select(c => (Vector2Int)PathfindingTilemap.WorldToCell(c.transform.position)));
+                        chunkCellsDict.Add(mapChunk, characterCells);
+                    }
+                }
+                if (current.y < range.yMax && !closed.Contains(current + Vector2Int.up)) opening.Add(current + Vector2Int.up);
+                if (current.y > range.yMin && !closed.Contains(current + Vector2Int.down)) opening.Add(current + Vector2Int.down);
+                if (current.x > range.xMin && !closed.Contains(current + Vector2Int.left)) opening.Add(current + Vector2Int.left);
+                if (current.x < range.xMax && !closed.Contains(current + Vector2Int.right)) opening.Add(current + Vector2Int.right);
+            }
+            return false;
+        }
+
+        public Character GetCharacterAt(Vector2Int cell)
+        {
+            MapChunk mapChunk = GetChunkContains(cell);
+            if (mapChunk != null)
+            {
+                return GetCharacterAt(mapChunk.characters, cell);
+            }
+            return null;
+        }
+
+        public Character GetCharacterAt(IEnumerable<Character> characters, Vector2Int cell)
+        {
+            foreach (var character in characters)
+            {
+                Vector2Int characterCell = (Vector2Int)PathfindingTilemap.WorldToCell(character.transform.position);
+                if (characterCell == cell)
+                {
+                    return character;
+                }
+            }
+            return null;
         }
 
         public void Rebuild()
@@ -276,10 +359,18 @@ namespace ITF.World
                         Vector2 worldChunkSize = new Vector2(mapChunkSize.x * tilemap.cellSize.x, mapChunkSize.y * tilemap.cellSize.y);
                         mapChunk.SetMapChunkRange(chunkCenterPos, worldChunkSize);
                         mapChunksDict[chunkCenterPos] = mapChunk;
+                        mapChunksCellDict.Add(new Vector2Int(size.x * x, size.y * y), mapChunk);
                     }
                 }
             }
         }
+
+        private MapChunk GetChunkContains(Vector2Int cell)
+        {
+            Vector2Int index = new Vector2Int(cell.x - cell.x % mapChunkSize.x, cell.y - cell.y % mapChunkSize.y);
+            return mapChunksCellDict.TryGetValue(index, out MapChunk mapChunk) ? mapChunk : null;
+        }
+
         private void UpdateMapChunks(Rect cameraViewRect)
         {
             foreach (var centerPos in mapChunksDict.Keys) 

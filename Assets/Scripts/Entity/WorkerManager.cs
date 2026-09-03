@@ -26,6 +26,15 @@ namespace ITF.Entity
         SimpleTimer shiftATimer;
         SimpleTimer shiftBTimer;
 
+        #region public methods
+
+        public Character[] GetCharacters()
+        {
+            return workers;
+        }
+
+        #endregion
+
         void Start()
         {
             workers = null;

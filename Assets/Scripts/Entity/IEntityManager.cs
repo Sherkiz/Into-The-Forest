@@ -1,6 +1,12 @@
+using ITF.Entity;
 using UnityEngine;
 
-public interface IEntityManager
+namespace ITF.Entity
 {
-    
+
+    public interface IEntityManager
+    {
+        Character[] GetCharacters();
+    }
+
 }
