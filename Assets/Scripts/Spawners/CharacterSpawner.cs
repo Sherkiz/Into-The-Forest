@@ -11,6 +11,8 @@ namespace ITF.Spawners
         public abstract UnityEvent<Character> OnCharacterSpawned { get; }
 
         public abstract Character SpawnCharacter();
+
+        public abstract Character[] SpawnCharacters();
     }
 
 }

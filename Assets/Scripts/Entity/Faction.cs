@@ -9,6 +9,7 @@ namespace ITF.Entity
         Player,
         Bear,
         Wolf,
+        Dryad,
         Snake,
         Undead,
         Demons,

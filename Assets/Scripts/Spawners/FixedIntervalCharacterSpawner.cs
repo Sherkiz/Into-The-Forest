@@ -33,6 +33,12 @@ namespace ITF.Spawners
             return character.GetComponent<Character>();
         }
 
+        public override Character[] SpawnCharacters()
+        {
+            Character character = SpawnCharacter();
+            return character == null ? new Character[0] : new Character[] { character };
+        }
+
         private void Update()
         {
             if(maxSpawnCount > 0 && spawnCount >= maxSpawnCount || !WorldManager.IsMapBuilt) return;
