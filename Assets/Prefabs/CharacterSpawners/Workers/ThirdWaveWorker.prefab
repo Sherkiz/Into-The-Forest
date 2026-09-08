@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7590533117373387660}
   - component: {fileID: 6330265027361426289}
   m_Layer: 0
-  m_Name: FirstWaveWorker
+  m_Name: ThirdWaveWorker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,17 +45,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ITF.Spawners.WorkerSpawner
   spawnPairs:
-  - spawnCount: {x: 2, y: 0}
+  - spawnCount: {x: 3, y: 0}
     characterPrefabs:
     - {fileID: 6367471534111396631, guid: 85c6349a4fa6e764385854cd6a45a449, type: 3}
   - spawnCount: {x: 1, y: 0}
     characterPrefabs:
     - {fileID: 7656664305380045770, guid: 1af34f9047d53a348b005f8b28f1784d, type: 3}
+    - {fileID: 4598966792236422137, guid: 801cf7ef9847593419c8c73b1d290a3e, type: 3}
   - spawnCount: {x: 2, y: 0}
     characterPrefabs:
     - {fileID: 6367471534111396631, guid: 85c6349a4fa6e764385854cd6a45a449, type: 3}
     - {fileID: 7656664305380045770, guid: 1af34f9047d53a348b005f8b28f1784d, type: 3}
-  - spawnCount: {x: 1, y: 3}
+  - spawnCount: {x: 0, y: 2}
     characterPrefabs:
     - {fileID: 6367471534111396631, guid: 85c6349a4fa6e764385854cd6a45a449, type: 3}
     - {fileID: 7656664305380045770, guid: 1af34f9047d53a348b005f8b28f1784d, type: 3}

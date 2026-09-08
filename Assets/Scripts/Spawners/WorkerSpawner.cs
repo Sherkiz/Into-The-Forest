@@ -1,6 +1,7 @@
 using ITF.Entity;
 using ITF.Utilities;
 using ITF.World;
+using MBT;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -53,6 +54,11 @@ namespace ITF.Spawners
                     }
                 }
                 character.transform.position = WorldManager.Map.PathfindingTilemap.GetCellCenterWorld((Vector3Int)spawnPosition);
+                
+                Blackboard blackboard = character.GetReference("blackboard").GetComponent<Blackboard>();
+                blackboard.GetVariable<Vector2Variable>("spawn_cell").Value = spawnPosition;
+                blackboard.GetVariable<Vector2Variable>("target_cell").Value = spawnPosition;
+
                 characterIndex++;
                 if(characterIndex >= spawnCount)
                 {

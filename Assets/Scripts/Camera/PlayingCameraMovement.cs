@@ -77,7 +77,6 @@ namespace ITF.CameraControl
             position.y = Mathf.Clamp(position.y, cameraMinY, cameraMaxY);
             if (currentCameraViewRect != GetCameraViewRect())
             {
-                Debug.Log("Camera moved !");
                 currentCameraViewRect = GetCameraViewRect();
                 onCameraMoved.RaiseEvent(GetCameraViewRect());
             }

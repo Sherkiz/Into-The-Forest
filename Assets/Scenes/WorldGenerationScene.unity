@@ -214,7 +214,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 5d468fdd8b4e65b43af24152430f48ad, type: 2}
     - {fileID: 11400000, guid: dd819edf6a2d3634987ece47a2761517, type: 2}
     - {fileID: 11400000, guid: 621c60dc1cbc1404fa698395d80b0138, type: 2}
-    - {fileID: 11400000, guid: 887dba77d369ee74087050d7a17894d0, type: 2}
     tilemap: {fileID: 2036913485}
     worldSize: {x: 520, y: 36, z: 3}
   onSeedInitialized: {fileID: 11400000, guid: bfd13a9ca335fe848852ee8f94f97d1d, type: 2}
@@ -2592,14 +2591,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e30a3d7e98670db4587e16a92f66f0fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ITF.Entity.WorkerManager
-  workerPrefab: {fileID: 6367471534111396631, guid: f822cc71291bd5f48ad904d4155a6021, type: 3}
-  workerCount: 8
-  spawnRange:
-    x: 5
-    y: 5
-    width: 22
-    height: 26
-  shiftInterval: 120
+  spawnUnits:
+  - delay: 0
+    workerSpawner: {fileID: 6330265027361426289, guid: 2ce054f07bea57145bcd3d47532fdbb6, type: 3}
+  - delay: 30
+    workerSpawner: {fileID: 6330265027361426289, guid: 134ce5a0bf24c5745bb19ff7eceda421, type: 3}
+  - delay: 30
+    workerSpawner: {fileID: 6330265027361426289, guid: 5c603e1ccf640c945990d4092080af94, type: 3}
 --- !u!1 &2146821445
 GameObject:
   m_ObjectHideFlags: 0

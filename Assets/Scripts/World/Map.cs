@@ -359,7 +359,7 @@ namespace ITF.World
                         Vector2 worldChunkSize = new Vector2(mapChunkSize.x * tilemap.cellSize.x, mapChunkSize.y * tilemap.cellSize.y);
                         mapChunk.SetMapChunkRange(chunkCenterPos, worldChunkSize);
                         mapChunksDict[chunkCenterPos] = mapChunk;
-                        mapChunksCellDict.Add(new Vector2Int(size.x * x, size.y * y), mapChunk);
+                        mapChunksCellDict.Add(new Vector2Int(mapChunkSize.x * x, mapChunkSize.y * y), mapChunk);
                     }
                 }
             }

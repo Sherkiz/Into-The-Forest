@@ -7,6 +7,7 @@ using ITF.Entity;
 using System.Runtime.InteropServices;
 using ITF.World;
 using Unity.Collections;
+using System.Linq;
 
 namespace ITF.Rendering
 {
@@ -30,7 +31,14 @@ namespace ITF.Rendering
             private GraphicsBuffer unitsBuffer;
             private GraphicsBuffer viewFieldsBuffer;
             private GraphicsBuffer mapDataBuffer;
-            private Vector2[] unitsPositions { get => WorkerManager.GetWorkersPositions(); }
+            private Vector2[] unitsPositions
+            {
+                get
+                {
+                    var characters = WorldManager.Map.GetActiveCharacters();
+                    return characters.Select(c => (Vector2)c.transform.position).ToArray();
+                }
+            }
             private int unitsCount { get { 
                     if (unitsPositions != null) return unitsPositions.Length;
                     return 0;
@@ -215,7 +223,7 @@ namespace ITF.Rendering
         {
             if (renderingData.cameraData.cameraType != CameraType.Game || renderingData.cameraData.camera != Camera.main) return;
             if (WorldManager.Instance == null || !WorldManager.IsMapBuilt) return;
-            if (computeShader == null || WorkerManager.GetWorkersPositions() == null) return;
+            if (computeShader == null) return;
             fowPass.Initialize(computeShader, renderingData.cameraData.camera);
             renderer.EnqueuePass(fowPass);
         }
