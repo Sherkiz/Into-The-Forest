@@ -2,6 +2,7 @@ using ITF.CustomTiles;
 using ITF.Math;
 using ITF.Utilities;
 using ITF.World;
+using ITF.WorldObjects;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,7 +73,7 @@ namespace ITF.WorldGeneration
                     continue;
                 }
 
-                RectInt spawnRange = new(spawner.range.position, spawnSize);
+                RectInt spawnRange = new(spawner.Range.position, spawnSize);
                 Vector3Int spawnPoint = new((int)random.Range(spawnRange.xMin, spawnRange.xMax), (int)random.Range(spawnRange.yMin, spawnRange.yMax), zPosition);
                 int triesCounter = 0;
                 while (!tilemap.IsTileEmpty(spawnPoint) && triesCounter < maxNumberOfTries)

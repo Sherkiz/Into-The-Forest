@@ -1,5 +1,6 @@
 using ITF.Utilities;
 using ITF.World;
+using ITF.WorldObjects;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -88,7 +89,15 @@ namespace ITF.CustomTiles
                 realSize -= multipleTilesObject.expandLeftBottom + multipleTilesObject.expandRightTop;
                 realPos += multipleTilesObject.expandLeftBottom;
             }
-            WorldManager.Map.AddMapObject(new MapObject(multipleTilesObject, new RectInt(realPos, realSize)));
+            if(multipleTilesObject.mapObject != null)
+            {
+                MapObject mapObject = GameObjectPool.CreateGameObject(multipleTilesObject.mapObject.gameObject).GetComponent<MapObject>();
+                mapObject.SetLocation(new RectInt(realPos, realSize), multipleTilesObject.mapObjectType,
+                    multipleTilesObject is MultipleTilesBuilding building ? building.posOffsets[building.entranceTileIndex] : Vector3Int.zero);
+                mapObject.SetName(name);
+                WorldManager.Map.AddMapObject(mapObject);
+                mapObject.Init();
+            }
         }
         public void RemoveAllPlaceHolderTiles()
         {

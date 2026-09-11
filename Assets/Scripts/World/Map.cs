@@ -3,6 +3,7 @@ using ITF.Entity;
 using ITF.EventChannels;
 using ITF.Navigation;
 using ITF.Utilities;
+using ITF.WorldObjects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -267,7 +268,7 @@ namespace ITF.World
         }
 
         public MapObject[] GetMapObjects() => mapObjectList.ToArray();
-        public MapObject[] GetMapObjectsOfType(TileType tileType) => mapObjectList.Where(obj => obj.type == tileType).ToArray();
+        public MapObject[] GetMapObjectsOfType(TileType tileType) => mapObjectList.Where(obj => obj.Type == tileType).ToArray();
 
         public MapObject[] GetMapObjectsByName(string name)
         {
@@ -397,27 +398,27 @@ namespace ITF.World
         }
     }
 
-    public class MapObject
-    {
-        public readonly string name;
-        public readonly RectInt range;
-        public readonly TileType type;
-        public readonly Vector3Int entranceOffset;
-        public Vector3Int pathEntrancePosition { get => new Vector3Int(range.xMin, range.yMin) + entranceOffset; }
-        public MapObject(string name, RectInt range, TileType type, Vector3Int entranceOffset)
-        {
-            this.name = name;
-            this.range = range;
-            this.type = type;
-            this.entranceOffset = entranceOffset;
-        }
-        public MapObject(MultipleTilesObject multipleTilesObject, RectInt range)
-        {
-            name = multipleTilesObject.name;
-            this.range = range;
-            type = multipleTilesObject.mapObjectType;
-            if (multipleTilesObject is MultipleTilesBuilding building) entranceOffset = building.posOffsets[building.entranceTileIndex];
-        }
-    }
+    //public class MapObject
+    //{
+    //    public readonly string name;
+    //    public readonly RectInt range;
+    //    public readonly TileType type;
+    //    public readonly Vector3Int entranceOffset;
+    //    public Vector3Int pathEntrancePosition { get => new Vector3Int(range.xMin, range.yMin) + entranceOffset; }
+    //    public MapObject(string name, RectInt range, TileType type, Vector3Int entranceOffset)
+    //    {
+    //        this.name = name;
+    //        this.range = range;
+    //        this.type = type;
+    //        this.entranceOffset = entranceOffset;
+    //    }
+    //    public MapObject(MultipleTilesObject multipleTilesObject, RectInt range)
+    //    {
+    //        name = multipleTilesObject.name;
+    //        this.range = range;
+    //        type = multipleTilesObject.mapObjectType;
+    //        if (multipleTilesObject is MultipleTilesBuilding building) entranceOffset = building.posOffsets[building.entranceTileIndex];
+    //    }
+    //}
     
 }

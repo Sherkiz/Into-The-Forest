@@ -3,6 +3,7 @@ using ITF.Math;
 using ITF.Navigation;
 using ITF.Utilities;
 using ITF.World;
+using ITF.WorldObjects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -176,10 +177,8 @@ namespace ITF.WorldGeneration
                 for (int i = 1; i < playerBuildings.Length; i++)
                 {
                     MapObject building = playerBuildings[i];
-                    ResultPath path = pathFinder.FindPath(firstBuilding.pathEntrancePosition, building.pathEntrancePosition, false);
-                    Vector3Int lastRoadPos = firstBuilding.pathEntrancePosition;
-                    Debug.Log(building.name);
-                    Debug.Log(building.pathEntrancePosition);
+                    ResultPath path = pathFinder.FindPath(GetPathEntrancePosition(firstBuilding), GetPathEntrancePosition(building), false);
+                    Vector3Int lastRoadPos = (Vector3Int)GetPathEntrancePosition(firstBuilding);
                     if (path.path != null)
                     {
                         foreach (var pos in path.path)
@@ -251,6 +250,8 @@ namespace ITF.WorldGeneration
             }
             return new PathFinder(map, pathfindingHierachies, pathfindingDefaultCost, pathfindingMaxCost);
         }
+
+        Vector2Int GetPathEntrancePosition(MapObject mapObject) => mapObject.Range.position + (Vector2Int)mapObject.EntranceOffset;
     }
 
 }

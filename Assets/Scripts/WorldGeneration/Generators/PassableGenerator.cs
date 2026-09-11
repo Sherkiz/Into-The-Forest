@@ -3,6 +3,7 @@ using ITF.Math;
 using ITF.Navigation;
 using ITF.Utilities;
 using ITF.World;
+using ITF.WorldObjects;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -96,25 +97,25 @@ namespace ITF.WorldGeneration
                 Vector2Int startPos = Vector2Int.zero;
                 Vector2Int endPos = Vector2Int.zero;
 
-                if(object1.range.xMin < object2.range.xMin)
+                if(object1.Range.xMin < object2.Range.xMin)
                 {
-                    startPos.x = object1.range.xMax;
-                    endPos.x = object2.range.xMin - 1;
+                    startPos.x = object1.Range.xMax;
+                    endPos.x = object2.Range.xMin - 1;
                 }
                 else
                 {
-                    startPos.x = object2.range.xMin - 1;
-                    endPos.x = object1.range.xMax;
+                    startPos.x = object2.Range.xMin - 1;
+                    endPos.x = object1.Range.xMax;
                 }
-                if(object1.range.yMin < object2.range.yMin)
+                if(object1.Range.yMin < object2.Range.yMin)
                 {
-                    startPos.y = object1.range.yMax;
-                    endPos.y = object2.range.yMin - 1;
+                    startPos.y = object1.Range.yMax;
+                    endPos.y = object2.Range.yMin - 1;
                 }
                 else
                 {
-                    startPos.y = object2.range.yMin - 1;
-                    endPos.y = object1.range.yMax;
+                    startPos.y = object2.Range.yMin - 1;
+                    endPos.y = object1.Range.yMax;
                 }
 
                 var path = pathFinder.FindPath(startPos, endPos, true);

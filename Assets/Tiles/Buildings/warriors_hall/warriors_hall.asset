@@ -70,4 +70,6 @@ MonoBehaviour:
   expandRightTop: {x: 1, y: 1}
   fillExpand: 1
   mapObjectType: 4
+  mapObject: {fileID: 5639765566590863763, guid: 8fc0159bf26834244b50f3b58075cce3, type: 3}
   entranceTileIndex: 21
+  numberOfTrainingSlots: 0

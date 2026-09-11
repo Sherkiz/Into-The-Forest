@@ -69,4 +69,6 @@ MonoBehaviour:
   expandLeftBottom: {x: 1, y: 1}
   expandRightTop: {x: 1, y: 1}
   fillExpand: 1
+  mapObjectType: 5
+  mapObject: {fileID: 1661473536836306400, guid: d93638dc9e189fd44a360c33b68cc81c, type: 3}
   entranceTileIndex: 22

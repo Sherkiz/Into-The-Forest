@@ -59,7 +59,7 @@ namespace ITF.WorldGeneration
                 if(spawnerUnits.TryGetValue(mapObject.name, out var unit))
                 {
                     GameObject spawner = GameObjectPool.CreateGameObject(unit.spawnerPrefab.gameObject);
-                    spawner.transform.position = tilemap.GetCellCenterWorld(((Vector3Int)mapObject.range.min) + mapObject.entranceOffset);
+                    spawner.transform.position = tilemap.GetCellCenterWorld(((Vector3Int)mapObject.Range.min) + mapObject.EntranceOffset);
                 }
             }
 
