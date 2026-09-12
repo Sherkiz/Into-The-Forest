@@ -38,9 +38,9 @@ namespace ITF.World
         [SerializeField] private RectEventChannelSO onCameraMoved;
 
         [Space(20)]
-        [SerializeField]
         public List<MapObject> mapObjectList = new();
         Dictionary<string, List<MapObject>> mapObjectDict = new();
+        public TrainingBuilding TrainingBuilding { get; private set; }
 
         private Dictionary<Vector2, MapChunk> mapChunksDict = new();
         private Dictionary<Vector2Int, MapChunk> mapChunksCellDict = new(); // key: bottom left cell of the chunk
@@ -259,6 +259,7 @@ namespace ITF.World
         {
             if (mapObjectList.Contains(mapObject)) return;
             mapObjectList.Add(mapObject);
+            if (mapObject is TrainingBuilding trainingBuilding) TrainingBuilding = trainingBuilding;
             if (!mapObjectDict.TryGetValue(mapObject.name, out List<MapObject> list))
             {
                 list = new List<MapObject>();

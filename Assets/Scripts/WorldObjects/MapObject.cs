@@ -6,14 +6,22 @@ namespace ITF.WorldObjects
 
     public abstract class MapObject : MonoBehaviour
     {
-        public abstract string Name { get; }
-        public abstract RectInt Range { get; }
-        public abstract TileType Type { get; }
-        public abstract Vector3Int EntranceOffset { get; }
+        public virtual string Name { get; private set; }
+        public virtual RectInt Range { get; private set; }
+        public virtual TileType Type { get; private set; }
+        public virtual Vector3Int EntranceOffset { get; private set; }
 
-        public abstract void SetName(string name);
+        public virtual void SetName(string name)
+        {
+            Name = name;
+        }
 
-        public abstract void SetLocation(RectInt range, TileType tileType, Vector3Int entranceOffset);
+        public virtual void SetLocation(RectInt range, TileType tileType, Vector3Int entranceOffset)
+        {
+            Range = range;
+            Type = tileType;
+            EntranceOffset = entranceOffset;
+        }
 
         public abstract void Init();
 

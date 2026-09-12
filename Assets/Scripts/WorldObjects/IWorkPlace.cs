@@ -1,5 +1,5 @@
 
-namespace ITF.World
+namespace ITF.WorldObjects
 {
     public interface IWorkPlace
     {
