@@ -13,6 +13,10 @@ namespace ITF.Entity
 
         public abstract Faction Faction { get; }
 
+        public abstract UnitType UnitType { get; }
+
+        public abstract UnitClass UnitClass { get; }
+
         public abstract bool Inited { get; }
 
         public abstract UnityEvent<Character> OnInited { get; }

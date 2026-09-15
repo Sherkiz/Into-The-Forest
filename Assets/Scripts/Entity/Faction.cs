@@ -15,4 +15,22 @@ namespace ITF.Entity
         Demons,
     }
 
+    public enum UnitType
+    {
+        Worker,
+        Specialist,
+    }
+
+    public enum UnitClass
+    {
+        None,
+        WarriorGuardian, 
+        Juggernaut, 
+        SnakeMedic, 
+        MonkHealer, 
+        FireMage, 
+        SpiritFist, 
+        FreezeMage,
+    }
+
 }

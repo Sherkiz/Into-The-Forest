@@ -22,6 +22,10 @@ namespace ITF.Entity
 
         [SerializeField] Faction faction;
         public override Faction Faction => faction;
+        [SerializeField] UnitType unitType;
+        public override UnitType UnitType => unitType;
+        [SerializeField] UnitClass unitClass;
+        public override UnitClass UnitClass => unitClass;
 
         bool inited = false;
         public override bool Inited => inited;
