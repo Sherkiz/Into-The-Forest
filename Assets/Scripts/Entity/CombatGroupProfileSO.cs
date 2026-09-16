@@ -1,4 +1,5 @@
-using ITF.Skill.Passive;
+using AYellowpaper.SerializedCollections;
+using System.Linq;
 using UnityEngine;
 
 namespace ITF.Entity
@@ -7,7 +8,10 @@ namespace ITF.Entity
     public class CombatGroupProfileSO : ScriptableObject
     {
         public string groupName;
-        public PassiveSkill[] neededSkills;
-        public int NumberOfUnits => neededSkills.Length;
+        [Tooltip("Priority for training and replacement. Ranges from 1 (highest priority) to 100 (lowest priority)"), Range(1, 100)]
+        public int priority;
+        [SerializedDictionary("Unit Class", "Number")]
+        public SerializedDictionary<UnitClass, int> neededClasses;
+        public int NumberOfUnits => neededClasses.Values.Sum();
     }
 }

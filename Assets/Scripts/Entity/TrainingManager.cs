@@ -1,16 +1,18 @@
-using ITF.Skill.Passive;
 using ITF.World;
 using ITF.WorldObjects;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace ITF.Entity {
-    public class TrainingManager : MonoBehaviour, IEntityManager
+    public class TrainingManager : IEntityManager
     {
-        [SerializeField] private CombatGroupManager combatGroupManager;
         private List<Character> trainingUnits;
         private TrainingBuilding trainingBuilding => WorldManager.Map.TrainingBuilding;
 
+        public TrainingManager()
+        {
+
+        }
         public Character[] GetCharacters()
         {
             return trainingUnits.ToArray();
@@ -27,7 +29,7 @@ namespace ITF.Entity {
     {
         public int trainingAssignmentId;
 
-        public PassiveSkillAddor RequiredCombatRole;
+        public UnitClass TargetCombatRole;
         public Faction TargetUnitFaction;
         public TrainingStatus status;
     }

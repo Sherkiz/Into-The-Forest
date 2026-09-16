@@ -37,7 +37,7 @@ namespace ITF.WorldObjects
             Task training = new Task(StartTraining(unit));
             training.Finished += (bool manual) =>
             {
-                OnTrainingEnded(manual, unit, assignment.RequiredCombatRole);
+                OnTrainingEnded(manual, unit, assignment.TargetCombatRole);
                 currentTrainings.Remove(training);
             };
             currentTrainings.Add(training);
@@ -46,7 +46,7 @@ namespace ITF.WorldObjects
         { 
             yield return new WaitForSeconds(trainingTime);
         }
-        private void OnTrainingEnded(bool completed, Character unit, PassiveSkillAddor passiveSkillAddor)
+        private void OnTrainingEnded(bool completed, Character unit, UnitClass passiveSkillAddor)
         {
             if (!completed)
             {
@@ -55,7 +55,6 @@ namespace ITF.WorldObjects
             }
             SkilledCharacter trainedUnit = unit.gameObject.AddComponent<SkilledCharacter>();
             Destroy(unit);
-            passiveSkillAddor.AddPassiveSkill(trainedUnit);
         }
     }
 }

@@ -11,11 +11,18 @@ namespace ITF.Entity
         [SerializeField]
         SpawnUnit[] spawnUnits;
 
+        [SerializeField]
+        private CombatGroupProfileSO[] requiredCombatGroups;
+
         int spawnUnitIndex;
 
         SimpleTimer spawnTimer;
 
         List<Character> workers = new();
+
+        // Sub-Managers
+        private TrainingManager trainingManager;
+        private CombatGroupManager combatGroupManager;
 
         #region public methods
 
@@ -29,6 +36,8 @@ namespace ITF.Entity
         void Start()
         {
             WorldManager.OnWorldGenerated.AddListener(OnWorldGenerated);
+            trainingManager = new TrainingManager();
+            combatGroupManager = new CombatGroupManager(requiredCombatGroups);
         }
 
         void OnWorldGenerated()
