@@ -1,4 +1,5 @@
 using ITF.Spawners;
+using ITF.Utilities;
 using ITF.World;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,8 +20,10 @@ namespace ITF.Entity
         SimpleTimer spawnTimer;
 
         List<Character> workers = new();
+        List<Character> specialists = new();
 
         // Sub-Managers
+        [SerializeField]
         private TrainingManager trainingManager;
         private CombatGroupManager combatGroupManager;
 
@@ -36,7 +39,7 @@ namespace ITF.Entity
         void Start()
         {
             WorldManager.OnWorldGenerated.AddListener(OnWorldGenerated);
-            trainingManager = new TrainingManager();
+            trainingManager.Init();
             combatGroupManager = new CombatGroupManager(requiredCombatGroups);
         }
 
@@ -73,6 +76,13 @@ namespace ITF.Entity
             });
             TimeManager.AddSimpleTimer(spawnTimer);
             WorldManager.Map.onBuilt -= OnMapBuilt;
+        }
+
+        void OnTrained(Character worker, Character specialist)
+        {
+            worker.Deinit();
+            GameObjectPool.RecycleGameObject(worker.gameObject);
+            specialists.Add(specialist);
         }
 
         [System.Serializable]

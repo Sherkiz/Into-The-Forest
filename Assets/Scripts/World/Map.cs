@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -40,7 +41,6 @@ namespace ITF.World
         [Space(20)]
         public List<MapObject> mapObjectList = new();
         Dictionary<string, List<MapObject>> mapObjectDict = new();
-        public TrainingBuilding TrainingBuilding { get; private set; }
 
         private Dictionary<Vector2, MapChunk> mapChunksDict = new();
         private Dictionary<Vector2Int, MapChunk> mapChunksCellDict = new(); // key: bottom left cell of the chunk
@@ -259,7 +259,6 @@ namespace ITF.World
         {
             if (mapObjectList.Contains(mapObject)) return;
             mapObjectList.Add(mapObject);
-            if (mapObject is TrainingBuilding trainingBuilding) TrainingBuilding = trainingBuilding;
             if (!mapObjectDict.TryGetValue(mapObject.name, out List<MapObject> list))
             {
                 list = new List<MapObject>();
@@ -270,6 +269,11 @@ namespace ITF.World
 
         public MapObject[] GetMapObjects() => mapObjectList.ToArray();
         public MapObject[] GetMapObjectsOfType(TileType tileType) => mapObjectList.Where(obj => obj.Type == tileType).ToArray();
+
+        public T[] GetMapObjects<T>() where T : MapObject
+        {
+            return mapObjectList.Where(obj => obj is T).Cast<T>().ToArray();
+        }
 
         public MapObject[] GetMapObjectsByName(string name)
         {

@@ -1147,7 +1147,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1077792394}
-  - component: {fileID: 1077792395}
   m_Layer: 0
   m_Name: TrainingManager
   m_TagString: Untagged
@@ -1170,19 +1169,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 39566997}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1077792395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1077792393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d48f83041ed10644ac0f1c7468ba03c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TrainingManager
-  combatGroupManager: {fileID: 0}
 --- !u!1 &1332760130
 GameObject:
   m_ObjectHideFlags: 0
@@ -2600,6 +2586,7 @@ MonoBehaviour:
     workerSpawner: {fileID: 6330265027361426289, guid: 134ce5a0bf24c5745bb19ff7eceda421, type: 3}
   - delay: 30
     workerSpawner: {fileID: 6330265027361426289, guid: 5c603e1ccf640c945990d4092080af94, type: 3}
+  requiredCombatGroups: []
 --- !u!1 &2146821445
 GameObject:
   m_ObjectHideFlags: 0

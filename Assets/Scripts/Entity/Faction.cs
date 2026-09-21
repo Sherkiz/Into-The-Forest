@@ -5,6 +5,7 @@ namespace ITF.Entity
 
     public enum Faction
     {
+        Unknow,
         Village,
         Player,
         Bear,
