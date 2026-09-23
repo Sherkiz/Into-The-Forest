@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25238d88ae295d647bc1de713cf0d53c, type: 3}
+  m_Script: {fileID: 11500000, guid: e978d463036084e42bf4c05a7c1cb29b, type: 3}
   m_Name: warriors_hall
-  m_EditorClassIdentifier: Assembly-CSharp::ITF.World.TrainingBuilding
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesBuilding
   name: warriors_hall
   size: {x: 7, y: 7}
   tiles:
@@ -70,6 +70,5 @@ MonoBehaviour:
   expandRightTop: {x: 1, y: 1}
   fillExpand: 1
   mapObjectType: 4
-  mapObject: {fileID: 5639765566590863763, guid: 8fc0159bf26834244b50f3b58075cce3, type: 3}
-  entranceTileIndex: 21
-  numberOfTrainingSlots: 0
+  mapObject: {fileID: 1158769526766833546, guid: 83d7207718a78fa48af662239effce5d, type: 3}
+  entranceTileIndex: 19

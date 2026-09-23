@@ -28,7 +28,7 @@ MonoBehaviour:
     num: {x: 1, y: 0}
   - buildingTiles: {fileID: 11400000, guid: 13b4086a21ee3da4f9a326b210407303, type: 2}
     num: {x: 1, y: 0}
-  - buildingTiles: {fileID: 11400000, guid: 29f4442480fb2f64a832398862654aa5, type: 2}
+  - buildingTiles: {fileID: 11400000, guid: 286243766a1960c4ebb0b47eb5500a7c, type: 2}
     num: {x: 1, y: 0}
   mapRange:
     x: 5

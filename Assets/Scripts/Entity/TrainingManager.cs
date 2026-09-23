@@ -38,11 +38,11 @@ namespace ITF.Entity {
             }
 
             remainPrograms = new();
-            foreach (var programs in trainingPrograms)
+            foreach (var program in trainingPrograms)
             {
-                for (int i = 0; i < programs.count; i++)
+                for (int i = 0; i < program.count; i++)
                 {
-                    remainPrograms.Add(programs);
+                    remainPrograms.Add(program);
                 }
             }
 
@@ -59,7 +59,9 @@ namespace ITF.Entity {
                 if (trainingBuilding != null)
                 {
                     trainingBuilding.AffectTrainingUnit(trainingAssigment);
+                    trainingBuilding.onTrained.AddListener(OnTrained);
                     trainingAssignments.Add(trainingAssigment);
+                    remainPrograms.RemoveAt(0);
                     return true;
                 }
             }
@@ -69,7 +71,6 @@ namespace ITF.Entity {
 
         public void OnUnitSpawned(Character unit)
         {
-            reserveUnits.Add(unit);
             if(!RegisterUnitForTraining(unit)) reserveUnits.Add(unit);
         }
 
@@ -96,11 +97,28 @@ namespace ITF.Entity {
         {
             if (unit == null || remainPrograms.Count == 0) return null;
             var trainingProgram = remainPrograms[0];
+            Debug.Log(trainingProgram.targetClass);
             if(trainingProgram.faction == Faction.Unknow || trainingProgram.faction == unit.Faction)
             {
                 return new(unit, trainingProgram.targetClass);
             }
             return null;
+        }
+
+        void OnTrained(TrainingBuilding trainingBuilding, TrainingAssignment trainingAssignment)
+        {
+            trainingAssignments.Remove(trainingAssignment);
+            onTrained?.Invoke(trainingAssignment.unit, trainingAssignment.trainedUnit);
+
+            //Train the reserve units
+            for(int i = 0; i < reserveUnits.Count; i++)
+            {
+                if (RegisterUnitForTraining(reserveUnits[i]))
+                {
+                    reserveUnits.RemoveAt(i);
+                    break;
+                }
+            }
         }
     }
 

@@ -717,7 +717,9 @@ MonoBehaviour:
     - Key: blackboard
       Value: {fileID: 4666862950771310380}
   _characterStateScriptObject: {fileID: 11400000, guid: fe497cbc86fdc2a4c884e586a0b303b9, type: 2}
-  faction: 4
+  faction: 5
+  unitType: 0
+  unitClass: 0
   passiveSkillAddors: []
   autoInit: 0
   onInited:

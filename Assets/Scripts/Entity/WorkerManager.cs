@@ -3,6 +3,7 @@ using ITF.Utilities;
 using ITF.World;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace ITF.Entity
 {
@@ -27,6 +28,12 @@ namespace ITF.Entity
         private TrainingManager trainingManager;
         private CombatGroupManager combatGroupManager;
 
+        #region events
+
+        public UnityEvent<Character> onUnitSpawned;
+
+        #endregion
+
         #region public methods
 
         public Character[] GetCharacters()
@@ -39,7 +46,6 @@ namespace ITF.Entity
         void Start()
         {
             WorldManager.OnWorldGenerated.AddListener(OnWorldGenerated);
-            trainingManager.Init();
             combatGroupManager = new CombatGroupManager(requiredCombatGroups);
         }
 
@@ -59,13 +65,15 @@ namespace ITF.Entity
             if(spawnTimer != null) TimeManager.RemoveSimpleTimer(spawnTimer);
             spawnTimer = new SimpleTimer(spawnUnits[spawnUnitIndex].delay, _ =>
             {
-                Character[] characters = spawnUnits[spawnUnitIndex].workerSpawner.SpawnCharacters();
+                WorkerSpawner spawner = Instantiate(spawnUnits[spawnUnitIndex].workerSpawner);
+                Character[] characters = spawner.SpawnCharacters();
+                Destroy(spawner);
                 workers.AddRange(characters);
                 foreach(var character in characters)
                 {
                     character.Init();
+                    onUnitSpawned.Invoke(character);
                 }
-                Debug.Log($"The {spawnUnitIndex} wave of workers has been spawned.");
 
                 spawnUnitIndex++;
                 if (spawnUnitIndex < spawnUnits.Length)
@@ -75,6 +83,11 @@ namespace ITF.Entity
                 }
             });
             TimeManager.AddSimpleTimer(spawnTimer);
+
+            trainingManager.Init();
+            onUnitSpawned?.AddListener(trainingManager.OnUnitSpawned);
+            trainingManager.onTrained.AddListener(OnTrained);
+
             WorldManager.Map.onBuilt -= OnMapBuilt;
         }
 
@@ -83,6 +96,7 @@ namespace ITF.Entity
             worker.Deinit();
             GameObjectPool.RecycleGameObject(worker.gameObject);
             specialists.Add(specialist);
+            specialist.Init();
         }
 
         [System.Serializable]

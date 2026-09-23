@@ -100,7 +100,7 @@ MonoBehaviour:
       Value: {fileID: 8348829732414752875}
   _characterStateScriptObject: {fileID: 11400000, guid: fe497cbc86fdc2a4c884e586a0b303b9, type: 2}
   faction: 4
-  unitType: 0
+  unitType: 1
   unitClass: 4
   passiveSkillAddors: []
   autoInit: 0
