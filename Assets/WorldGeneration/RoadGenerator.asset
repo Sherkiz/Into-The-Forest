@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldGeneration.RoadGenerator
   name: road_generator
   maxTraversalPerFrame: 5000
-  roadTileHorizontal: {fileID: 11400000, guid: 839e0eaab2a29414680124fd6df76f0c, type: 2}
-  roadTileVertical: {fileID: 11400000, guid: 7c67164fa4feb9b4c95e472e49c2e463, type: 2}
-  roadTileTJonctionUp: {fileID: 11400000, guid: f75b9a04857382240955ebd46fd28003, type: 2}
-  roadTileTJonctionDown: {fileID: 11400000, guid: 8180b37387f121a4b9d35dec3dcd6c2e, type: 2}
-  roadTileTJonctionLeft: {fileID: 11400000, guid: ac7681edb83210945af607a493f09eaf, type: 2}
-  roadTileTJonctionRight: {fileID: 11400000, guid: c57f3b3e63c7b45449b907b25ca5fa64, type: 2}
-  roadTileCornerUpLeft: {fileID: 11400000, guid: 76897d69a8abfed48892f4f91c6f5acc, type: 2}
-  roadTileCornerUpRight: {fileID: 11400000, guid: bc588a599e572c145be77ba027124ed1, type: 2}
-  roadTileCornerDownLeft: {fileID: 11400000, guid: 6423adf8486c13d4daba0967446dcd99, type: 2}
-  roadTileCornerDownRight: {fileID: 11400000, guid: d763f94103fde9f4a94b7d25a21e4966, type: 2}
-  roadTile4Jonction: {fileID: 11400000, guid: 68a7350a2785eab4eb3a8a37cecfae80, type: 2}
+  roadTileHorizontal: {fileID: 11400000, guid: 3879eac6f2e87044ebb63b34afb90001, type: 2}
+  roadTileVertical: {fileID: 11400000, guid: 10cf9afab989cfc4abde8654ba101954, type: 2}
+  roadTileTJonctionUp: {fileID: 11400000, guid: 6b9d6f47873d26d47bd250b79f231c63, type: 2}
+  roadTileTJonctionDown: {fileID: 11400000, guid: 751ac64f5ca97bb40acf653e355dbe26, type: 2}
+  roadTileTJonctionLeft: {fileID: 11400000, guid: a23de22d08f4c0b4eb9daba73d2f7146, type: 2}
+  roadTileTJonctionRight: {fileID: 11400000, guid: 10e75de044a70a2479b9358d78cfd1c3, type: 2}
+  roadTileCornerUpLeft: {fileID: 11400000, guid: beea0caa1730236468f2cae43e327525, type: 2}
+  roadTileCornerUpRight: {fileID: 11400000, guid: 7ddf21d6eb4e9ff42af7ec35cdf3677f, type: 2}
+  roadTileCornerDownLeft: {fileID: 11400000, guid: c30853a60f3638c4bb43e113e43081b9, type: 2}
+  roadTileCornerDownRight: {fileID: 11400000, guid: a4f50dfc7314f11498e743aa64a24cab, type: 2}
+  roadTile4Jonction: {fileID: 11400000, guid: cd881d1d5f8845b40aa72dca62288ad7, type: 2}
   roadTileDefault: {fileID: 11400000, guid: b197902a323716842b5a12715dabaef3, type: 2}
   roadGenerationPercentChance: 100
   mainRoadGenerationPercentChance: 60
