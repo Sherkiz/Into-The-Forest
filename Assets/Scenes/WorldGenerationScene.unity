@@ -2554,7 +2554,10 @@ MonoBehaviour:
     workerSpawner: {fileID: 6330265027361426289, guid: 134ce5a0bf24c5745bb19ff7eceda421, type: 3}
   - delay: 30
     workerSpawner: {fileID: 6330265027361426289, guid: 5c603e1ccf640c945990d4092080af94, type: 3}
-  requiredCombatGroups: []
+  requiredCombatGroups:
+  - {fileID: 11400000, guid: 91e9b215ccb7625488000a21f4a3b503, type: 2}
+  - {fileID: 11400000, guid: c72ee118cda12b3448c60517662fa175, type: 2}
+  - {fileID: 11400000, guid: 0d7554399bfd7154d9921e84ec307a6b, type: 2}
   trainingManager:
     trainingPrograms:
     - faction: 3
