@@ -12,6 +12,7 @@ namespace ITF.Entity
         public CombatGroupManager(CombatGroupProfileSO[] requiredGroups)
         {
             this.requiredGroups = requiredGroups.OrderBy(profile => profile.priority).ToArray();
+            foreach(var group in requiredGroups) { CreateNewCombatGroup(group); }
         }
         public Character[] GetCharacters()
         {
