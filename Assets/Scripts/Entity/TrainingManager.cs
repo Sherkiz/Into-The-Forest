@@ -2,7 +2,6 @@ using ITF.World;
 using ITF.WorldObjects;
 using System.Collections.Generic;
 using UnityEngine;
-using ITF.WorldObjects;
 using UnityEngine.Events;
 
 namespace ITF.Entity {

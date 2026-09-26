@@ -13,7 +13,7 @@ namespace ITF.Entity
         private List<Character> units;
         public List<Character> UnitsInGroup { get => units; } 
         public bool IsComplete { get => units.Count == combatGroupProfileSO.NumberOfUnits; }
-        public Dictionary<UnitClass, int> MissingUnits;
+        public Dictionary<CombatRoleSO, int> MissingUnits;
 
         private Vector2Int centerCell;
 
@@ -22,18 +22,32 @@ namespace ITF.Entity
             units = new List<Character>();
             GroupID = groupID;
             this.combatGroupProfileSO = combatGroupProfileSO;
-            MissingUnits = combatGroupProfileSO.neededClasses;
+            MissingUnits = combatGroupProfileSO.neededRoles;
         }
-
+        public CombatRoleSO GetMissingRoleForUnitClass(UnitClass unitClass, out int count)
+        {
+            CombatRoleSO missingRole = null;
+            count = 0;
+            foreach(var role in MissingUnits.Keys)
+            {
+                if (role.unitClassesInRole.Contains(unitClass))
+                {
+                    missingRole = role;
+                    count += MissingUnits[role];
+                }
+            }
+            return missingRole;
+        }
         public bool AddUnitToGroup(Character unit)
         {
-            if (!MissingUnits.TryGetValue(unit.UnitClass, out int count)) return false;
+            CombatRoleSO role = GetMissingRoleForUnitClass(unit.UnitClass, out int count);
+            if (role == null) return false;
             if (count <= 0) return false;
 
             units.Add(unit);
             SetCenterCell(centerCell, unit);
-            MissingUnits[unit.UnitClass] = count - 1;
-            unit.OnDeinited.AddListener(RemoveUnitFromGroup);
+            MissingUnits[role] = count - 1;
+            unit.OnDeinited.AddListener((unit) => RemoveUnitFromGroup(unit, role));
 
             return true;
         }
@@ -64,9 +78,9 @@ namespace ITF.Entity
             targetCell.Value = emptyCell;
         }
 
-        private void RemoveUnitFromGroup(Character unit) { 
+        private void RemoveUnitFromGroup(Character unit, CombatRoleSO role) { 
             units.Remove(unit);
-            MissingUnits[unit.UnitClass] = MissingUnits[unit.UnitClass] + 1;
+            MissingUnits[role] = MissingUnits[role] + 1;
         }
     }
 }

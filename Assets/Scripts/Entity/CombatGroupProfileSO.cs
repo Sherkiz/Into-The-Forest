@@ -10,8 +10,8 @@ namespace ITF.Entity
         public string groupName;
         [Tooltip("Priority for training and replacement. Ranges from 1 (highest priority) to 100 (lowest priority)"), Range(1, 100)]
         public int priority;
-        [SerializedDictionary("Unit Class", "Number")]
-        public SerializedDictionary<UnitClass, int> neededClasses;
-        public int NumberOfUnits => neededClasses.Values.Sum();
+        [SerializedDictionary("Unit Role", "Number")]
+        public SerializedDictionary<CombatRoleSO, int> neededRoles;
+        public int NumberOfUnits => neededRoles.Values.Sum();
     }
 }

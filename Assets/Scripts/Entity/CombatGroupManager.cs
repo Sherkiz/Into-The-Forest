@@ -31,20 +31,20 @@ namespace ITF.Entity
             return currentCombatGroups.SelectMany(group => group.UnitsInGroup).ToArray();
         }
 
-        public UnitClass[] GetAllNeededClasses()
+        public CombatRoleSO[] GetAllNeededClasses()
         {
-            List<UnitClass> res = new List<UnitClass>();
+            List<CombatRoleSO> res = new List<CombatRoleSO>();
             foreach (CombatGroup group in currentCombatGroups) 
             {
                 if (group.IsComplete) continue;
-                foreach (UnitClass unitClass in group.MissingUnits.Keys) {
-                    if (group.MissingUnits[unitClass] > 0) res.Add(unitClass);
+                foreach (CombatRoleSO unitRole in group.MissingUnits.Keys) {
+                    if (group.MissingUnits[unitRole] > 0) res.Add(unitRole);
                 }
             }
             return res.ToArray();
         }
 
-        public UnitClass GetNextNeededClass()
+        public CombatRoleSO GetNextNeededClass()
         {
             return GetAllNeededClasses()[0];
         }
