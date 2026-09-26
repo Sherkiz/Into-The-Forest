@@ -13,8 +13,14 @@ MonoBehaviour:
   m_Name: ReplacementGroup
   m_EditorClassIdentifier: Assembly-CSharp::ITF.Entity.CombatGroupProfileSO
   groupName: Aggressive
-  priority: 2
-  neededClasses:
+  priority: 3
+  neededRoles:
     _serializedList:
-    - Key: 5
+    - Key: {fileID: 11400000, guid: 4ed598845cbc0cd4c944b96dba04ae19, type: 2}
+      Value: 2
+    - Key: {fileID: 11400000, guid: 0ebcd84a9151c5e4d8d3e70a21b542be, type: 2}
       Value: 1
+    - Key: {fileID: 11400000, guid: 49244d3352eaf9840867172e809c9e79, type: 2}
+      Value: 1
+    - Key: {fileID: 11400000, guid: 4f17f2bb7d541644892d2e71a85b94d2, type: 2}
+      Value: 2

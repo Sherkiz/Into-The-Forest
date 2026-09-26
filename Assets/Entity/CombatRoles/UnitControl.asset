@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52533c77518811549a3f9fc547c524dc, type: 3}
   m_Name: UnitControl
   m_EditorClassIdentifier: Assembly-CSharp::ITF.Entity.CombatRoleSO
-  roleName: Tank
-  unitClassesInRole: 01000000
+  roleName: UnitControl
+  unitClassesInRole: 07000000

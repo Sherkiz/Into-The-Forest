@@ -41,8 +41,7 @@ namespace ITF.Entity
         public bool AddUnitToGroup(Character unit)
         {
             CombatRoleSO role = GetMissingRoleForUnitClass(unit.UnitClass, out int count);
-            if (role == null) return false;
-            if (count <= 0) return false;
+            if (role == null || count <= 0) return false;
 
             units.Add(unit);
             SetCenterCell(centerCell, unit);
