@@ -2564,16 +2564,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c72ee118cda12b3448c60517662fa175, type: 2}
   - {fileID: 11400000, guid: 0d7554399bfd7154d9921e84ec307a6b, type: 2}
   trainingManager:
-    trainingPrograms:
+    allowedTrainingPrograms:
     - faction: 3
       targetClass: 1
-      count: 1
-    - faction: 0
-      targetClass: 4
-      count: 1
-    - faction: 0
+    - faction: 3
+      targetClass: 2
+    - faction: 3
       targetClass: 5
-      count: 3
+    - faction: 3
+      targetClass: 7
+    - faction: 4
+      targetClass: 4
+    - faction: 4
+      targetClass: 6
+    - faction: 5
+      targetClass: 3
     onTrained:
       m_PersistentCalls:
         m_Calls: []

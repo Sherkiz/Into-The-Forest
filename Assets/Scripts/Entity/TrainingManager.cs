@@ -1,6 +1,7 @@
 using ITF.World;
 using ITF.WorldObjects;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,10 +9,9 @@ namespace ITF.Entity {
     [System.Serializable]
     public class TrainingManager 
     {
-        [SerializeField, Tooltip("The traning program needs to be arranged in order")]
-        TrainingProgram[] trainingPrograms;
+        [SerializeField, Tooltip("The traning programs that can be assigned")]
+        TrainingProgram[] allowedTrainingPrograms;
 
-        private List<TrainingProgram> remainPrograms;
         private List<TrainingAssignment> trainingAssignments;
         private List<Character> reserveUnits;
         private Dictionary<UnitClass, List<TrainingBuilding>> trainingBuildings;
@@ -36,31 +36,26 @@ namespace ITF.Entity {
                 }
             }
 
-            remainPrograms = new();
-            foreach (var program in trainingPrograms)
-            {
-                for (int i = 0; i < program.count; i++)
-                {
-                    remainPrograms.Add(program);
-                }
-            }
-
             reserveUnits = new();
             trainingAssignments = new();
         }
-
-        public bool RegisterUnitForTraining(Character unit)
+        private TrainingProgram SelectTrainingProgram(Character unit, CombatRoleSO[] requiredCombatRoles)
         {
-            var trainingAssigment = TryTraining(unit);
+            // Check if this accounts for group priority
+            //foreach(var role in requiredCombatRoles) Debug.Log(role.roleName);
+            return allowedTrainingPrograms.FirstOrDefault(program => program.faction == unit.Faction && requiredCombatRoles.Any(role => role.unitClassesInRole.Contains(program.targetClass)));
+        }
+        private bool RegisterUnitForTraining(Character unit, TrainingProgram trainingProgram)
+        {
+            var trainingAssigment = TryTraining(unit, trainingProgram);
             if (trainingAssigment != null)
             {
-                var trainingBuilding = SelectTranningBuilding(trainingAssigment.TargetCombatRole);
+                var trainingBuilding = SelectTrainingBuilding(trainingAssigment.TargetCombatRole);
                 if (trainingBuilding != null)
                 {
                     trainingBuilding.AffectTrainingUnit(trainingAssigment);
                     trainingBuilding.onTrained.AddListener(OnTrained);
                     trainingAssignments.Add(trainingAssigment);
-                    remainPrograms.RemoveAt(0);
                     return true;
                 }
             }
@@ -68,12 +63,17 @@ namespace ITF.Entity {
             return false;
         }
 
-        public void OnUnitSpawned(Character unit)
+        public void OnUnitSpawned(Character unit, CombatRoleSO[] requiredCombatRoles)
         {
-            if(!RegisterUnitForTraining(unit)) reserveUnits.Add(unit);
+            TrainingProgram trainingProgram = SelectTrainingProgram(unit, requiredCombatRoles);
+            if (trainingProgram != null)
+            {
+                if (RegisterUnitForTraining(unit, trainingProgram)) return;
+            }
+            reserveUnits.Add(unit);
         }
 
-        private TrainingBuilding SelectTranningBuilding(UnitClass targetClass)
+        private TrainingBuilding SelectTrainingBuilding(UnitClass targetClass)
         {
             TrainingBuilding trainingBuilding = null;
             if (trainingBuildings.TryGetValue(targetClass, out var list))
@@ -92,12 +92,11 @@ namespace ITF.Entity {
             return trainingBuilding;
         }
 
-        private TrainingAssignment TryTraining(Character unit)
+        private TrainingAssignment TryTraining(Character unit, TrainingProgram trainingProgram)
         {
-            if (unit == null || remainPrograms.Count == 0) return null;
-            var trainingProgram = remainPrograms[0];
-            Debug.Log(trainingProgram.targetClass);
-            if(trainingProgram.faction == Faction.Unknow || trainingProgram.faction == unit.Faction)
+            if (unit == null || trainingProgram == null) return null;
+            Debug.Log(trainingProgram.targetClass + " (" + unit.Faction + ")");
+            if(trainingProgram.faction == Faction.Unknow || trainingProgram.faction == unit.Faction) // Shiuld not be necessary since trainigProgram is now selected
             {
                 return new(unit, trainingProgram.targetClass);
             }
@@ -108,7 +107,8 @@ namespace ITF.Entity {
         {
             trainingAssignments.Remove(trainingAssignment);
             onTrained?.Invoke(trainingAssignment.unit, trainingAssignment.trainedUnit);
-
+            
+            /*
             //Train the reserve units
             for(int i = 0; i < reserveUnits.Count; i++)
             {
@@ -118,6 +118,7 @@ namespace ITF.Entity {
                     break;
                 }
             }
+            */
         }
     }
 
@@ -127,7 +128,6 @@ namespace ITF.Entity {
         [Tooltip("Faction of training unit, Unknow is not limited")]
         public Faction faction;
         public UnitClass targetClass;
-        public int count = 1;
     }
 
     public class TrainingAssignment

@@ -86,7 +86,7 @@ namespace ITF.Entity
             TimeManager.AddSimpleTimer(spawnTimer);
 
             trainingManager.Init();
-            onUnitSpawned?.AddListener(trainingManager.OnUnitSpawned);
+            onUnitSpawned?.AddListener((unit) => trainingManager.OnUnitSpawned(unit, combatGroupManager.GetAllNeededRoles()));
             trainingManager.onTrained.AddListener(OnTrained);
 
             WorldManager.Map.onBuilt -= OnMapBuilt;

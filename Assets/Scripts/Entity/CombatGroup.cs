@@ -10,6 +10,7 @@ namespace ITF.Entity
     {
         public int GroupID { get; private set; }
         private CombatGroupProfileSO combatGroupProfileSO;
+        public int GroupPriority { get => combatGroupProfileSO.priority; }
         private List<Character> units;
         public List<Character> UnitsInGroup { get => units; } 
         public bool IsComplete { get => units.Count == combatGroupProfileSO.NumberOfUnits; }

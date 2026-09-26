@@ -31,7 +31,7 @@ namespace ITF.Entity
             return currentCombatGroups.SelectMany(group => group.UnitsInGroup).ToArray();
         }
 
-        public CombatRoleSO[] GetAllNeededClasses()
+        public CombatRoleSO[] GetAllNeededRoles()
         {
             List<CombatRoleSO> res = new List<CombatRoleSO>();
             foreach (CombatGroup group in currentCombatGroups) 
@@ -43,12 +43,6 @@ namespace ITF.Entity
             }
             return res.ToArray();
         }
-
-        public CombatRoleSO GetNextNeededClass()
-        {
-            return GetAllNeededClasses()[0];
-        }
-
         public void ReceiveNewUnit(SkilledCharacter unit)
         {
             currentCombatGroups[0].AddUnitToGroup(unit);
