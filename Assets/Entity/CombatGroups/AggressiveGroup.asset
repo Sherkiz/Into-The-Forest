@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ITF.Entity.CombatGroupProfileSO
   groupName: Aggressive
   priority: 2
-  neededClasses: 0100000004000000
+  neededClasses:
+    _serializedList:
+    - Key: 5
+      Value: 1

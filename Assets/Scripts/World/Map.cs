@@ -144,6 +144,12 @@ namespace ITF.World
             return false;
         }
 
+        public bool GetNearestEmptyCell(Vector2Int cell, out Vector2Int emptyCell)
+        {
+            var range = pathfindingTilemap.cellBounds;
+            return GetNearestEmptyCell(cell, new((Vector2Int)range.min, (Vector2Int)range.size), out emptyCell);
+        }
+
         /// <summary>
         /// Get the nearest empty cell (passable and no character) from the given cell within the range.
         /// </summary>

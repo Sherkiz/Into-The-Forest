@@ -12,6 +12,7 @@ namespace ITF.Entity
     {
         [SerializeField]
         SpawnUnit[] spawnUnits;
+        public RectInt homeRange;
 
         [SerializeField]
         private CombatGroupProfileSO[] requiredCombatGroups;
@@ -46,7 +47,7 @@ namespace ITF.Entity
         void Start()
         {
             WorldManager.OnWorldGenerated.AddListener(OnWorldGenerated);
-            combatGroupManager = new CombatGroupManager(requiredCombatGroups);
+            combatGroupManager = new CombatGroupManager(requiredCombatGroups, homeRange);
         }
 
         void OnWorldGenerated()
@@ -97,6 +98,8 @@ namespace ITF.Entity
             GameObjectPool.RecycleGameObject(worker.gameObject);
             specialists.Add(specialist);
             specialist.Init();
+            if(specialist is SkilledCharacter unit)
+                combatGroupManager.ReceiveNewUnit(unit);
         }
 
         [System.Serializable]

@@ -14,4 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ITF.Entity.CombatGroupProfileSO
   groupName: Defensive Group
   priority: 1
-  neededClasses: 0100000004000000
+  neededClasses:
+    _serializedList:
+    - Key: 1
+      Value: 1
+    - Key: 4
+      Value: 1
+    - Key: 5
+      Value: 2
