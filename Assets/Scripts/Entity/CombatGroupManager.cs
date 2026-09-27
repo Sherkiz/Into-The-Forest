@@ -17,13 +17,14 @@ namespace ITF.Entity
         public CombatGroupManager(CombatGroupProfileSO[] requiredGroups, RectInt homeRange)
         {
             this.homeRange = homeRange;
-            this.requiredGroups = requiredGroups.OrderBy(profile => profile.priority).ToArray();
+            this.requiredGroups = requiredGroups;
             currentCombatGroups = new();
             foreach(var group in requiredGroups) 
             { 
                 CreateNewCombatGroup(group);
                 currentCombatGroups[^1].SetCenterCell(GetRandomCell());
             }
+            currentCombatGroups = currentCombatGroups.OrderBy(group => group.GroupPriority).ToList();
         }
 
         public Character[] GetCharacters()
@@ -31,21 +32,20 @@ namespace ITF.Entity
             return currentCombatGroups.SelectMany(group => group.UnitsInGroup).ToArray();
         }
 
-        public CombatRoleSO[] GetAllNeededRoles()
+        public CombatSlot[] GetAllNeededSlots()
         {
-            List<CombatRoleSO> res = new List<CombatRoleSO>();
+            List<CombatSlot> res = new List<CombatSlot>();
             foreach (CombatGroup group in currentCombatGroups) 
             {
                 if (group.IsComplete) continue;
                 foreach (CombatRoleSO unitRole in group.MissingUnits.Keys) {
-                    if (group.MissingUnits[unitRole] > 0) res.Add(unitRole);
+                    if (group.MissingUnits[unitRole] > 0) res.Add(new CombatSlot(group, unitRole));
                 }
             }
             return res.ToArray();
         }
         public void ReceiveNewUnit(SkilledCharacter unit)
         {
-            currentCombatGroups[0].AddUnitToGroup(unit);
             foreach(var group in currentCombatGroups)
             {
                 if(group.IsComplete) continue;
@@ -63,6 +63,17 @@ namespace ITF.Entity
         Vector2Int GetRandomCell()
         {
             return homeRange.min + new Vector2Int(Random.Range(0, homeRange.width), Random.Range(0, homeRange.height));
+        }
+    }
+    public struct CombatSlot
+    {
+        public CombatGroup Group;
+        public CombatRoleSO Role;
+        
+        public CombatSlot(CombatGroup group, CombatRoleSO role)
+        {
+            Group = group;
+            Role = role;
         }
     }
 }

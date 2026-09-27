@@ -61,9 +61,10 @@ MonoBehaviour:
     height: 33
   specialistPrefabs:
   - {fileID: 6155119895297694250, guid: e11cdf23114f18b44a5b595d2d211ad3, type: 3}
-  - {fileID: 8205685266257099945, guid: 6b3a7cd137837be45b2a6e043eff8a1d, type: 3}
+  - {fileID: 6155119895297694250, guid: 02f67d1688d5f9240bbd061e1ddb2832, type: 3}
   - {fileID: 5585250200347524629, guid: 7780da7fe175ca746bc29d6d2c5e38c9, type: 3}
-  trainingClasses: 0500000007000000
+  - {fileID: 8205685266257099945, guid: 6b3a7cd137837be45b2a6e043eff8a1d, type: 3}
+  trainingClasses: 050000000700000006000000
   onTrained:
     m_PersistentCalls:
       m_Calls: []

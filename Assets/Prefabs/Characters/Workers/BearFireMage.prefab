@@ -631,7 +631,7 @@ GameObject:
   - component: {fileID: 6155119895297694250}
   - component: {fileID: 354367117659176565}
   m_Layer: 7
-  m_Name: BearMage
+  m_Name: BearFireMage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

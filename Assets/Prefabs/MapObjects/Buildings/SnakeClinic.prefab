@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1599166310402408499}
   - component: {fileID: 1158769526766833546}
   m_Layer: 0
-  m_Name: WarriorsHall
+  m_Name: SnakeClinic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25238d88ae295d647bc1de713cf0d53c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ITF.WorldObjects.TrainingBuilding
-  name: warriors_hall
+  name: clinic
   range:
     x: 0
     y: 0
@@ -60,10 +60,10 @@ MonoBehaviour:
     width: 33
     height: 33
   specialistPrefabs:
-  - {fileID: 7473256279052450822, guid: 740050653d86d4e44a6618814197e196, type: 3}
-  - {fileID: 7473256279052450822, guid: 3dd3d2cd08f976f48b2403f676379820, type: 3}
-  - {fileID: 2280815601234304744, guid: e164d7761b81e7f42a9cd9a53bde4ff9, type: 3}
-  trainingClasses: 0100000002000000
+  - {fileID: 3460080219588779976, guid: 89cbe90d4f4a1644ab9ed78ae1e66da2, type: 3}
+  - {fileID: 8433931187183685931, guid: 7ceeb42ec5a63704194b9eb9ef2b5722, type: 3}
+  - {fileID: 4568509515651527825, guid: d56d0e684f562e84aa26eec4241ab18a, type: 3}
+  trainingClasses: 03000000
   onTrained:
     m_PersistentCalls:
       m_Calls: []

@@ -39,11 +39,21 @@ namespace ITF.Entity {
             reserveUnits = new();
             trainingAssignments = new();
         }
-        private TrainingProgram SelectTrainingProgram(Character unit, CombatRoleSO[] requiredCombatRoles)
+        private TrainingProgram SelectTrainingProgram(Character unit, CombatSlot[] requiredCombatSlots, out CombatSlot combatSlot)
         {
-            // Check if this accounts for group priority
-            //foreach(var role in requiredCombatRoles) Debug.Log(role.roleName);
-            return allowedTrainingPrograms.FirstOrDefault(program => program.faction == unit.Faction && requiredCombatRoles.Any(role => role.unitClassesInRole.Contains(program.targetClass)));
+            TrainingProgram[] programs = allowedTrainingPrograms.Where(prog => prog.faction == unit.Faction).ToArray();
+            TrainingProgram selectedProgram = null;
+            combatSlot = new();
+            foreach (var slot in requiredCombatSlots)
+            {
+                selectedProgram = programs.FirstOrDefault(prog => slot.Role.unitClassesInRole.Contains(prog.targetClass));
+                if (selectedProgram != null)
+                {
+                    combatSlot = slot;
+                    return selectedProgram;
+                }
+            }
+            return selectedProgram;
         }
         private bool RegisterUnitForTraining(Character unit, TrainingProgram trainingProgram)
         {
@@ -63,12 +73,17 @@ namespace ITF.Entity {
             return false;
         }
 
-        public void OnUnitSpawned(Character unit, CombatRoleSO[] requiredCombatRoles)
+        public void OnUnitSpawned(Character unit, CombatGroupManager combatGroupManager)
         {
-            TrainingProgram trainingProgram = SelectTrainingProgram(unit, requiredCombatRoles);
+            TrainingProgram trainingProgram = SelectTrainingProgram(unit, combatGroupManager.GetAllNeededSlots(), out CombatSlot combatSlot);
             if (trainingProgram != null)
             {
-                if (RegisterUnitForTraining(unit, trainingProgram)) return;
+                if (RegisterUnitForTraining(unit, trainingProgram)) 
+                {
+                    Debug.Log("Unit " + unit.name + " is affected to group " + combatSlot.Group?.Name + " as a " + trainingProgram.targetClass + " (" + combatSlot.Role.roleName + " role)");
+                    combatSlot.Group?.SaveSlotForRole(combatSlot.Role);
+                    return; 
+                }
             }
             reserveUnits.Add(unit);
         }

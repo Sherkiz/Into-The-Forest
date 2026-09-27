@@ -100,6 +100,7 @@ namespace ITF.WorldObjects
                     return character;
                 }
             }
+            Debug.LogWarning("No Specialist found for unit " + trainingAssignment.unit.name + " (target class was " + trainingAssignment.TargetCombatRole + ")");
             return null;
         }
 

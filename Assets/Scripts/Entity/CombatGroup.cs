@@ -1,6 +1,7 @@
 using ITF.World;
 using MBT;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace ITF.Entity
         public int GroupID { get; private set; }
         private CombatGroupProfileSO combatGroupProfileSO;
         public int GroupPriority { get => combatGroupProfileSO.priority; }
+        public string Name { get => combatGroupProfileSO.groupName; }
         private List<Character> units;
         public List<Character> UnitsInGroup { get => units; } 
         public bool IsComplete { get => units.Count == combatGroupProfileSO.NumberOfUnits; }
@@ -39,6 +41,10 @@ namespace ITF.Entity
             }
             return missingRole;
         }
+        public void SaveSlotForRole(CombatRoleSO combatRole)
+        {
+            MissingUnits[combatRole] = MissingUnits[combatRole] - 1;
+        }
         public bool AddUnitToGroup(Character unit)
         {
             CombatRoleSO role = GetMissingRoleForUnitClass(unit.UnitClass, out int count);
@@ -46,7 +52,6 @@ namespace ITF.Entity
 
             units.Add(unit);
             SetCenterCell(centerCell, unit);
-            MissingUnits[role] = count - 1;
             unit.OnDeinited.AddListener((unit) => RemoveUnitFromGroup(unit, role));
 
             return true;
