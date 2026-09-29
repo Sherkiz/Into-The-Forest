@@ -62,9 +62,9 @@ MonoBehaviour:
     - {fileID: 7656664305380045770, guid: 1af34f9047d53a348b005f8b28f1784d, type: 3}
     - {fileID: 4598966792236422137, guid: 801cf7ef9847593419c8c73b1d290a3e, type: 3}
   spawnArea:
-    x: 3
+    x: 0
     y: 3
-    width: 33
+    width: 5
     height: 33
   onCharacterSpawned:
     m_PersistentCalls:

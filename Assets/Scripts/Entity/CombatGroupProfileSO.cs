@@ -13,5 +13,6 @@ namespace ITF.Entity
         [SerializedDictionary("Unit Role", "Number")]
         public SerializedDictionary<CombatRoleSO, int> neededRoles;
         public int NumberOfUnits => neededRoles.Values.Sum();
+        public RectInt rallyRange;
     }
 }

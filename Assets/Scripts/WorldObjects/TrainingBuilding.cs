@@ -1,12 +1,13 @@
 using ITF.Entity;
-using UnityEngine;
-using ITF.Utilities;
-using System.Collections;
 using ITF.Skill.Passive;
-using System.Collections.Generic;
-using UnityEngine.Events;
+using ITF.Utilities;
 using ITF.World;
 using MBT;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace ITF.WorldObjects
 {
@@ -34,7 +35,8 @@ namespace ITF.WorldObjects
 
         public override void Init()
         {
-            entranceCell = Range.position + (Vector2Int)EntranceOffset;
+            //entranceCell = Range.position + (Vector2Int)EntranceOffset;
+            entranceCell = Range.min;   // Temp
             entrancePos = WorldManager.Map.PathfindingTilemap.GetCellCenterWorld((Vector3Int)entranceCell);
             currentTrainings = new();
             waitingUnits = new();
@@ -44,6 +46,7 @@ namespace ITF.WorldObjects
         {
             if (!HasFreeSlot)
             {
+                Debug.Log(assignment.unit + " is waiting for training at " + name);
                 Waiting(assignment);
                 return;
             }
@@ -110,8 +113,10 @@ namespace ITF.WorldObjects
             {
                 yield return null;
             }
+            Debug.Log(trainingAssignment.unit + " started training at " + name);
             trainingAssignment.unit.gameObject.SetActive(false);
             yield return new WaitForSeconds(trainingTime);
+            Debug.Log(trainingAssignment.unit + " finished training at " + name);
         }
     }
 }

@@ -68,7 +68,7 @@ namespace ITF.Entity
             {
                 WorkerSpawner spawner = Instantiate(spawnUnits[spawnUnitIndex].workerSpawner);
                 Character[] characters = spawner.SpawnCharacters();
-                Destroy(spawner);
+                Destroy(spawner.gameObject);
                 workers.AddRange(characters);
                 foreach(var character in characters)
                 {

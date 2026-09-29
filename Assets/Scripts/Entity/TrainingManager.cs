@@ -63,6 +63,7 @@ namespace ITF.Entity {
                 var trainingBuilding = SelectTrainingBuilding(trainingAssigment.TargetCombatRole);
                 if (trainingBuilding != null)
                 {
+                    Debug.Log(unit.name);
                     trainingBuilding.AffectTrainingUnit(trainingAssigment);
                     trainingBuilding.onTrained.AddListener(OnTrained);
                     trainingAssignments.Add(trainingAssigment);
@@ -75,6 +76,7 @@ namespace ITF.Entity {
 
         public void OnUnitSpawned(Character unit, CombatGroupManager combatGroupManager)
         {
+            Debug.Log(unit.name + " has been spawned");
             TrainingProgram trainingProgram = SelectTrainingProgram(unit, combatGroupManager.GetAllNeededSlots(), out CombatSlot combatSlot);
             if (trainingProgram != null)
             {
@@ -110,8 +112,7 @@ namespace ITF.Entity {
         private TrainingAssignment TryTraining(Character unit, TrainingProgram trainingProgram)
         {
             if (unit == null || trainingProgram == null) return null;
-            Debug.Log(trainingProgram.targetClass + " (" + unit.Faction + ")");
-            if(trainingProgram.faction == Faction.Unknow || trainingProgram.faction == unit.Faction) // Shiuld not be necessary since trainigProgram is now selected
+            if(trainingProgram.faction == Faction.Unknow || trainingProgram.faction == unit.Faction) // Should not be necessary since trainigProgram is now selected
             {
                 return new(unit, trainingProgram.targetClass);
             }
@@ -122,7 +123,7 @@ namespace ITF.Entity {
         {
             trainingAssignments.Remove(trainingAssignment);
             onTrained?.Invoke(trainingAssignment.unit, trainingAssignment.trainedUnit);
-            
+            Debug.Log(trainingAssignment.unit + " has been trained into " + trainingAssignment.trainedUnit);
             /*
             //Train the reserve units
             for(int i = 0; i < reserveUnits.Count; i++)

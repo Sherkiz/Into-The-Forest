@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1377ca189f55d6d428828fab8bc0569e, type: 3}
   m_Name: ReplacementGroup
   m_EditorClassIdentifier: Assembly-CSharp::ITF.Entity.CombatGroupProfileSO
-  groupName: Aggressive
+  groupName: Replacement Group
   priority: 3
   neededRoles:
     _serializedList:
@@ -24,3 +24,8 @@ MonoBehaviour:
       Value: 1
     - Key: {fileID: 11400000, guid: 4f17f2bb7d541644892d2e71a85b94d2, type: 2}
       Value: 2
+  rallyRange:
+    x: 10
+    y: 10
+    width: 5
+    height: 8

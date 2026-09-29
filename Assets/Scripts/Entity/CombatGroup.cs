@@ -1,7 +1,6 @@
 using ITF.World;
 using MBT;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using UnityEngine;
 
@@ -15,7 +14,7 @@ namespace ITF.Entity
         public string Name { get => combatGroupProfileSO.groupName; }
         private List<Character> units;
         public List<Character> UnitsInGroup { get => units; } 
-        public bool IsComplete { get => units.Count == combatGroupProfileSO.NumberOfUnits; }
+        public bool IsComplete { get => MissingUnits.Values.Sum() == 0; }
         public Dictionary<CombatRoleSO, int> MissingUnits;
 
         private Vector2Int centerCell;
@@ -26,6 +25,7 @@ namespace ITF.Entity
             GroupID = groupID;
             this.combatGroupProfileSO = combatGroupProfileSO;
             MissingUnits = combatGroupProfileSO.neededRoles;
+            centerCell = combatGroupProfileSO.rallyRange.min + new Vector2Int(Random.Range(0, combatGroupProfileSO.rallyRange.width), Random.Range(0, combatGroupProfileSO.rallyRange.height));
         }
         public CombatRoleSO GetMissingRoleForUnitClass(UnitClass unitClass, out int count)
         {
@@ -44,6 +44,7 @@ namespace ITF.Entity
         public void SaveSlotForRole(CombatRoleSO combatRole)
         {
             MissingUnits[combatRole] = MissingUnits[combatRole] - 1;
+            if (IsComplete) Debug.Log(Name + " is complete !");
         }
         public bool AddUnitToGroup(Character unit)
         {
@@ -51,28 +52,13 @@ namespace ITF.Entity
             if (role == null || count <= 0) return false;
 
             units.Add(unit);
-            SetCenterCell(centerCell, unit);
+            SetRallyPoint(centerCell, unit);
             unit.OnDeinited.AddListener((unit) => RemoveUnitFromGroup(unit, role));
 
             return true;
         }
 
-        public void SetCenterCell(Vector2Int centerCell)
-        {
-            this.centerCell = centerCell;
-            foreach (var unit in units)
-            {
-                var blackboardGo = unit.GetReference("blackboard");
-                if (blackboardGo == null) continue;
-                var blackboard = blackboardGo.GetComponent<Blackboard>();
-                if (blackboard == null) continue;
-                var targetCell = blackboard.GetVariable<Vector2Variable>("target_cell");
-                if (!WorldManager.Map.GetNearestEmptyCell(centerCell, out var emptyCell)) emptyCell = centerCell;
-                targetCell.Value = emptyCell;
-            }
-        }
-
-        private void SetCenterCell(Vector2Int centerCell, Character unit)
+        private void SetRallyPoint(Vector2Int centerCell, Character unit)
         {
             var blackboardGo = unit.GetReference("blackboard");
             if (blackboardGo == null) return;

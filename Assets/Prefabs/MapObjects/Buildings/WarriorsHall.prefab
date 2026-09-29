@@ -51,7 +51,7 @@ MonoBehaviour:
     width: 0
     height: 0
   type: 4
-  entranceOffset: {x: 0, y: 0, z: 0}
+  entranceOffset: {x: 2, y: 0, z: 0}
   totalNumberOfTrainingSlots: 1
   trainingTime: 10
   waitingRange:

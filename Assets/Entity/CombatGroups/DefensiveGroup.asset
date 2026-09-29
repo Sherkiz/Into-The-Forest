@@ -24,3 +24,8 @@ MonoBehaviour:
       Value: 1
     - Key: {fileID: 11400000, guid: 4f17f2bb7d541644892d2e71a85b94d2, type: 2}
       Value: 1
+  rallyRange:
+    x: 20
+    y: 10
+    width: 5
+    height: 8

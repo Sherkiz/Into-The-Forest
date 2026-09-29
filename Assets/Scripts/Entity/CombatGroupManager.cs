@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-using Random = UnityEngine.Random;
-
 namespace ITF.Entity
 {
     public class CombatGroupManager : IEntityManager
@@ -22,7 +20,6 @@ namespace ITF.Entity
             foreach(var group in requiredGroups) 
             { 
                 CreateNewCombatGroup(group);
-                currentCombatGroups[^1].SetCenterCell(GetRandomCell());
             }
             currentCombatGroups = currentCombatGroups.OrderBy(group => group.GroupPriority).ToList();
         }
@@ -58,11 +55,6 @@ namespace ITF.Entity
             if (!requiredGroups.Contains(combatGroupProfile)) return;
             CombatGroup combatGroup = new CombatGroup(Array.IndexOf(requiredGroups, combatGroupProfile), combatGroupProfile);
             currentCombatGroups.Add(combatGroup);
-        }
-
-        Vector2Int GetRandomCell()
-        {
-            return homeRange.min + new Vector2Int(Random.Range(0, homeRange.width), Random.Range(0, homeRange.height));
         }
     }
     public struct CombatSlot
