@@ -66,6 +66,7 @@ namespace ITF.Entity
             if (blackboard == null) return;
             var targetCell = blackboard.GetVariable<Vector2Variable>("target_cell");
             if (!WorldManager.Map.GetNearestEmptyCell(centerCell, out var emptyCell)) emptyCell = centerCell;
+            WorldManager.Map.RegisterUnitPlaceholder(unit, emptyCell);
             targetCell.Value = emptyCell;
         }
 

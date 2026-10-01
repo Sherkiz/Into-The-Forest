@@ -47,6 +47,7 @@ namespace ITF.Entity
             {
                 if(group.IsComplete) continue;
                 if (group.AddUnitToGroup(unit)) break;
+                else Debug.LogWarning($"Unit {unit.name} could not be added to group {group.Name}");
             }
         }
 

@@ -8,7 +8,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -46,6 +45,10 @@ namespace ITF.World
         private Dictionary<Vector2Int, MapChunk> mapChunksCellDict = new(); // key: bottom left cell of the chunk
         private List<MapChunk> activeMapChunks = new();
 
+        //Unit placeholders
+        Dictionary<Vector2Int, List<UnitPlaceholder>> unitPlaceholdersInChunks = new();
+        Dictionary<Character, UnitPlaceholder> unitPlaceholders = new();
+
         Tilemap pathfindingTilemap;
         public Tilemap PathfindingTilemap
         {
@@ -78,6 +81,9 @@ namespace ITF.World
             {
                 tilemaps.Add(tilemap.name, tilemap);
             }
+
+            unitPlaceholders.Clear();
+            unitPlaceholdersInChunks.Clear();
         }
         public void OnEnable()
         {
@@ -162,8 +168,10 @@ namespace ITF.World
             emptyCell = cell;
             if (pathFinder.GetCost(cell) == defaultCost && GetCharacterAt(cell) == null) return true;
             List<Vector2Int> opening = new();
-            List<Vector2Int> closed = new();
-            closed.Add(cell);
+            List<Vector2Int> closed = new()
+            {
+                cell
+            };
             Dictionary<MapChunk, List<Vector2Int>> chunkCellsDict = new();
             if (cell.y < range.yMax) opening.Add(cell + Vector2Int.up);
             if (cell.y > range.yMin) opening.Add(cell + Vector2Int.down);
@@ -176,29 +184,34 @@ namespace ITF.World
                 closed.Add(current);
                 if (IsPassable(current))
                 {
-                    MapChunk mapChunk = GetChunkContains(current);
-                    if(chunkCellsDict.TryGetValue(mapChunk, out List<Vector2Int> characterCells))
+                    //MapChunk mapChunk = GetChunkContains(current);
+                    //if(chunkCellsDict.TryGetValue(mapChunk, out List<Vector2Int> characterCells))
+                    //{
+                    //    bool isEmpty = true;
+                    //    for(int i = 0; i < characterCells.Count; i++)
+                    //    {
+                    //        if(current == characterCells[i])
+                    //        {
+                    //            characterCells.RemoveAt(i);
+                    //            isEmpty = false;
+                    //            break;
+                    //        }
+                    //    }
+                    //    if(isEmpty)
+                    //    {
+                    //        emptyCell = current;
+                    //        return true;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    characterCells = new List<Vector2Int>(mapChunk.characters.Select(c => (Vector2Int)PathfindingTilemap.WorldToCell(c.transform.position)));
+                    //    chunkCellsDict.Add(mapChunk, characterCells);
+                    //}
+                    if(!HasUnitPlaceholder(GetUnitPlaceholdersContains(current), current))
                     {
-                        bool isEmpty = true;
-                        for(int i = 0; i < characterCells.Count; i++)
-                        {
-                            if(current == characterCells[i])
-                            {
-                                characterCells.RemoveAt(i);
-                                isEmpty = false;
-                                break;
-                            }
-                        }
-                        if(isEmpty)
-                        {
-                            emptyCell = current;
-                            return true;
-                        }
-                    }
-                    else
-                    {
-                        characterCells = new List<Vector2Int>(mapChunk.characters.Select(c => (Vector2Int)PathfindingTilemap.WorldToCell(c.transform.position)));
-                        chunkCellsDict.Add(mapChunk, characterCells);
+                        emptyCell = current;
+                        return true;
                     }
                 }
                 if (current.y < range.yMax && !closed.Contains(current + Vector2Int.up)) opening.Add(current + Vector2Int.up);
@@ -288,6 +301,60 @@ namespace ITF.World
                 return list.ToArray();
             }
             return Array.Empty<MapObject>();
+        }
+
+        public void RegisterUnitPlaceholder(Character unit, Vector2Int cell)
+        {
+            if (unitPlaceholders.ContainsKey(unit))
+            {
+                UpdateUnitPlaceholder(unit, cell);
+                return;
+            }
+            UnitPlaceholder placeholder = new UnitPlaceholder() { unit = unit, cell = cell };
+            unitPlaceholders.Add(unit, placeholder);
+            Vector2Int index = new Vector2Int(cell.x - cell.x % mapChunkSize.x, cell.y - cell.y % mapChunkSize.y);
+            if (!unitPlaceholdersInChunks.TryGetValue(index, out List<UnitPlaceholder> placeholders))
+            {
+                placeholders = new List<UnitPlaceholder>();
+                unitPlaceholdersInChunks.Add(index, placeholders);
+            }
+            placeholders.Add(placeholder);
+        }
+
+        public void UpdateUnitPlaceholder(Character unit, Vector2Int newCell)
+        {
+            if (unitPlaceholders.TryGetValue(unit, out UnitPlaceholder placeholder))
+            {
+                Vector2Int oldIndex = new Vector2Int(placeholder.cell.x - placeholder.cell.x % mapChunkSize.x, placeholder.cell.y - placeholder.cell.y % mapChunkSize.y);
+                Vector2Int newIndex = new Vector2Int(newCell.x - newCell.x % mapChunkSize.x, newCell.y - newCell.y % mapChunkSize.y);
+                if (oldIndex != newIndex)
+                {
+                    if (unitPlaceholdersInChunks.TryGetValue(oldIndex, out List<UnitPlaceholder> oldPlaceholders))
+                    {
+                        oldPlaceholders.Remove(placeholder);
+                    }
+                    if (!unitPlaceholdersInChunks.TryGetValue(newIndex, out List<UnitPlaceholder> newPlaceholders))
+                    {
+                        newPlaceholders = new List<UnitPlaceholder>();
+                        unitPlaceholdersInChunks.Add(newIndex, newPlaceholders);
+                    }
+                    newPlaceholders.Add(placeholder);
+                }
+                placeholder.cell = newCell;
+            }
+        }
+
+        public void UnregisterUnitPlaceholder(Character unit)
+        {
+            if (unitPlaceholders.TryGetValue(unit, out UnitPlaceholder placeholder))
+            {
+                Vector2Int index = new Vector2Int(placeholder.cell.x - placeholder.cell.x % mapChunkSize.x, placeholder.cell.y - placeholder.cell.y % mapChunkSize.y);
+                if (unitPlaceholdersInChunks.TryGetValue(index, out List<UnitPlaceholder> placeholders))
+                {
+                    placeholders.Remove(placeholder);
+                }
+                unitPlaceholders.Remove(unit);
+            }
         }
 
         public void DrawGizmos()
@@ -398,6 +465,23 @@ namespace ITF.World
                 }
             }
         }
+
+        private List<UnitPlaceholder> GetUnitPlaceholdersContains(Vector2Int cell)
+        {
+            Vector2Int index = new Vector2Int(cell.x - cell.x % mapChunkSize.x, cell.y - cell.y % mapChunkSize.y);
+            return unitPlaceholdersInChunks.TryGetValue(index, out List<UnitPlaceholder> placeholders) ? placeholders : null;
+        }
+
+        private bool HasUnitPlaceholder(List<UnitPlaceholder> placeholders, Vector2Int cell)
+        {
+            if (placeholders == null) return false;
+            foreach(var placeholder in placeholders)
+            {
+                if (placeholder.cell == cell) return true;
+            }
+            return false;
+        }
+
         public List<Character> GetActiveCharacters()
         {
             List<Character> characters = new List<Character>();
@@ -409,27 +493,10 @@ namespace ITF.World
         }
     }
 
-    //public class MapObject
-    //{
-    //    public readonly string name;
-    //    public readonly RectInt range;
-    //    public readonly TileType type;
-    //    public readonly Vector3Int entranceOffset;
-    //    public Vector3Int pathEntrancePosition { get => new Vector3Int(range.xMin, range.yMin) + entranceOffset; }
-    //    public MapObject(string name, RectInt range, TileType type, Vector3Int entranceOffset)
-    //    {
-    //        this.name = name;
-    //        this.range = range;
-    //        this.type = type;
-    //        this.entranceOffset = entranceOffset;
-    //    }
-    //    public MapObject(MultipleTilesObject multipleTilesObject, RectInt range)
-    //    {
-    //        name = multipleTilesObject.name;
-    //        this.range = range;
-    //        type = multipleTilesObject.mapObjectType;
-    //        if (multipleTilesObject is MultipleTilesBuilding building) entranceOffset = building.posOffsets[building.entranceTileIndex];
-    //    }
-    //}
+    public class UnitPlaceholder
+    {
+        public Character unit;
+        public Vector2Int cell;
+    }
     
 }

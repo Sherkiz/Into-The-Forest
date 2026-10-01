@@ -1,11 +1,9 @@
 using ITF.Entity;
-using ITF.Skill.Passive;
 using ITF.Utilities;
 using ITF.World;
 using MBT;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -78,6 +76,7 @@ namespace ITF.WorldObjects
         {
             waitingUnits.Add(trainingAssignment);
             if (!WorldManager.Map.GetNearestEmptyCell(entranceCell, waitingRange, out var emptyCell)) emptyCell = entranceCell;
+            WorldManager.Map.RegisterUnitPlaceholder(trainingAssignment.unit, emptyCell);
             SetTargetCell(trainingAssignment.unit, emptyCell);
         }
 

@@ -94,6 +94,7 @@ namespace ITF.Entity
 
         void OnTrained(Character worker, Character specialist)
         {
+            WorldManager.Map.UnregisterUnitPlaceholder(worker);
             worker.Deinit();
             GameObjectPool.RecycleGameObject(worker.gameObject);
             specialists.Add(specialist);
