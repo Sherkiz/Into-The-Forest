@@ -83,7 +83,7 @@ namespace ITF.Entity {
                 if (RegisterUnitForTraining(unit, trainingProgram)) 
                 {
                     Debug.Log("Unit " + unit.name + " is affected to group " + combatSlot.Group?.Name + " as a " + trainingProgram.targetClass + " (" + combatSlot.Role.roleName + " role)");
-                    combatSlot.Group?.SaveSlotForRole(combatSlot.Role);
+                    combatSlot.Group?.SaveSlotForRole(combatSlot.Role, unit);
                     return; 
                 }
             }
