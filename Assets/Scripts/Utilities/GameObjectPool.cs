@@ -56,8 +56,12 @@ namespace ITF.Utilities
             }
 
             GameObject go;
-            if(unuses[id].Count == 0) go = Instantiate(prefab);
-            else go = unuses[id].Dequeue();
+            if (unuses[id].Count == 0) go = Instantiate(prefab);
+            else
+            {
+                go = unuses[id].Dequeue();
+                go.SetActive(true);
+            }
 
             if (name != null) go.name = name;
             if (go.scene != instance.gameObject.scene) SceneManager.MoveGameObjectToScene(go, instance.gameObject.scene);
