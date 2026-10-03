@@ -13,8 +13,7 @@ namespace ITF.Entity
         public int GroupPriority { get => combatGroupProfileSO.priority; }
         public string Name { get => combatGroupProfileSO.groupName; }
         Dictionary<Character, CombatRoleSO> unitRoles = new Dictionary<Character, CombatRoleSO>();
-        private List<Character> units;
-        public List<Character> UnitsInGroup { get => units; } 
+        public List<Character> UnitsInGroup { get => unitRoles.Keys.ToList(); } 
         public bool IsComplete { get => MissingUnits.Values.Sum() == 0; }
         public Dictionary<CombatRoleSO, int> MissingUnits;
 
@@ -22,7 +21,6 @@ namespace ITF.Entity
 
         public CombatGroup(int groupID, CombatGroupProfileSO combatGroupProfileSO)
         {
-            units = new List<Character>();
             GroupID = groupID;
             this.combatGroupProfileSO = combatGroupProfileSO;
             MissingUnits = combatGroupProfileSO.neededRoles;
@@ -48,18 +46,15 @@ namespace ITF.Entity
             unit.OnDeinited.AddListener(OnUnitDeinited);
             if (IsComplete) Debug.Log(Name + " is complete !");
         }
-        public bool AddUnitToGroup(Character unit)
+        public void AddUnitToGroup(Character unit)
         {
             CombatRoleSO role = GetMissingRoleForUnitClass(unit.UnitClass, out int count);
-            if (role == null || count <= 0) return false;
-
-            if(unitRoles.ContainsKey(unit)) RemoveUnitFromGroup(unit);
-            units.Add(unit);
-            unitRoles.Add(unit, role);
+            AddUnitToGroup(unit, role);
+        }
+        public void AddUnitToGroup(Character unit, CombatRoleSO combatRole)
+        {
+            unitRoles.Add(unit, combatRole);
             SetRallyPoint(centerCell, unit);
-            unit.OnDeinited.AddListener(OnUnitDeinited);
-
-            return true;
         }
 
         private void SetRallyPoint(Vector2Int centerCell, Character unit)
@@ -78,7 +73,6 @@ namespace ITF.Entity
             if (unitRoles.TryGetValue(unit, out var role))
             {
                 unitRoles.Remove(unit);
-                units.Remove(unit);
                 MissingUnits[role] = MissingUnits[role] + 1;
             }
             unit.OnDeinited.RemoveListener(OnUnitDeinited);

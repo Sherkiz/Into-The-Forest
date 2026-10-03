@@ -41,14 +41,9 @@ namespace ITF.Entity
             }
             return res.ToArray();
         }
-        public void ReceiveNewUnit(SkilledCharacter unit)
+        public void ReceiveNewUnit(SkilledCharacter unit, CombatSlot combatSlot)
         {
-            foreach(var group in currentCombatGroups)
-            {
-                if(group.IsComplete) continue;
-                if (group.AddUnitToGroup(unit)) break;
-                else Debug.LogWarning($"Unit {unit.name} could not be added to group {group.Name}");
-            }
+            combatSlot.Group.AddUnitToGroup(unit, combatSlot.Role);
         }
 
         public void CreateNewCombatGroup(CombatGroupProfileSO combatGroupProfile)

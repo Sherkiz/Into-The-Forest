@@ -17,7 +17,7 @@ namespace ITF.Entity {
         private Dictionary<UnitClass, List<TrainingBuilding>> trainingBuildings;
 
         [Tooltip("The first character is old. The second character is specialist.")]
-        public UnityEvent<Character, Character> onTrained = new();
+        public UnityEvent<Character, Character, CombatSlot> onTrained = new();
 
         public void Init()
         {
@@ -34,6 +34,7 @@ namespace ITF.Entity {
                     }
                     list.Add(building);
                 }
+                building.onTrained.AddListener(OnTrained);
             }
 
             reserveUnits = new();
@@ -55,17 +56,15 @@ namespace ITF.Entity {
             }
             return selectedProgram;
         }
-        private bool RegisterUnitForTraining(Character unit, TrainingProgram trainingProgram)
+        private bool RegisterUnitForTraining(Character unit, TrainingProgram trainingProgram, CombatSlot combatSlot)
         {
-            var trainingAssigment = TryTraining(unit, trainingProgram);
+            var trainingAssigment = TryTraining(unit, trainingProgram, combatSlot);
             if (trainingAssigment != null)
             {
                 var trainingBuilding = SelectTrainingBuilding(trainingAssigment.TargetCombatRole);
                 if (trainingBuilding != null)
                 {
-                    Debug.Log(unit.name);
                     trainingBuilding.AffectTrainingUnit(trainingAssigment);
-                    trainingBuilding.onTrained.AddListener(OnTrained);
                     trainingAssignments.Add(trainingAssigment);
                     return true;
                 }
@@ -80,9 +79,8 @@ namespace ITF.Entity {
             TrainingProgram trainingProgram = SelectTrainingProgram(unit, combatGroupManager.GetAllNeededSlots(), out CombatSlot combatSlot);
             if (trainingProgram != null)
             {
-                if (RegisterUnitForTraining(unit, trainingProgram)) 
+                if (RegisterUnitForTraining(unit, trainingProgram, combatSlot)) 
                 {
-                    Debug.Log("Unit " + unit.name + " is affected to group " + combatSlot.Group?.Name + " as a " + trainingProgram.targetClass + " (" + combatSlot.Role.roleName + " role)");
                     combatSlot.Group?.SaveSlotForRole(combatSlot.Role, unit);
                     return; 
                 }
@@ -109,12 +107,12 @@ namespace ITF.Entity {
             return trainingBuilding;
         }
 
-        private TrainingAssignment TryTraining(Character unit, TrainingProgram trainingProgram)
+        private TrainingAssignment TryTraining(Character unit, TrainingProgram trainingProgram, CombatSlot combatSlot)
         {
             if (unit == null || trainingProgram == null) return null;
             if(trainingProgram.faction == Faction.Unknow || trainingProgram.faction == unit.Faction) // Should not be necessary since trainigProgram is now selected
             {
-                return new(unit, trainingProgram.targetClass);
+                return new(unit, trainingProgram.targetClass, combatSlot);
             }
             return null;
         }
@@ -122,8 +120,7 @@ namespace ITF.Entity {
         void OnTrained(TrainingBuilding trainingBuilding, TrainingAssignment trainingAssignment)
         {
             trainingAssignments.Remove(trainingAssignment);
-            onTrained?.Invoke(trainingAssignment.unit, trainingAssignment.trainedUnit);
-            Debug.Log(trainingAssignment.unit + " has been trained into " + trainingAssignment.trainedUnit);
+            onTrained?.Invoke(trainingAssignment.unit, trainingAssignment.trainedUnit, trainingAssignment.combatSlot);
             /*
             //Train the reserve units
             for(int i = 0; i < reserveUnits.Count; i++)
@@ -150,14 +147,16 @@ namespace ITF.Entity {
     {
         public Character unit;
         public Character trainedUnit;
+        public CombatSlot combatSlot;
 
         public UnitClass TargetCombatRole;
         public TrainingStatus status;
 
-        public TrainingAssignment(Character unit, UnitClass targetCombatRole)
+        public TrainingAssignment(Character unit, UnitClass targetCombatRole, CombatSlot combatSlot)
         {
             this.unit = unit;
             TargetCombatRole = targetCombatRole;
+            this.combatSlot = combatSlot;
             status = TrainingStatus.Waiting;
         }
     }

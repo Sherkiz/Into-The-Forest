@@ -92,15 +92,18 @@ namespace ITF.Entity
             WorldManager.Map.onBuilt -= OnMapBuilt;
         }
 
-        void OnTrained(Character worker, Character specialist)
+        void OnTrained(Character worker, Character specialist, CombatSlot combatSlot)
         {
+            Debug.Log("Worker " +  worker.name + " has been trained into " + specialist.name + ". It will be a " + combatSlot.Role.roleName + " for " + combatSlot.Group.Name);
             WorldManager.Map.UnregisterUnitPlaceholder(worker);
             worker.Deinit();
             GameObjectPool.RecycleGameObject(worker.gameObject);
             specialists.Add(specialist);
             specialist.Init();
-            if(specialist is SkilledCharacter unit)
-                combatGroupManager.ReceiveNewUnit(unit);
+            if (specialist is SkilledCharacter unit)
+            {
+                if (combatSlot.Group != null) combatGroupManager.ReceiveNewUnit(unit, combatSlot);
+            }
         }
 
         [System.Serializable]
