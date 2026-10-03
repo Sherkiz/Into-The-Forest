@@ -4,6 +4,7 @@ using ITF.World;
 using MBT;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,7 +18,7 @@ namespace ITF.WorldObjects
         [SerializeField] private Character[] specialistPrefabs;
         public UnitClass[] trainingClasses;
         public bool HasFreeSlot { get =>  currentTrainings.Count < totalNumberOfTrainingSlots; }
-        private List<Task> currentTrainings;
+        private Dictionary<Character, Task> currentTrainings;
         private List<TrainingAssignment> waitingUnits;
         public int WaitingCount => waitingUnits.Count;
 
@@ -28,7 +29,7 @@ namespace ITF.WorldObjects
 
         public override void Deinit()
         {
-            foreach (var task in currentTrainings) { task.Stop(); }
+            foreach (var task in currentTrainings.Values) { task.Stop(); }
         }
 
         public override void Init()
@@ -42,22 +43,20 @@ namespace ITF.WorldObjects
         
         public void AffectTrainingUnit(TrainingAssignment assignment)
         {
+            Character unit = assignment.unit;
+            Debug.Log(unit + " has been affected to " + name + ".");
             if (!HasFreeSlot)
             {
                 Waiting(assignment);
                 return;
             }
-
-            SetTargetCell(assignment.unit, entranceCell);
+            SetTargetCell(unit, entranceCell);
             Task training = new Task(StartTraining(assignment));
+            unit.OnDeinited.AddListener(StopTraining);
             training.Finished += (bool manual) =>
             {
-                currentTrainings.Remove(training);
-                if(waitingUnits.Count > 0)
-                {
-                    AffectTrainingUnit(waitingUnits[0]);
-                    waitingUnits.RemoveAt(0);
-                }
+                currentTrainings.Remove(unit);
+                TrainNextWaitingUnit();
 
                 if (manual)
                 {
@@ -70,9 +69,20 @@ namespace ITF.WorldObjects
                 }
                 onTrained?.Invoke(this, assignment);
             };
-            currentTrainings.Add(training);
+            currentTrainings.Add(assignment.unit, training);
         }
-
+        private void TrainNextWaitingUnit()
+        {
+            if (waitingUnits.Count > 0)
+            {
+                AffectTrainingUnit(waitingUnits[0]);
+                waitingUnits.RemoveAt(0);
+            }
+        }
+        private void StopTraining(Character unit)
+        {
+            if (currentTrainings.TryGetValue(unit, out var training)) training.Stop();
+        }
         private void Waiting(TrainingAssignment trainingAssignment)
         {
             waitingUnits.Add(trainingAssignment);
@@ -113,10 +123,21 @@ namespace ITF.WorldObjects
             {
                 yield return null;
             }
+            trainingAssignment.unit.OnDeinited.RemoveListener(StopTraining);
             Debug.Log(trainingAssignment.unit + " started training at " + name);
             trainingAssignment.unit.gameObject.SetActive(false);
             yield return new WaitForSeconds(trainingTime);
             Debug.Log(trainingAssignment.unit + " finished training at " + name);
         }
+        #region Debug Methods
+        [ContextMenu("Debug Waiting queue")]
+        public void DebugWaitingQueue()
+        {
+            foreach (var a in waitingUnits)
+            {
+                Debug.Log(a.unit);
+            }
+        }
+        #endregion
     }
 }
