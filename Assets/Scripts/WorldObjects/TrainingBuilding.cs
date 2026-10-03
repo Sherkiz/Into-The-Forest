@@ -44,7 +44,6 @@ namespace ITF.WorldObjects
         {
             if (!HasFreeSlot)
             {
-                Debug.Log(assignment.unit + " is waiting for training at " + name);
                 Waiting(assignment);
                 return;
             }
@@ -63,10 +62,12 @@ namespace ITF.WorldObjects
                 if (manual)
                 {
                     assignment.status = TrainingStatus.Cancelled;
-                    return;
                 }
-                assignment.status = TrainingStatus.Completed;
-                assignment.trainedUnit = SpawnSpecialist(assignment);
+                else
+                {
+                    assignment.status = TrainingStatus.Completed;
+                    assignment.trainedUnit = SpawnSpecialist(assignment);
+                }
                 onTrained?.Invoke(this, assignment);
             };
             currentTrainings.Add(training);

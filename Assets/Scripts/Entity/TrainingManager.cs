@@ -120,7 +120,11 @@ namespace ITF.Entity {
         void OnTrained(TrainingBuilding trainingBuilding, TrainingAssignment trainingAssignment)
         {
             trainingAssignments.Remove(trainingAssignment);
-            onTrained?.Invoke(trainingAssignment.unit, trainingAssignment.trainedUnit, trainingAssignment.combatSlot);
+            if (trainingAssignment.status == TrainingStatus.Completed) onTrained?.Invoke(trainingAssignment.unit, trainingAssignment.trainedUnit, trainingAssignment.combatSlot);
+            else
+            {
+                trainingAssignment.combatSlot.Group.CancelSlotSave(trainingAssignment.combatSlot.Role, trainingAssignment.unit);
+            }
             /*
             //Train the reserve units
             for(int i = 0; i < reserveUnits.Count; i++)

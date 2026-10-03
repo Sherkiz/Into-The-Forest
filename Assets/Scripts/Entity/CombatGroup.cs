@@ -46,6 +46,11 @@ namespace ITF.Entity
             unit.OnDeinited.AddListener(OnUnitDeinited);
             if (IsComplete) Debug.Log(Name + " is complete !");
         }
+        public void CancelSlotSave(CombatRoleSO combatRole, Character unit)
+        {
+            MissingUnits[combatRole] = MissingUnits[combatRole] + 1;
+            unit.OnDeinited.RemoveListener(OnUnitDeinited);
+        }
         public void AddUnitToGroup(Character unit)
         {
             CombatRoleSO role = GetMissingRoleForUnitClass(unit.UnitClass, out int count);
