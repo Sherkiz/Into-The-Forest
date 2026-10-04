@@ -100,6 +100,7 @@ namespace ITF.Entity
                 }
             }
 
+            gameObject.SetActive(true);
             inited = true;
         }
 
