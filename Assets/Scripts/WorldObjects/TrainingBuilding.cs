@@ -4,7 +4,6 @@ using ITF.World;
 using MBT;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -129,6 +128,7 @@ namespace ITF.WorldObjects
             yield return new WaitForSeconds(trainingTime);
             Debug.Log(trainingAssignment.unit + " finished training at " + name);
         }
+
         #region Debug Methods
         [ContextMenu("Debug Waiting queue")]
         public void DebugWaitingQueue()
