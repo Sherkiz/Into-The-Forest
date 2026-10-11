@@ -1,4 +1,7 @@
 using ITF.CustomTiles;
+using ITF.Spawners;
+using ITF.World;
+using ITF.Utilities;
 using UnityEngine;
 
 namespace ITF.WorldObjects
@@ -18,6 +21,8 @@ namespace ITF.WorldObjects
         [SerializeField]
         Vector3Int entranceOffset;
         public override Vector3Int EntranceOffset => entranceOffset;
+        [SerializeField] private SpawnUnit[] spawnUnits;
+        [SerializeField] private float health;
 
         public override void SetLocation(RectInt range, TileType tileType, Vector3Int entranceOffset)
         {
@@ -33,12 +38,26 @@ namespace ITF.WorldObjects
 
         public override void Init()
         {
-
+            WorldManager.OnWorldGenerated.AddListener(OnWorldGenerated);
         }
-
         public override void Deinit()
         {
 
+        }
+        private void OnWorldGenerated()
+        {
+            WorldManager.Map.onBuilt += SpawnEnemies;
+        }
+        public void SpawnEnemies(Map map)
+        {
+
+        }
+
+        [System.Serializable]
+        struct SpawnUnit
+        {
+            public EnemySpawner spawner;
+            public MinMaxFloat delayRange;
         }
     }
 }

@@ -629,6 +629,7 @@ GameObject:
   - component: {fileID: 5581590755299423216}
   - component: {fileID: 2010961557228551646}
   - component: {fileID: 131710455162206285}
+  - component: {fileID: 3793317545293059156}
   m_Layer: 7
   m_Name: Skeleton
   m_TagString: Untagged
@@ -726,3 +727,35 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3793317545293059156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8460206788401936952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28c2ca54989713a40857cf22d7fd2c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.Entity.Enemy
+  references:
+    _serializedList: []
+  _characterStateScriptObject: {fileID: 11400000, guid: 1d96b2333e26c03448e6919988b2ab0a, type: 2}
+  faction: 7
+  unitType: 0
+  unitClass: 0
+  passiveSkillAddors: []
+  autoInit: 1
+  onInited:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeinited:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateUnitAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateUnitRemoved:
+    m_PersistentCalls:
+      m_Calls: []
