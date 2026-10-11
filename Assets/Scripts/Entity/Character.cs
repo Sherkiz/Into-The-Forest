@@ -105,7 +105,13 @@ namespace ITF.Entity
         MaxHealth = 1,
         Health = 2,
         Speed = 3,
-        Power = 4,
+        Damage = 4,
+        Armor = 5,
+        AttackRange = 6,
+        AttackSpeed = 7,
+        DetectionRange = 8,
+        Mana = 9,
+        Defense = 10,
     }
 
 }
