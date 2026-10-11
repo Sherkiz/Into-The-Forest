@@ -9,8 +9,13 @@ namespace ITF.Entity
     {
         public float maxHealth;
         public float health;
-        public float power;
+        public float damage;
         public float speed;
+        public float attackSpeed;
+        public float attackRange;
+        public float armor;
+        public float mana;
+        public float detectionRange;
 
         public CharacterState ToCharacterState(Character host, bool isConstant)
         {
@@ -18,8 +23,13 @@ namespace ITF.Entity
             {
                 { CharacterStateType.MaxHealth, maxHealth },
                 { CharacterStateType.Health, health },
-                { CharacterStateType.Power, power },
-                { CharacterStateType.Speed, speed }
+                { CharacterStateType.Damage, damage },
+                { CharacterStateType.Speed, speed },
+                { CharacterStateType.AttackRange, attackRange },
+                { CharacterStateType.AttackSpeed, attackSpeed },
+                { CharacterStateType.Armor, armor },
+                { CharacterStateType.Mana, mana },
+                { CharacterStateType.DetectionRange, detectionRange }
             };
             return new CharacterState(states, host, isConstant);
         }
