@@ -129,7 +129,7 @@ TextureImporter:
       name: mage_guild_0
       rect:
         serializedVersion: 2
-        x: 64
+        x: 0
         y: 256
         width: 64
         height: 64
@@ -151,7 +151,7 @@ TextureImporter:
       name: mage_guild_1
       rect:
         serializedVersion: 2
-        x: 128
+        x: 64
         y: 256
         width: 64
         height: 64
@@ -173,7 +173,7 @@ TextureImporter:
       name: mage_guild_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 0
         y: 192
         width: 64
         height: 64
@@ -195,7 +195,7 @@ TextureImporter:
       name: mage_guild_3
       rect:
         serializedVersion: 2
-        x: 128
+        x: 64
         y: 192
         width: 64
         height: 64
@@ -217,8 +217,8 @@ TextureImporter:
       name: mage_guild_4
       rect:
         serializedVersion: 2
-        x: 64
-        y: 128
+        x: 128
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -239,7 +239,7 @@ TextureImporter:
       name: mage_guild_5
       rect:
         serializedVersion: 2
-        x: 128
+        x: 0
         y: 128
         width: 64
         height: 64
@@ -262,7 +262,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 64
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -284,7 +284,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 64
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -305,8 +305,8 @@ TextureImporter:
       name: mage_guild_8
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 192
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -327,8 +327,8 @@ TextureImporter:
       name: mage_guild_9
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
+        x: 0
+        y: 64
         width: 64
         height: 64
       alignment: 0
@@ -341,6 +341,160 @@ TextureImporter:
       bones: []
       spriteID: cebafd0b4bbd2684d901931a0534c79d
       internalID: 719021921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mage_guild_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f18dd16af19d1a439b3b51a98ba4446
+      internalID: 2000879131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mage_guild_11
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b45a65b92e337f46a786388916f76f4
+      internalID: -654319969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mage_guild_12
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 118024f4904f6aa49b9bd3fae6a91650
+      internalID: 1014658871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mage_guild_13
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01dde23cfd9e830459520b8ca1de9b6b
+      internalID: 1394958532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mage_guild_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a1505a71d9ea2e4f92564dd5611b6cc
+      internalID: -1010309415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mage_guild_15
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70bdab84e4ed11d4d82761b9015e20bf
+      internalID: 686626044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mage_guild_16
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06dacc5db0fe9d84eaf69512c47d9819
+      internalID: -506353919
       vertices: []
       indices: 
       edges: []
@@ -363,6 +517,13 @@ TextureImporter:
     nameFileIdTable:
       mage_guild_0: 3104127874596375428
       mage_guild_1: 1283975965
+      mage_guild_10: 2000879131
+      mage_guild_11: -654319969
+      mage_guild_12: 1014658871
+      mage_guild_13: 1394958532
+      mage_guild_14: -1010309415
+      mage_guild_15: 686626044
+      mage_guild_16: -506353919
       mage_guild_2: -768626157
       mage_guild_3: -1665272832
       mage_guild_4: -2022061900

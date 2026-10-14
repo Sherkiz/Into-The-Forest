@@ -13,31 +13,61 @@ MonoBehaviour:
   m_Name: mage_guild
   m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesBuilding
   name: mage_guild
-  size: {x: 4, y: 7}
+  size: {x: 7, y: 7}
   tiles:
   - {fileID: 11400000, guid: 17c0858e075b0e54f9cd56eafeca1984, type: 2}
   - {fileID: 11400000, guid: a0ccbc20f0e4ced49a5d29e6e295645e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 11400000, guid: da34670d77359f24dbc1715a114824aa, type: 2}
   - {fileID: 11400000, guid: 0777e045703b3864f891e2957ff091e9, type: 2}
   - {fileID: 11400000, guid: 37d4a85c71744954492f6db2e813951b, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 11400000, guid: 77d758868681c7c49ab70f4e14575d46, type: 2}
   - {fileID: 11400000, guid: 669538f888ee2dc41a7f8a9398d20784, type: 2}
   - {fileID: 11400000, guid: b34ef428499e1554dab0d6d5171c9440, type: 2}
   - {fileID: 11400000, guid: a7448e6c93cdb85449134be732a375ed, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: d5a8b07b1b91c204e9e8e480899748f9, type: 2}
+  - {fileID: 11400000, guid: 618e2e2f6606198478eb8677cee55e8c, type: 2}
+  - {fileID: 11400000, guid: a80f65894ef94a8459da416eb785fc5a, type: 2}
+  - {fileID: 11400000, guid: 42af5aaf28cd2c0408974e55ee104053, type: 2}
+  - {fileID: 11400000, guid: 05b3d95b662da6448a1030a697d85e80, type: 2}
+  - {fileID: 11400000, guid: 3c014768b5e9e2044a5dc3acf1ed4cb9, type: 2}
+  - {fileID: 11400000, guid: 2eff4c086144f4842b2b7fd3f91a4553, type: 2}
+  - {fileID: 11400000, guid: 6c797b600659d1c4f91dfd12503023c3, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   posOffsets:
   - {x: 0, y: 4, z: 0}
   - {x: 1, y: 4, z: 0}
+  - {x: 2, y: 4, z: 0}
+  - {x: 3, y: 4, z: 0}
+  - {x: 4, y: 4, z: 0}
   - {x: 0, y: 3, z: 0}
   - {x: 1, y: 3, z: 0}
+  - {x: 2, y: 3, z: 0}
+  - {x: 3, y: 3, z: 0}
+  - {x: 4, y: 3, z: 0}
   - {x: 0, y: 2, z: 0}
   - {x: 1, y: 2, z: 0}
+  - {x: 2, y: 2, z: 0}
+  - {x: 3, y: 2, z: 0}
+  - {x: 4, y: 2, z: 0}
   - {x: 0, y: 1, z: 0}
   - {x: 1, y: 1, z: 0}
+  - {x: 2, y: 1, z: 0}
+  - {x: 3, y: 1, z: 0}
+  - {x: 4, y: 1, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}
+  - {x: 2, y: 0, z: 0}
+  - {x: 3, y: 0, z: 0}
+  - {x: 4, y: 0, z: 0}
   expandLeftBottom: {x: 1, y: 1}
   expandRightTop: {x: 1, y: 1}
   fillExpand: 1
   mapObjectType: 4
-  entranceTileIndex: 8
+  entranceTileIndex: 21
