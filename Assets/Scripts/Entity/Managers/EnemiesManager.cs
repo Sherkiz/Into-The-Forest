@@ -1,11 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ITF.Entity {
     public class EnemiesManager : MonoBehaviour, IEntityManager
     {
-        public Character[] GetCharacters()
+        List<Character> characters = new List<Character>();
+
+        public Character[] GetCharacters() => characters.ToArray();
+
+        public void RegisterCharacter(Character character)
         {
-            throw new System.NotImplementedException();
+            if(characters.Contains(character)) return;
+            characters.Add(character);
         }
     }
 }
