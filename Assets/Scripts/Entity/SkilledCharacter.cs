@@ -79,6 +79,17 @@ namespace ITF.Entity
             return null;
         }
 
+        public override bool TryGetComponentInReferences<T>(string name, out T component)
+        {
+            GameObject reference = GetReference(name);
+            component = null;
+            if(reference != null)
+            {
+                return reference.TryGetComponent<T>(out component);
+            }
+            return false;
+        }
+
         public T[] GetStateUnits<T>() where T : StateUnit
         {
             throw new System.NotImplementedException();

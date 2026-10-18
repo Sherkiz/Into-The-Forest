@@ -26,6 +26,8 @@ namespace ITF.Entity
         public abstract GameObject GetReference(string name);
         public abstract void SetOrAddReference(string name, GameObject reference);
 
+        public abstract bool TryGetComponentInReferences<T>(string name, out T component) where T : Component;
+
         public abstract void Init();
 
         public abstract void Deinit();
