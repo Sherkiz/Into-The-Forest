@@ -1,3 +1,4 @@
+using ITF.Utilities;
 using ITF.World;
 using ITF.WorldObjects;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace ITF.Entity {
             combatSlot = new();
             foreach (var slot in requiredCombatSlots)
             {
-                selectedProgram = programs.FirstOrDefault(prog => slot.Role.unitClassesInRole.Contains(prog.targetClass));
+                selectedProgram = programs.RandomElement(prog => slot.Role.unitClassesInRole.Contains(prog.targetClass));
                 if (selectedProgram != null)
                 {
                     combatSlot = slot;
