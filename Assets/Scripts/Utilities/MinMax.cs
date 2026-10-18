@@ -5,11 +5,24 @@ namespace ITF.Utilities
     public struct MinMaxFloat
     {
         [Tooltip("Min value (inclusive")]
-        public float min;
+        [SerializeField] private float min;
         [Tooltip("Max value (exclusive")]
-        public float max;
-
-        public float GetValue()
+        [SerializeField] private float max;
+        private float _value;
+        private bool isInit;
+        public float Value 
+        { 
+            get 
+            { 
+                if (!isInit) 
+                {
+                    _value = GetOtherValue();
+                    isInit = true;
+                }
+                return _value; 
+            } 
+        }
+        public float GetOtherValue()
         {
             return Random.Range(min, max);
         }
@@ -18,11 +31,24 @@ namespace ITF.Utilities
     public struct MinMaxInt
     {
         [Tooltip("Min value (inclusive")]
-        public int min;
+        [SerializeField] private int min;
         [Tooltip("Max value (exclusive")]
-        public int max;
-
-        public float GetValue()
+        [SerializeField] private int max;
+        private int _value;
+        private bool isInit;
+        public int Value
+        {
+            get
+            {
+                if (!isInit)
+                {
+                    _value = GetOtherValue();
+                    isInit = true;
+                }
+                return _value;
+            }
+        }
+        public int GetOtherValue()
         {
             return Random.Range(min, max);
         }
