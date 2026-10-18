@@ -6,7 +6,7 @@ namespace ITF.Utilities
     {
         [Tooltip("Min value (inclusive")]
         [SerializeField] private float min;
-        [Tooltip("Max value (exclusive")]
+        [Tooltip("Max value (inclusive")]
         [SerializeField] private float max;
         private float _value;
         private bool isInit;
