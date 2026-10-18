@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using UnityEngine;
 
 namespace ITF.Utilities
 {
@@ -17,7 +18,7 @@ namespace ITF.Utilities
         {
             float totalWeight = sequence.Sum(weightSelector);
             // The weight we are after...
-            float itemWeightIndex = (float)new Random().NextDouble() * totalWeight;
+            float itemWeightIndex = (float)new System.Random().NextDouble() * totalWeight;
             float currentWeightIndex = 0;
 
             foreach (var item in from weightedItem in sequence select new { Value = weightedItem, Weight = weightSelector(weightedItem) })
@@ -32,6 +33,27 @@ namespace ITF.Utilities
 
             return default(T);
 
+        }
+        /// <summary>
+        /// Returns a random element of the collection between the two given indices (max is exclusive)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sequence"></param>
+        /// <returns></returns>
+        public static T RandomElement<T>(this IEnumerable<T> sequence, int minIndex = 0, int maxIndex = int.MaxValue)
+        {
+            int index = UnityEngine.Random.Range(Mathf.Min(sequence.Count() - 1, minIndex), Mathf.Min(maxIndex, sequence.Count()));
+            return sequence.ElementAtOrDefault(index);
+        }
+        /// <summary>
+        /// Returns a random element of the collection based on given predicate
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sequence"></param>
+        /// <returns></returns>
+        public static T RandomElement<T>(this IEnumerable<T> sequence, Predicate<T> predicate)
+        {
+            return sequence.Where(x => predicate(x)).RandomElement();
         }
 
         public static IEnumerable<T> ExceptWhere<T>(this IEnumerable<T> source, Predicate<T> predicate)
