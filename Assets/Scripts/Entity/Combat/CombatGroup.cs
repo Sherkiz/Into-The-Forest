@@ -62,16 +62,9 @@ namespace ITF.Entity
             SetRallyPoint(centerCell, unit);
         }
 
-        private void SetRallyPoint(Vector2Int centerCell, Character unit)
+        public void SetRallyPoint(Vector2Int centerCell, Character unit)
         {
-            var blackboardGo = unit.GetReference("blackboard");
-            if (blackboardGo == null) return;
-            var blackboard = blackboardGo.GetComponent<Blackboard>();
-            if (blackboard == null) return;
-            var targetCell = blackboard.GetVariable<Vector2Variable>("target_cell");
-            if (!WorldManager.Map.GetNearestEmptyCell(centerCell, out var emptyCell)) emptyCell = centerCell;
-            WorldManager.Map.RegisterUnitPlaceholder(unit, emptyCell);
-            targetCell.Value = emptyCell;
+            unit.SetTargetCell(centerCell, placeholder:true);
         }
 
         private void RemoveUnitFromGroup(Character unit) {

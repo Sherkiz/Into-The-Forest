@@ -10,7 +10,7 @@ namespace ITF.WorldObjects
         public virtual RectInt Range { get; private set; }
         public virtual TileType Type { get; private set; }
         public virtual Vector3Int EntranceOffset { get; private set; }
-
+        public virtual Vector2Int EntrancePosition { get => Range.position + new Vector2Int(EntranceOffset.x, EntranceOffset.y); }
         public virtual void SetName(string name)
         {
             Name = name;

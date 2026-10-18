@@ -149,6 +149,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2118099966}
+  - {fileID: 1970121339}
   m_Father: {fileID: 1583887381}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &171417062
@@ -1662,6 +1663,286 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1786631995}
   m_CullTransparentMesh: 1
+--- !u!1 &1806381613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1806381625}
+  - component: {fileID: 1806381624}
+  - component: {fileID: 1806381623}
+  - component: {fileID: 1806381622}
+  - component: {fileID: 1806381621}
+  - component: {fileID: 1806381620}
+  - component: {fileID: 1806381619}
+  - component: {fileID: 1806381618}
+  - component: {fileID: 1806381617}
+  - component: {fileID: 1806381616}
+  - component: {fileID: 1806381615}
+  - component: {fileID: 1806381614}
+  m_Layer: 0
+  m_Name: CombatGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1806381614
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806381613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08540605df275034fafc8e05c6704214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.Selector
+  title: Selector
+  rect:
+    serializedVersion: 2
+    x: 380
+    y: 300
+    width: 160
+    height: 44
+  parent: {fileID: 1806381620}
+  children:
+  - {fileID: 1806381617}
+  behaviourTree: {fileID: 0}
+  runtimePriority: 0
+  breakpoint: 0
+  random: 0
+--- !u!114 &1806381615
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806381613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4e5f4db414f0ab4c82c187a7653e99d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.FloatVariable
+  key: spawner_search_time
+  val: 5
+--- !u!114 &1806381616
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806381613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cdb61a66fcb1c549a844f093811f6c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.GameObjectVariable
+  key: host
+  val: {fileID: 1806381613}
+--- !u!114 &1806381617
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806381613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d35a82af61aebd4e9465d8961c5bc08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.BehaviourTree.Nodes.FindSpawner
+  title: FindSpawner
+  rect:
+    serializedVersion: 2
+    x: 380
+    y: 420
+    width: 160
+    height: 44
+  parent: {fileID: 1806381614}
+  children: []
+  behaviourTree: {fileID: 0}
+  runtimePriority: 0
+  breakpoint: 0
+  host:
+    useConstant: 0
+    mode: 0
+    blackboard: {fileID: 1806381623}
+    key: host
+    constantValue: {fileID: 0}
+  searchTime:
+    useConstant: 0
+    mode: 0
+    blackboard: {fileID: 1806381623}
+    key: spawner_search_time
+    constantValue: 0
+--- !u!114 &1806381618
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806381613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf9db2dd19add14ca81a865a77a2280, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.BehaviourTree.Nodes.AssembleAtRally
+  title: AssembleAtRally
+  rect:
+    serializedVersion: 2
+    x: 160
+    y: 300
+    width: 160
+    height: 44
+  parent: {fileID: 1806381620}
+  children: []
+  behaviourTree: {fileID: 0}
+  runtimePriority: 0
+  breakpoint: 0
+  host:
+    useConstant: 0
+    mode: 0
+    blackboard: {fileID: 1806381623}
+    key: host
+    constantValue: {fileID: 0}
+  rallyCell:
+    useConstant: 0
+    mode: 0
+    blackboard: {fileID: 1806381623}
+    key: rally_cell
+    constantValue: {x: 0, y: 0}
+--- !u!114 &1806381619
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806381613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa62ce5e63cc9d45ae0efc52561ace7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.Vector2Variable
+  key: rally_cell
+  val: {x: 0, y: 0}
+--- !u!114 &1806381620
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806381613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c78c7da6b00e1b46bad07949050f82f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.Sequence
+  title: Sequence
+  rect:
+    serializedVersion: 2
+    x: 320
+    y: 180
+    width: 160
+    height: 44
+  parent: {fileID: 1806381621}
+  children:
+  - {fileID: 1806381618}
+  - {fileID: 1806381614}
+  behaviourTree: {fileID: 0}
+  runtimePriority: 0
+  breakpoint: 0
+  random: 0
+--- !u!114 &1806381621
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806381613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 538645f2f9090fd43bc6154b2e89e2d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.Root
+  title: Root
+  rect:
+    serializedVersion: 2
+    x: 300
+    y: 100
+    width: 160
+    height: 44
+  parent: {fileID: 0}
+  children:
+  - {fileID: 1806381620}
+  behaviourTree: {fileID: 0}
+  runtimePriority: 0
+  breakpoint: 0
+--- !u!114 &1806381622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806381613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e5f392bbea2fa2499665ed8b604ff86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.MBTExecutor
+  monoBehaviourTree: {fileID: 1806381624}
+--- !u!114 &1806381623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806381613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b2217e4d35c0c94ea02cf2166c17e4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.Blackboard
+  variables:
+  - {fileID: 1806381619}
+  - {fileID: 1806381616}
+  - {fileID: 1806381615}
+  masterBlackboard: {fileID: 0}
+--- !u!114 &1806381624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806381613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b25af8627659c6949b60949c3aa8d91d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.MonoBehaviourTree
+  selectedEditorNode: {fileID: 1806381617}
+  repeatOnFinish: 0
+  maxExecutionsPerTick: 1000
+  parent: {fileID: 0}
+--- !u!4 &1806381625
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806381613}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1893035259
 GameObject:
   m_ObjectHideFlags: 0
@@ -2221,6 +2502,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947580749}
   m_CullTransparentMesh: 1
+--- !u!1 &1970121338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1970121339}
+  - component: {fileID: 1970121340}
+  m_Layer: 0
+  m_Name: EnemiesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1970121339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970121338}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 39566997}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1970121340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970121338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3abe799588b8841b7a5402a227086a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.Entity.EnemiesManager
 --- !u!1 &2036913481
 GameObject:
   m_ObjectHideFlags: 0
@@ -2737,3 +3062,4 @@ SceneRoots:
   - {fileID: 1899966879}
   - {fileID: 1583887381}
   - {fileID: 842775599}
+  - {fileID: 1806381625}
