@@ -16,11 +16,10 @@ namespace ITF.Spawners
         [SerializeField] private int maxWaves = 2;
         [Tooltip("Time between two waves")]
         [SerializeField] private MinMaxFloat spawnDelayRange;
-        [Tooltip("Time between two spawns in the same wave")]
-        [SerializeField] private MinMaxFloat spawnIntervalRange;
-        [SerializeField] private int spawnRadius = 4;
+        [SerializeField] private Vector2Int spawnRadius = new Vector2Int(4,4);
 
         private Vector2Int centerCell;
+        private RectInt spawnRange;
         private float spawnTimer = 0;
         private float waveTimer = 0;
         int currentWave = 0;
@@ -33,13 +32,14 @@ namespace ITF.Spawners
         private void OnEnable()
         {
             centerCell = (Vector2Int)WorldManager.Map.PathfindingTilemap.WorldToCell(transform.position);
-            spawnTimer = spawnDelayRange.Value;
+            spawnTimer = 0f;
+            spawnRange = new RectInt(centerCell, spawnRadius);
         }
 
         public override Character SpawnCharacter()
         {
             if(currentWave >= maxWaves) return null;
-            spawnTimer = spawnIntervalRange.GetOtherValue();
+            spawnTimer = 0f;
             if (++spawned >= spawnCount)
             {
                 currentWave++;
@@ -54,6 +54,18 @@ namespace ITF.Spawners
             Character character = GameObjectPool.CreateGameObject(enemyPrefab.gameObject).GetComponent<Character>();
             onCharacterSpawned?.Invoke(character);
             return character;
+        }
+        public bool TrySpawnCharacter(out Character character)
+        {
+            character = null;
+            if (WorldManager.Map.GetNearestEmptyCell(centerCell, spawnRange, out Vector2Int spawnCell))
+            {
+                // Spawn Character at random cell
+
+                return true;
+            }
+            // Did not find any empty cell within range.
+            return false;
         }
 
         public override Character[] SpawnCharacters()
@@ -83,7 +95,7 @@ namespace ITF.Spawners
 
         Vector2Int RandomSpawnCell()
         {
-            Vector2Int cell = centerCell + new Vector2Int(Random.Range(-spawnRadius, spawnRadius + 1), Random.Range(-spawnRadius, spawnRadius + 1));
+            Vector2Int cell = centerCell + new Vector2Int(Random.Range(-spawnRadius.x, spawnRadius.x + 1), Random.Range(-spawnRadius.y, spawnRadius.y + 1));
             WorldManager.Map.GetNearestEmptyCell(cell, out cell);
             return cell;
         }
