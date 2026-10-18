@@ -52,3 +52,6 @@ MonoBehaviour:
     height: 0
   type: 5
   entranceOffset: {x: 0, y: 0, z: 0}
+  spawnUnits:
+  - spawner: {fileID: 0}
+  health: 0
