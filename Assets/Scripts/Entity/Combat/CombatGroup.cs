@@ -18,6 +18,7 @@ namespace ITF.Entity
         public Dictionary<CombatRoleSO, int> MissingUnits;
 
         private Vector2Int centerCell;
+        public Vector2Int CenterCell { get => centerCell; }
 
         public CombatGroup(int groupID, CombatGroupProfileSO combatGroupProfileSO)
         {

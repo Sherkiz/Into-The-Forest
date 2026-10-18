@@ -2,6 +2,7 @@ using ITF.Entity;
 using ITF.World;
 using ITF.WorldObjects;
 using MBT;
+using System.Linq;
 using UnityEngine;
 
 namespace ITF.BehaviourTree.Nodes
@@ -12,6 +13,7 @@ namespace ITF.BehaviourTree.Nodes
     {
         public GameObjectReference host;
         public FloatReference searchTime;
+        public Vector2Reference targetPosition;
 
         CombatGroup group;
         private SpawnerMapObject spawner;
@@ -19,9 +21,10 @@ namespace ITF.BehaviourTree.Nodes
         private float remainingSearchTime;
         public override void OnEnter()
         {
-            
+            SpawnerMapObject[] spawners = WorldManager.Map.GetMapObjects<SpawnerMapObject>();
+            spawner = spawners.OrderBy(s => (s.EntrancePosition - group.CenterCell).magnitude).FirstOrDefault();
+            targetPosition.Value = spawner.EntrancePosition;
         }
-
         public override NodeResult Execute()
         {
             
