@@ -10,10 +10,14 @@ namespace ITF.Spawners
     public class EnemySpawner : CharacterSpawner
     {
         [SerializeField] private Character enemyPrefab;
+        [Tooltip("Number of enemies to spawn in each wave")]
         [SerializeField] private MinMaxInt countRange;
-        [SerializeField] private MinMaxFloat spawnDelayRange;
-        [SerializeField] private MinMaxFloat spawnIntervalRange;
+        [Tooltip("Number of waves")]
         [SerializeField] private int maxWaves = 2;
+        [Tooltip("Time between two waves")]
+        [SerializeField] private MinMaxFloat spawnDelayRange;
+        [Tooltip("Time between two spawns in the same wave")]
+        [SerializeField] private MinMaxFloat spawnIntervalRange;
         [SerializeField] private int spawnRadius = 4;
 
         private Vector2Int centerCell;
@@ -29,20 +33,21 @@ namespace ITF.Spawners
         private void OnEnable()
         {
             centerCell = (Vector2Int)WorldManager.Map.PathfindingTilemap.WorldToCell(transform.position);
+            spawnTimer = spawnDelayRange.Value;
         }
 
         public override Character SpawnCharacter()
         {
             if(currentWave >= maxWaves) return null;
-            spawnTimer = 0;
-            if(++spawned >= spawnCount)
+            spawnTimer = spawnIntervalRange.GetOtherValue();
+            if (++spawned >= spawnCount)
             {
                 currentWave++;
                 spawned = 0;
                 if (currentWave < maxWaves)
                 {
                     spawnCount = countRange.Value;
-                    spawnTimer = spawnDelayRange.Value;
+                    spawnTimer = spawnDelayRange.GetOtherValue();
                 }
             }
 
