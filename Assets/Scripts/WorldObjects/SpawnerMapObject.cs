@@ -77,6 +77,7 @@ namespace ITF.WorldObjects
                 }
             });
             TimeManager.AddSimpleTimer(spawnTimer);
+            WorldManager.Map.onBuilt -= SpawnEnemies;
         }
 
         [System.Serializable]
