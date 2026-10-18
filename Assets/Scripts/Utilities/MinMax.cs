@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace ITF.Utilities
 {
+    [System.Serializable]
     public struct MinMaxFloat
     {
         [Tooltip("Min value (inclusive")]
@@ -27,7 +28,7 @@ namespace ITF.Utilities
             return Random.Range(min, max);
         }
     }
-
+    [System.Serializable]
     public struct MinMaxInt
     {
         [Tooltip("Min value (inclusive")]
