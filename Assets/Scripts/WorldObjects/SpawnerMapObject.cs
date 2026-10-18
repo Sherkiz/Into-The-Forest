@@ -3,6 +3,8 @@ using ITF.Spawners;
 using ITF.World;
 using ITF.Utilities;
 using UnityEngine;
+using ITF.Entity;
+using System.Collections.Generic;
 
 namespace ITF.WorldObjects
 {
@@ -24,6 +26,10 @@ namespace ITF.WorldObjects
         [SerializeField] private SpawnUnit[] spawnUnits;
         [SerializeField] private float health;
 
+        private SimpleTimer spawnTimer;
+        private int spawnUnitIndex;
+        private List<Character> enemies;
+
         public override void SetLocation(RectInt range, TileType tileType, Vector3Int entranceOffset)
         {
             this.range = range;
@@ -39,6 +45,7 @@ namespace ITF.WorldObjects
         public override void Init()
         {
             WorldManager.OnWorldGenerated.AddListener(OnWorldGenerated);
+            spawnUnitIndex = 0;
         }
         public override void Deinit()
         {
@@ -50,14 +57,34 @@ namespace ITF.WorldObjects
         }
         public void SpawnEnemies(Map map)
         {
+            if (spawnTimer != null) TimeManager.RemoveSimpleTimer(spawnTimer);
+            spawnTimer = new SimpleTimer(spawnUnits[spawnUnitIndex].delay, _ =>
+            {
+                EnemySpawner spawner = Instantiate(spawnUnits[spawnUnitIndex].spawner);
+                Character[] characters = spawner.SpawnCharacters();
+                Destroy(spawner.gameObject);
+                enemies.AddRange(characters);
+                foreach (var character in characters)
+                {
+                    character.Init();
+                }
 
+                spawnUnitIndex++;
+                if (spawnUnitIndex < spawnUnits.Length)
+                {
+                    _.timer = 0;
+                    _.interval = spawnUnits[spawnUnitIndex].delay;
+                }
+            });
+            TimeManager.AddSimpleTimer(spawnTimer);
         }
 
         [System.Serializable]
         struct SpawnUnit
         {
             public EnemySpawner spawner;
-            public MinMaxFloat delayRange;
+            [SerializeField] private MinMaxFloat delayRange;
+            public float delay => delayRange.Value;
         }
     }
 }

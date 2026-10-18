@@ -29,7 +29,6 @@ namespace ITF.Spawners
         private void OnEnable()
         {
             centerCell = (Vector2Int)WorldManager.Map.PathfindingTilemap.WorldToCell(transform.position);
-            spawnTimer = Random.Range(spawnDelayRange.min, spawnDelayRange.max);
         }
 
         public override Character SpawnCharacter()
@@ -42,8 +41,8 @@ namespace ITF.Spawners
                 spawned = 0;
                 if (currentWave < maxWaves)
                 {
-                    spawnCount = Random.Range(countRange.min, countRange.max + 1);
-                    spawnTimer = Random.Range(spawnDelayRange.min, spawnDelayRange.max);
+                    spawnCount = countRange.Value;
+                    spawnTimer = spawnDelayRange.Value;
                 }
             }
 
