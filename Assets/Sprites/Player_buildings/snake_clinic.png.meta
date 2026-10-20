@@ -129,8 +129,8 @@ TextureImporter:
       name: snake_clinic_0
       rect:
         serializedVersion: 2
-        x: 64
-        y: 192
+        x: 0
+        y: 256
         width: 64
         height: 64
       alignment: 0
@@ -151,8 +151,8 @@ TextureImporter:
       name: snake_clinic_1
       rect:
         serializedVersion: 2
-        x: 128
-        y: 192
+        x: 64
+        y: 256
         width: 64
         height: 64
       alignment: 0
@@ -173,8 +173,8 @@ TextureImporter:
       name: snake_clinic_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
+        x: 128
+        y: 256
         width: 64
         height: 64
       alignment: 0
@@ -195,8 +195,8 @@ TextureImporter:
       name: snake_clinic_3
       rect:
         serializedVersion: 2
-        x: 64
-        y: 128
+        x: 192
+        y: 256
         width: 64
         height: 64
       alignment: 0
@@ -217,8 +217,8 @@ TextureImporter:
       name: snake_clinic_4
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
+        x: 0
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -239,8 +239,8 @@ TextureImporter:
       name: snake_clinic_5
       rect:
         serializedVersion: 2
-        x: 192
-        y: 128
+        x: 64
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -261,8 +261,8 @@ TextureImporter:
       name: snake_clinic_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 128
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -283,8 +283,8 @@ TextureImporter:
       name: snake_clinic_7
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
+        x: 192
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -305,8 +305,8 @@ TextureImporter:
       name: snake_clinic_8
       rect:
         serializedVersion: 2
-        x: 128
-        y: 64
+        x: 256
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -327,8 +327,8 @@ TextureImporter:
       name: snake_clinic_9
       rect:
         serializedVersion: 2
-        x: 192
-        y: 64
+        x: 0
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -349,8 +349,8 @@ TextureImporter:
       name: snake_clinic_10
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 64
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -371,8 +371,8 @@ TextureImporter:
       name: snake_clinic_11
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 128
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -393,8 +393,8 @@ TextureImporter:
       name: snake_clinic_12
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
+        x: 192
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -415,8 +415,8 @@ TextureImporter:
       name: snake_clinic_13
       rect:
         serializedVersion: 2
-        x: 192
-        y: 0
+        x: 256
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -429,6 +429,226 @@ TextureImporter:
       bones: []
       spriteID: 0af45c20292ad5140a3eac60fa1f5b37
       internalID: -254294003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snake_clinic_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99f07e698d2ab4c45b641fa0cc0b0fee
+      internalID: -1308775536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snake_clinic_15
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0c4b1cb8d27944459086ecb00baa999
+      internalID: -1660769784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snake_clinic_16
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 453ccbe9086af2345b2f2b8cd34c1815
+      internalID: 352870640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snake_clinic_17
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80a0d28fccb227f41b7ecfac89b3bd63
+      internalID: -591068999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snake_clinic_18
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5500b1ebd324f884abfd9dca842f623d
+      internalID: -1801912378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snake_clinic_19
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5a783f598f742e438dded9fe7881a9b
+      internalID: -1029874478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snake_clinic_20
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 204796218bfe73e43804c44fca5be6ce
+      internalID: 1035849801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snake_clinic_21
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fd8ad0916c524240a6adc0c80841d18
+      internalID: -793814728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snake_clinic_22
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e07cec8d4572144eaaf165dc60acd03
+      internalID: 1600632700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snake_clinic_23
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9140e503153f69545be7a60fab85ed1b
+      internalID: 432580423
       vertices: []
       indices: 
       edges: []
@@ -455,7 +675,17 @@ TextureImporter:
       snake_clinic_11: 1153898002
       snake_clinic_12: 1761214454
       snake_clinic_13: -254294003
+      snake_clinic_14: -1308775536
+      snake_clinic_15: -1660769784
+      snake_clinic_16: 352870640
+      snake_clinic_17: -591068999
+      snake_clinic_18: -1801912378
+      snake_clinic_19: -1029874478
       snake_clinic_2: -970962266
+      snake_clinic_20: 1035849801
+      snake_clinic_21: -793814728
+      snake_clinic_22: 1600632700
+      snake_clinic_23: 432580423
       snake_clinic_3: -214879353
       snake_clinic_4: 44512975
       snake_clinic_5: 89384999
