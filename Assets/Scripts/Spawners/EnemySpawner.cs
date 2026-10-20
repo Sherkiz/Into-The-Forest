@@ -1,6 +1,8 @@
+using ITF.BehaviourTree;
 using ITF.Entity;
 using ITF.Utilities;
 using ITF.World;
+using MBT;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,7 +21,6 @@ namespace ITF.Spawners
         [SerializeField] private Vector2Int spawnRadius = new Vector2Int(4,4);
 
         private Vector2Int centerCell;
-        private RectInt spawnRange;
         private float spawnTimer = 0;
         private float waveTimer = 0;
         int currentWave = 0;
@@ -29,11 +30,14 @@ namespace ITF.Spawners
         private UnityEvent<Character> onCharacterSpawned;
         public override UnityEvent<Character> OnCharacterSpawned => onCharacterSpawned;
 
-        private void OnEnable()
+        public override void Init()
         {
             centerCell = (Vector2Int)WorldManager.Map.PathfindingTilemap.WorldToCell(transform.position);
-            spawnTimer = 0f;
-            spawnRange = new RectInt(centerCell, spawnRadius);
+            spawnTimer = 0;
+            waveTimer = 0;
+            currentWave = 0;
+            spawnCount = 0;
+            spawned = 0;
         }
 
         public override Character SpawnCharacter()
@@ -43,6 +47,7 @@ namespace ITF.Spawners
             if (++spawned >= spawnCount)
             {
                 currentWave++;
+                waveTimer = spawnDelayRange.Value;
                 spawned = 0;
                 if (currentWave < maxWaves)
                 {
@@ -52,20 +57,15 @@ namespace ITF.Spawners
             }
 
             Character character = GameObjectPool.CreateGameObject(enemyPrefab.gameObject).GetComponent<Character>();
+            if(character.TryGetComponentInReferences<Blackboard>(GlobalConstants.BLACKBOARD, out var blackboard))
+            {
+                var cell = RandomSpawnCell();
+                blackboard.SetValue<Vector2Variable, Vector2>(GlobalConstants.TARGET_CELL, cell);
+                blackboard.SetValue<Vector2Variable, Vector2>(GlobalConstants.START_CELL, cell);
+            }
+            character.Init();
             onCharacterSpawned?.Invoke(character);
             return character;
-        }
-        public bool TrySpawnCharacter(out Character character)
-        {
-            character = null;
-            if (WorldManager.Map.GetNearestEmptyCell(centerCell, spawnRange, out Vector2Int spawnCell))
-            {
-                // Spawn Character at random cell
-
-                return true;
-            }
-            // Did not find any empty cell within range.
-            return false;
         }
 
         public override Character[] SpawnCharacters()
@@ -83,6 +83,11 @@ namespace ITF.Spawners
         private void Update()
         {
             if(currentWave >= maxWaves) return;
+            if(waveTimer > 0)
+            {
+                waveTimer -= Time.deltaTime;
+                return;
+            }
             if (spawnTimer > 0)
             {
                 spawnTimer -= Time.deltaTime;

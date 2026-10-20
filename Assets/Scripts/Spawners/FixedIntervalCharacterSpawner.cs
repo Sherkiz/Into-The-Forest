@@ -25,6 +25,12 @@ namespace ITF.Spawners
         UnityEvent<Character> onCharacterSpawned;
         public override UnityEvent<Character> OnCharacterSpawned => onCharacterSpawned;
 
+        public override void Init()
+        {
+            spawnTimer = 0;
+            spawnCount = 0;
+        }
+
         public override Character SpawnCharacter()
         {
             if (maxSpawnCount > 0 && spawnCount >= maxSpawnCount) return null;

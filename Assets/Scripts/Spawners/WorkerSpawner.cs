@@ -24,6 +24,14 @@ namespace ITF.Spawners
         [SerializeField]
         UnityEvent<Character> onCharacterSpawned;
         public override UnityEvent<Character> OnCharacterSpawned => onCharacterSpawned;
+
+        public override void Init()
+        {
+            spawnCount = 0;
+            pairIndex = 0;
+            characterIndex = 0;
+        }
+
         public override Character SpawnCharacter()
         {
             if (pairIndex >= spawnPairs.Length) return null;

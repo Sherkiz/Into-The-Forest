@@ -23,12 +23,10 @@ namespace ITF.WorldObjects
         [SerializeField]
         Vector3Int entranceOffset;
         public override Vector3Int EntranceOffset => entranceOffset;
-        [SerializeField] private SpawnUnit[] spawnUnits;
         [SerializeField] private float health;
+        [SerializeField] private CharacterSpawner _characterSpawner;
 
-        private SimpleTimer spawnTimer;
-        private int spawnUnitIndex;
-        private List<Character> enemies;
+        CharacterSpawner characterSpawner;
 
         public override void SetLocation(RectInt range, TileType tileType, Vector3Int entranceOffset)
         {
@@ -45,47 +43,33 @@ namespace ITF.WorldObjects
         public override void Init()
         {
             WorldManager.OnWorldGenerated.AddListener(OnWorldGenerated);
-            spawnUnitIndex = 0;
         }
         public override void Deinit()
         {
-
+            WorldManager.Map.onBuilt -= OnMapBuilt;
+            if(characterSpawner)
+            {
+                characterSpawner.OnCharacterSpawned.RemoveListener(OnSpawned);
+                Destroy(characterSpawner.gameObject);
+            }
         }
         private void OnWorldGenerated()
         {
-            WorldManager.Map.onBuilt += SpawnEnemies;
+            WorldManager.Map.onBuilt += OnMapBuilt;
         }
-        public void SpawnEnemies(Map map)
+        
+        void OnMapBuilt(Map map)
         {
-            if (spawnTimer != null) TimeManager.RemoveSimpleTimer(spawnTimer);
-            spawnTimer = new SimpleTimer(spawnUnits[spawnUnitIndex].delay, _ =>
-            {
-                EnemySpawner spawner = Instantiate(spawnUnits[spawnUnitIndex].spawner);
-                Character[] characters = spawner.SpawnCharacters();
-                Destroy(spawner.gameObject);
-                enemies.AddRange(characters);
-                foreach (var character in characters)
-                {
-                    character.Init();
-                }
-
-                spawnUnitIndex++;
-                if (spawnUnitIndex < spawnUnits.Length)
-                {
-                    _.timer = 0;
-                    _.interval = spawnUnits[spawnUnitIndex].delay;
-                }
-            });
-            TimeManager.AddSimpleTimer(spawnTimer);
-            WorldManager.Map.onBuilt -= SpawnEnemies;
+            characterSpawner = Instantiate(_characterSpawner);
+            characterSpawner.transform.position = transform.position;
+            characterSpawner.OnCharacterSpawned.AddListener(OnSpawned);
+            characterSpawner.Init();
+            WorldManager.Map.onBuilt -= OnMapBuilt;
         }
 
-        [System.Serializable]
-        struct SpawnUnit
+        void OnSpawned(Character character)
         {
-            public EnemySpawner spawner;
-            [SerializeField] private MinMaxFloat delayRange;
-            public float delay => delayRange.Value;
+            EnemiesManager.Instance.RegisterCharacter(character);
         }
     }
 }
