@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: snake_clinic
   m_EditorClassIdentifier: Assembly-CSharp::ITF.CustomTiles.MultipleTilesBuilding
   name: snake_clinic
-  size: {x: 6, y: 6}
+  size: {x: 7, y: 7}
   tiles:
   - {fileID: 11400000, guid: 45b7878c4c6122a4db0b83d4f8e19529, type: 2}
   - {fileID: 11400000, guid: da208a2507e302f418725e5f7ee95dd0, type: 2}
@@ -41,24 +41,33 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 334d95ae9cc21c745bed2e71dd00d3d2, type: 2}
   - {fileID: 11400000, guid: 607d1a29047ef51418efb138dfeb973f, type: 2}
   posOffsets:
+  - {x: 0, y: 4, z: 0}
+  - {x: 1, y: 4, z: 0}
+  - {x: 2, y: 4, z: 0}
+  - {x: 3, y: 4, z: 0}
+  - {x: 4, y: 4, z: 0}
   - {x: 0, y: 3, z: 0}
   - {x: 1, y: 3, z: 0}
   - {x: 2, y: 3, z: 0}
   - {x: 3, y: 3, z: 0}
+  - {x: 4, y: 3, z: 0}
   - {x: 0, y: 2, z: 0}
   - {x: 1, y: 2, z: 0}
   - {x: 2, y: 2, z: 0}
   - {x: 3, y: 2, z: 0}
+  - {x: 4, y: 2, z: 0}
   - {x: 0, y: 1, z: 0}
   - {x: 1, y: 1, z: 0}
   - {x: 2, y: 1, z: 0}
   - {x: 3, y: 1, z: 0}
+  - {x: 4, y: 1, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}
   - {x: 2, y: 0, z: 0}
   - {x: 3, y: 0, z: 0}
+  - {x: 4, y: 0, z: 0}
   expandLeftBottom: {x: 1, y: 1}
   expandRightTop: {x: 1, y: 1}
   fillExpand: 1
   mapObjectType: 4
-  entranceTileIndex: 14
+  entranceTileIndex: 23
