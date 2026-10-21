@@ -1,4 +1,5 @@
 using ITF.Spawners;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,10 +13,24 @@ namespace ITF.Entity {
 
         public Character[] GetCharacters() => characters.ToArray();
 
+        Dictionary<Guid, EnemyGroup> enemyGroups = new Dictionary<Guid, EnemyGroup>();
+
         public void RegisterCharacter(Character character)
         {
             if(characters.Contains(character)) return;
             characters.Add(character);
+        }
+
+        public void AddCharacterToGroup(Guid guid, Character character)
+        {
+            if(!enemyGroups.ContainsKey(guid)) return;
+            enemyGroups[guid].AddCharacter(character);
+        }
+
+        public void RemoveChracterFromGroup(Guid guid, Character character)
+        {
+            if(!enemyGroups.ContainsKey(guid)) return;
+            enemyGroups[guid].RemoveCharacter(character);
         }
 
         void Awake()

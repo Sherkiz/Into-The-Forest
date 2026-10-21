@@ -23,7 +23,20 @@ namespace ITF.WorldObjects
         [SerializeField]
         Vector3Int entranceOffset;
         public override Vector3Int EntranceOffset => entranceOffset;
+        public float maxHealth = 100;
         [SerializeField] private float health;
+        public float Health
+        {
+            get => health;
+            set
+            {
+                health = Mathf.Clamp(value, 0, maxHealth);
+                if (health <= 0)
+                {
+                    Deinit();
+                }
+            }
+        }
         [SerializeField] private CharacterSpawner _characterSpawner;
 
         CharacterSpawner characterSpawner;
@@ -43,6 +56,7 @@ namespace ITF.WorldObjects
         public override void Init()
         {
             WorldManager.OnWorldGenerated.AddListener(OnWorldGenerated);
+            health = maxHealth;
         }
         public override void Deinit()
         {
