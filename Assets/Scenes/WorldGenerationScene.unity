@@ -276,6 +276,7 @@ MonoBehaviour:
     mapChunkPrefab: {fileID: 1860542684687661670, guid: d7829db5180e56c4ba01bfe220a0f2d0, type: 3}
     onCameraMoved: {fileID: 11400000, guid: 50d7893cdbacda940a33e21558f86fa2, type: 2}
     mapObjectList: []
+  subareaSize: {x: 6.4, y: 6.4}
   onWorldGenerated:
     m_PersistentCalls:
       m_Calls: []
@@ -1780,6 +1781,12 @@ MonoBehaviour:
     blackboard: {fileID: 1806381623}
     key: spawner_search_time
     constantValue: 0
+  targetPosition:
+    useConstant: 0
+    mode: 0
+    blackboard: {fileID: 0}
+    key: 
+    constantValue: {x: 0, y: 0}
 --- !u!114 &1806381618
 MonoBehaviour:
   m_ObjectHideFlags: 2
