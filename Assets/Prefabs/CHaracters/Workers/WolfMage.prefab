@@ -295,7 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25af8627659c6949b60949c3aa8d91d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.MonoBehaviourTree
-  selectedEditorNode: {fileID: 0}
+  selectedEditorNode: {fileID: 4303753249434760011}
   repeatOnFinish: 1
   maxExecutionsPerTick: 1000
   parent: {fileID: 0}
@@ -499,6 +499,7 @@ MonoBehaviour:
     blackboard: {fileID: 8860522076282127496}
     key: target_cell
     constantValue: {x: 0, y: 0}
+  updateSubarea: 1
 --- !u!114 &2677972601164521989
 MonoBehaviour:
   m_ObjectHideFlags: 0

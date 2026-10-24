@@ -100,6 +100,8 @@ MonoBehaviour:
       Value: {fileID: 4233912970742688669}
   _characterStateScriptObject: {fileID: 11400000, guid: fe497cbc86fdc2a4c884e586a0b303b9, type: 2}
   faction: 4
+  unitType: 0
+  unitClass: 0
   passiveSkillAddors: []
   autoInit: 0
   onInited:
@@ -202,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25af8627659c6949b60949c3aa8d91d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Qriva.MonoBehaviourTree.Runtime::MBT.MonoBehaviourTree
-  selectedEditorNode: {fileID: 0}
+  selectedEditorNode: {fileID: 6681147895817059457}
   repeatOnFinish: 1
   maxExecutionsPerTick: 1000
   parent: {fileID: 0}
@@ -406,6 +408,7 @@ MonoBehaviour:
     blackboard: {fileID: 2170332579024452534}
     key: target_cell
     constantValue: {x: 0, y: 0}
+  updateSubarea: 1
 --- !u!114 &7236060061425413910
 MonoBehaviour:
   m_ObjectHideFlags: 0

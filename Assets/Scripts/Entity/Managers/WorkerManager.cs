@@ -73,6 +73,7 @@ namespace ITF.Entity
                 foreach(var character in characters)
                 {
                     character.Init();
+                    character.OnDeinited.AddListener(OnCharacterDeinit);
                     onUnitSpawned.Invoke(character);
                 }
 
@@ -100,10 +101,19 @@ namespace ITF.Entity
             GameObjectPool.RecycleGameObject(worker.gameObject);
             specialists.Add(specialist);
             specialist.Init();
+            specialist.OnDeinited.AddListener(OnCharacterDeinit);
             if (specialist is SkilledCharacter unit)
             {
                 if (combatSlot.Group != null) combatGroupManager.ReceiveNewUnit(unit, combatSlot);
             }
+        }
+
+        void OnCharacterDeinit(Character character)
+        {
+            character.OnDeinited.RemoveListener(OnCharacterDeinit);
+            if(character.UnitClass == UnitClass.None) workers.Remove(character);
+            else specialists.Remove(character);
+            WorldManager.RemoveSubareaObject(character, character.transform.position);
         }
 
         [System.Serializable]

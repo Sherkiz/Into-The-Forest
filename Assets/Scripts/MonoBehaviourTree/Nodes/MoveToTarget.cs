@@ -12,10 +12,12 @@ namespace ITF.BehaviourTree.Nodes
     {
         public GameObjectReference host;
         public Vector2Reference targetCell;
+        public bool updateSubarea = false;
 
         Character character;
         ResultPath path;
         int pathIndex;
+        Vector2 lastPosition;
 
         public override void OnEnter()
         {
@@ -23,6 +25,7 @@ namespace ITF.BehaviourTree.Nodes
             Vector2Int startCell = (Vector2Int)WorldManager.Map.PathfindingTilemap.WorldToCell(character.transform.position);
             path = WorldManager.Map.FindPath(startCell, targetCell.Value.ToVector2Int(), true);
             pathIndex = 0;
+            lastPosition = character.transform.position;
         }
 
         public override NodeResult Execute()
@@ -54,7 +57,21 @@ namespace ITF.BehaviourTree.Nodes
                 }
             }
 
+            if(Vector2.Distance(character.transform.position, lastPosition) > .5f)
+            {
+                WorldManager.UpdateSubareaObject(character, lastPosition);
+                lastPosition = character.transform.position;
+            }
+
             return NodeResult.From(Status.Running);
+        }
+
+        public override void OnExit()
+        {
+            if(updateSubarea)
+            {
+                WorldManager.UpdateSubareaObject(character, lastPosition);
+            }
         }
 
         private void OnDrawGizmos()
