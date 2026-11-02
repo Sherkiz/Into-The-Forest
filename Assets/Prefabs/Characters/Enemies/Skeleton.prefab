@@ -27,6 +27,8 @@ GameObject:
   - component: {fileID: 2636677069072536459}
   - component: {fileID: 2467627825365866231}
   - component: {fileID: 2670029397505672014}
+  - component: {fileID: 3837780666678854076}
+  - component: {fileID: 8705187879645097374}
   m_Layer: 7
   m_Name: BehaviourTree
   m_TagString: Untagged
@@ -83,6 +85,8 @@ MonoBehaviour:
   - {fileID: 6848356511744923768}
   - {fileID: 6853779182100730979}
   - {fileID: 8240269844357122326}
+  - {fileID: 3837780666678854076}
+  - {fileID: 8705187879645097374}
   masterBlackboard: {fileID: 0}
 --- !u!114 &4019360805576125786
 MonoBehaviour:
@@ -265,6 +269,7 @@ MonoBehaviour:
     blackboard: {fileID: 4549612188277953241}
     key: target_cell
     constantValue: {x: 0, y: 0}
+  updateSubarea: 0
 --- !u!114 &6853779182100730979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,6 +532,34 @@ MonoBehaviour:
   runtimePriority: 0
   breakpoint: 0
   random: 0
+--- !u!114 &3837780666678854076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925080336301891168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8953e8fd00e00be4bb2d6ddb0063e93b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.BehaviourTree.Vabriants.CharacterVariable
+  key: detection_target
+  val: {fileID: 0}
+--- !u!114 &8705187879645097374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925080336301891168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8953e8fd00e00be4bb2d6ddb0063e93b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ITF.BehaviourTree.Vabriants.CharacterVariable
+  key: attack_target
+  val: {fileID: 0}
 --- !u!1 &7302953086849982555
 GameObject:
   m_ObjectHideFlags: 0

@@ -50,7 +50,7 @@ namespace ITF.BehaviourTree.Nodes
             var characters = WorldManager.GetSubareaObjectWithin<Character>(character.transform.position, character.CurrentState.GetState(CharacterStateType.DetectionRange));
             foreach(var character in characters)
             {
-                if(character is not Enemy)
+                if(character != null && character is not Enemy && character.gameObject.activeSelf)
                 {
                     return (Character)character;
                 }
