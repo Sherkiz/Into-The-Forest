@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ITF.BehaviourTree.Vabriants
 {
-
+    [AddComponentMenu("")]
     public class CharacterVariable : Variable<Character>
     {
         protected override bool ValueEquals(Character val1, Character val2)
@@ -13,6 +13,7 @@ namespace ITF.BehaviourTree.Vabriants
         }
     }
 
+    [System.Serializable]
     public class CharacterReference : VariableReference<CharacterVariable, Character>
     {
         public CharacterReference(VarRefMode mode = VarRefMode.EnableConstant)
