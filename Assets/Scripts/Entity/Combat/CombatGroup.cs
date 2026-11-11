@@ -1,15 +1,13 @@
-using ITF.World;
-using MBT;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace ITF.Entity
 {
-    public class CombatGroup
+    public class CombatGroup : MonoBehaviour
     {
         public int GroupID { get; private set; }
-        private CombatGroupProfileSO combatGroupProfileSO;
+        [SerializeField] private CombatGroupProfileSO combatGroupProfileSO;
         public int GroupPriority { get => combatGroupProfileSO.priority; }
         public string Name { get => combatGroupProfileSO.groupName; }
         Dictionary<Character, CombatRoleSO> unitRoles = new Dictionary<Character, CombatRoleSO>();
@@ -20,10 +18,8 @@ namespace ITF.Entity
         private Vector2Int centerCell;
         public Vector2Int CenterCell { get => centerCell; }
 
-        public CombatGroup(int groupID, CombatGroupProfileSO combatGroupProfileSO)
+        private void Awake()
         {
-            GroupID = groupID;
-            this.combatGroupProfileSO = combatGroupProfileSO;
             MissingUnits = combatGroupProfileSO.neededRoles;
             centerCell = combatGroupProfileSO.rallyRange.min + new Vector2Int(Random.Range(0, combatGroupProfileSO.rallyRange.width), Random.Range(0, combatGroupProfileSO.rallyRange.height));
         }
@@ -60,6 +56,7 @@ namespace ITF.Entity
         public void AddUnitToGroup(Character unit, CombatRoleSO combatRole)
         {
             unitRoles.Add(unit, combatRole);
+            unit.transform.SetParent(transform, true);
             SetRallyPoint(centerCell, unit);
         }
 
@@ -68,13 +65,15 @@ namespace ITF.Entity
             unit.SetTargetCell(centerCell, placeholder:true);
         }
 
-        private void RemoveUnitFromGroup(Character unit) {
+        private void RemoveUnitFromGroup(Character unit) 
+        {
             if (unitRoles.TryGetValue(unit, out var role))
             {
                 unitRoles.Remove(unit);
                 MissingUnits[role] = MissingUnits[role] + 1;
             }
             unit.OnDeinited.RemoveListener(OnUnitDeinited);
+            unit.transform.SetParent(null);
         }
 
         void OnUnitDeinited(Character unit)

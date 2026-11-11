@@ -12,10 +12,6 @@ namespace ITF.Entity
     {
         [SerializeField]
         SpawnUnit[] spawnUnits;
-        public RectInt homeRange;
-
-        [SerializeField]
-        private CombatGroupProfileSO[] requiredCombatGroups;
 
         int spawnUnitIndex;
 
@@ -25,9 +21,8 @@ namespace ITF.Entity
         List<Character> specialists = new();
 
         // Sub-Managers
-        [SerializeField]
-        private TrainingManager trainingManager;
-        private CombatGroupManager combatGroupManager;
+        [SerializeField] private TrainingManager trainingManager;
+        [SerializeField] private CombatGroupManager combatGroupManager;
 
         #region events
 
@@ -47,7 +42,6 @@ namespace ITF.Entity
         void Start()
         {
             WorldManager.OnWorldGenerated.AddListener(OnWorldGenerated);
-            combatGroupManager = new CombatGroupManager(requiredCombatGroups, homeRange);
         }
 
         void OnWorldGenerated()

@@ -1,38 +1,27 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace ITF.Entity
 {
-    public class CombatGroupManager : IEntityManager
+    public class CombatGroupManager : MonoBehaviour, IEntityManager
     {
-        private CombatGroupProfileSO[] requiredGroups;
-        private List<CombatGroup> currentCombatGroups;
+        [SerializeField] private CombatGroup[] combatGroups;
 
-        public RectInt homeRange;
-
-        public CombatGroupManager(CombatGroupProfileSO[] requiredGroups, RectInt homeRange)
+        private void OnValidate()
         {
-            this.homeRange = homeRange;
-            this.requiredGroups = requiredGroups;
-            currentCombatGroups = new();
-            foreach(var group in requiredGroups) 
-            { 
-                CreateNewCombatGroup(group);
-            }
-            currentCombatGroups = currentCombatGroups.OrderBy(group => group.GroupPriority).ToList();
+            combatGroups = combatGroups.OrderBy(group => group.GroupPriority).ToArray();
         }
 
         public Character[] GetCharacters()
         {
-            return currentCombatGroups.SelectMany(group => group.UnitsInGroup).ToArray();
+            return combatGroups.SelectMany(group => group.UnitsInGroup).ToArray();
         }
 
         public CombatSlot[] GetAllNeededSlots()
         {
             List<CombatSlot> res = new List<CombatSlot>();
-            foreach (CombatGroup group in currentCombatGroups) 
+            foreach (CombatGroup group in combatGroups) 
             {
                 if (group.IsComplete) continue;
                 foreach (CombatRoleSO unitRole in group.MissingUnits.Keys) {
@@ -44,13 +33,6 @@ namespace ITF.Entity
         public void ReceiveNewUnit(SkilledCharacter unit, CombatSlot combatSlot)
         {
             combatSlot.Group.AddUnitToGroup(unit, combatSlot.Role);
-        }
-
-        public void CreateNewCombatGroup(CombatGroupProfileSO combatGroupProfile)
-        {
-            if (!requiredGroups.Contains(combatGroupProfile)) return;
-            CombatGroup combatGroup = new CombatGroup(Array.IndexOf(requiredGroups, combatGroupProfile), combatGroupProfile);
-            currentCombatGroups.Add(combatGroup);
         }
     }
     public struct CombatSlot
