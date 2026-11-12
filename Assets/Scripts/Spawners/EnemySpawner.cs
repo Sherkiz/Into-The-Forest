@@ -27,7 +27,7 @@ namespace ITF.Spawners
         int spawnCount;
         int spawned = 0;
 
-        private UnityEvent<Character> onCharacterSpawned;
+        private UnityEvent<Character> onCharacterSpawned = new();
         public override UnityEvent<Character> OnCharacterSpawned => onCharacterSpawned;
 
         public override void Init()
